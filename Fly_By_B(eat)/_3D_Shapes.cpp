@@ -1,5 +1,8 @@
 #include "_3D_Shapes.h"
-
+void _3D_Shapes::Move_Object(float x, float y, float z)
+{
+    glTranslatef(x, y ,z);
+}
 void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
 {
     x /= 2;
