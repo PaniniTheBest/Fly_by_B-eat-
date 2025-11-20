@@ -12,12 +12,12 @@ void RenderScene(void)
 
     glTranslatef(0.0f, 5.0f, 0.0f);
     glRotatef(rotateAngle, 3.0f, 4.0f, 2.0f);
+    //==============================================
     //Render 3D objects here \/ \/ \/
-
     _3D_Shapes Cube_test;
     Cube_test.Move_Object(3.0f, 0, 0);
-    Cube_test.Create_3D_Sphere(5.0f,20.0f,20.0f);
-    
+    Cube_test.Create_3D_Sphere(7.0f,0.0f,0.0f,0.0f);
+    //==============================================
     rotateAngle += 1.0f;
     glutSwapBuffers();
 }
