@@ -73,11 +73,6 @@ void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
 }
 void _3D_Shapes::Create_3D_Sphere(double R, double H, double K, double Z)
 {
-    //glBegin(GL_SPHERE_MAP);
-    //glColor3f(1.0f, 0.0f, 0.0f); //red
-    //void glSolidSphere(GLdouble x,GLint y, GLint z);
-    //glEnd;
-
     // Stores the sphere's texture  
     GLuint texture[1];
     // Vertex structure to store position and texture coordinates  
@@ -129,16 +124,17 @@ void _3D_Shapes::Create_3D_Sphere(double R, double H, double K, double Z)
             n++;         
         }
     }
-        glBindTexture(GL_TEXTURE_2D, texture[0]); // Bind the texture  
-        glBegin(GL_TRIANGLE_STRIP);
-        glScalef(0.0125 * R, 0.0125 * R, 0.0125 * R); // Scale the sphere  
-        for (int b = 0; b <= VertexCount; b++) {
-            glTexCoord2f(VERTEX[b].U, VERTEX[b].V);
-            glVertex3f(VERTEX[b].X, VERTEX[b].Y, -VERTEX[b].Z);
-        }
-        for (int b = 0; b <= VertexCount; b++) {
-            glTexCoord2f(VERTEX[b].U, -VERTEX[b].V);
-            glVertex3f(VERTEX[b].X, VERTEX[b].Y, VERTEX[b].Z);
-        }
-        glEnd();
+
+    glBindTexture(GL_TEXTURE_2D, texture[0]); // Bind the texture  
+    glBegin(GL_TRIANGLE_STRIP);
+    glScalef(0.0125 * R, 0.0125 * R, 0.0125 * R); // Scale the sphere  
+    for (int b = 0; b <= VertexCount; b++) {
+        glTexCoord2f(VERTEX[b].U, VERTEX[b].V);
+        glVertex3f(VERTEX[b].X, VERTEX[b].Y, -VERTEX[b].Z);
+    }
+    for (int b = 0; b <= VertexCount; b++) {
+        glTexCoord2f(VERTEX[b].U, -VERTEX[b].V);
+        glVertex3f(VERTEX[b].X, VERTEX[b].Y, VERTEX[b].Z);
+    }
+    glEnd();
 }
