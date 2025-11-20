@@ -1,14 +1,7 @@
 #include "_3D_Shapes.h"
-#include<GL/glu.h>
 
 const double PI = 3.1415926535897; // Value of PI  
 
-//struct Color
-//{
-//    public:
-//        float red = 1.0f, green = 1.0f, blue = 1.0f;
-//};
-//Color apply_Color;
 _3D_Shapes::_3D_Shapes(){}
 void _3D_Shapes::Apply_Color(float r, float g, float b)
 {
