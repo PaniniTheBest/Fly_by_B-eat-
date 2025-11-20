@@ -15,7 +15,7 @@ void RenderScene(void)
     //Render 3D objects here \/ \/ \/
 
     _3D_Shapes Cube_test;
-    Cube_test.Create_3D_Cube(4.0f,4.0f,5.0f);
+    Cube_test.Create_3D_Cube(2.0f,4.0f,2.0f);
 
     angle += 1.0f;
     glutSwapBuffers();
@@ -50,7 +50,7 @@ int main(int argc, char** argv)
 
     glutInitWindowSize(320, 320);
 
-    glutCreateWindow("Rolling Rubix :D By:Nicholas V. V.");
+    glutCreateWindow("=+= Fly by B(eat) =+=");
     //register callbacks
     glutDisplayFunc(RenderScene);
     glutReshapeFunc(ChangeSize);

@@ -1,6 +1,2 @@
-﻿  Main.cpp
-  _3D_Shapes.cpp
-  Generating Code...
-Main.obj : error LNK2019: unresolved external symbol "public: __thiscall _3D_Shapes::_3D_Shapes(void)" (??0_3D_Shapes@@QAE@XZ) referenced in function "void __cdecl RenderScene(void)" (?RenderScene@@YAXXZ)
-Main.obj : error LNK2019: unresolved external symbol "public: void __thiscall _3D_Shapes::Create_3D_Cube(float,float,float)" (?Create_3D_Cube@_3D_Shapes@@QAEXMMM@Z) referenced in function "void __cdecl RenderScene(void)" (?RenderScene@@YAXXZ)
-C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Debug\Fly_By_B(eat).exe : fatal error LNK1120: 2 unresolved externals
+﻿  _3D_Shapes.cpp
+  Fly_By_B(eat).vcxproj -> C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Debug\Fly_By_B(eat).exe
