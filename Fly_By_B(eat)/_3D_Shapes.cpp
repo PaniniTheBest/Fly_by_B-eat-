@@ -1,4 +1,7 @@
 #include "_3D_Shapes.h"
+
+const float PI = 3.14f;
+
 void _3D_Shapes::Move_Object(float x, float y, float z)
 {
     glTranslatef(x, y ,z);
@@ -67,4 +70,9 @@ void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
     glVertex3f(1.0f * x, 1.0f * y, 1.0f * z);
     glVertex3f(1.0f * x, -1.0f * y, 1.0f * z);
     glEnd();
+}
+void _3D_Shapes::Create_3D_Sphere(float x, float y, float z)
+{
+    glColor3f(1.0f, 0.0f, 0.0f); //red
+    void glSolidSphere(GLdouble x,GLint y, GLint z);
 }

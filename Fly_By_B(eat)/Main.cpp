@@ -1,5 +1,5 @@
 #include "_3D_Shapes.h"
-float angle = 0.0f;
+float rotateAngle = 0.0f;
 
 void RenderScene(void)
 {
@@ -11,16 +11,14 @@ void RenderScene(void)
                 0.0f, 1.0f, 0.0f);
 
     glTranslatef(0.0f, 5.0f, 0.0f);
-    glRotatef(angle, 3.0f, 4.0f, 2.0f);
+    glRotatef(rotateAngle, 3.0f, 4.0f, 2.0f);
     //Render 3D objects here \/ \/ \/
 
     _3D_Shapes Cube_test;
     Cube_test.Move_Object(3.0f, 0, 0);
-    Cube_test.Create_3D_Cube(2.0f,4.0f,2.0f);
-    //Cube_test.Move_Object(-3.0f, 0, 0);
-    Cube_test.Create_3D_Cube(4.0f, 1.0f, 5.0f);
-
-    angle += 1.0f;
+    Cube_test.Create_3D_Sphere(5.0f,20.0f,20.0f);
+    
+    rotateAngle += 1.0f;
     glutSwapBuffers();
 }
 
