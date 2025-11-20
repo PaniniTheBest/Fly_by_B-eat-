@@ -3,6 +3,19 @@
 
 const double PI = 3.1415926535897; // Value of PI  
 
+struct Color
+{
+    public:
+        float red = 1.0f, green = 1.0f, blue = 1.0f;
+};
+Color apply_Color;
+
+void _3D_Shapes::Apply_Color(float r, float g, float b)
+{
+    apply_Color.red = r;
+    apply_Color.green = g;
+    apply_Color.blue = b;
+}
 void _3D_Shapes::Move_Object(float x, float y, float z)
 {
     glTranslatef(x, y ,z);
@@ -13,8 +26,7 @@ void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
     y /= 2;
     z /= 2;
     glBegin(GL_QUADS);// Face 1 X-axis
-    //if (x > 0)
-    glColor3f(1.0f, 0.0f, 0.0f); //red
+    glColor3f(apply_Color.red, apply_Color.green, apply_Color.blue);
 
     glVertex3f(1.0f * x, 1.0f * y, 1.0f * z);
     glVertex3f(1.0f * x, -1.0f * y, 1.0f * z);
@@ -23,8 +35,7 @@ void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
     glEnd();
 
     glBegin(GL_QUADS);// Face 2 X-axis
-    //if (x < 0)
-    glColor3f(1.0f, 0.0f, 0.0f); //red
+    glColor3f(apply_Color.red, apply_Color.green, apply_Color.blue);
 
     glVertex3f(-1.0f * x, 1.0f * y, 1.0f * z);
     glVertex3f(-1.0f * x, -1.0f * y, 1.0f * z);
@@ -33,8 +44,7 @@ void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
     glEnd();
 
     glBegin(GL_QUADS);// Face 3 Y-axis 
-    //if (y < 0)
-    glColor3f(1.0f, 0.9f, 0.0f); //yellow
+    glColor3f(apply_Color.red, apply_Color.green, apply_Color.blue);
 
     glVertex3f(-1.0f * x, -1.0f * y, -1.0f * z);
     glVertex3f(-1.0f * x, -1.0f * y, 1.0f * z);
@@ -43,8 +53,7 @@ void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
     glEnd();
 
     glBegin(GL_QUADS);// Face 4 Y-axis 
-    //if (y > 0)
-    glColor3f(1.0f, 0.9f, 0.0f); //yellow
+    glColor3f(apply_Color.red, apply_Color.green, apply_Color.blue);
 
     glVertex3f(-1.0f * x, 1.0f * y, -1.0f * z);
     glVertex3f(-1.0f * x, 1.0f * y, 1.0f * z);
@@ -53,8 +62,7 @@ void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
     glEnd(); 
     
     glBegin(GL_QUADS);// Face 5 Z-axis
-    //if (z < 0)
-    glColor3f(0.3f, 1.0f, 0.0f); //green
+    glColor3f(apply_Color.red, apply_Color.green, apply_Color.blue);
 
     glVertex3f(-1.0f * x, -1.0f * y, -1.0f * z);
     glVertex3f(-1.0f * x, 1.0f * y, -1.0f * z);
@@ -63,8 +71,7 @@ void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
     glEnd();
 
     glBegin(GL_QUADS);// Face 6 Z-axis
-    //if (z > 0)
-    glColor3f(0.3f, 1.0f, 0.0f); //green
+    glColor3f(apply_Color.red, apply_Color.green, apply_Color.blue);
 
     glVertex3f(-1.0f * x, -1.0f * y, 1.0f * z);
     glVertex3f(-1.0f * x, 1.0f * y, 1.0f * z);
@@ -72,10 +79,10 @@ void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
     glVertex3f(1.0f * x, -1.0f * y, 1.0f * z);
     glEnd();
 }
-
 void _3D_Shapes::Create_3D_Sphere(double radius, double slices, double stacks)
 {
-    glPushMatrix();   
+    glPushMatrix();
+    glColor3f(apply_Color.red,apply_Color.green,apply_Color.blue);
     glutSolidSphere(radius, slices, stacks);
     glPopMatrix();
 }
