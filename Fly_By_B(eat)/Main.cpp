@@ -16,13 +16,18 @@ void RenderScene(void)
     //Render 3D objects here \/ \/ \/
     _3D_Shapes Cube_test;
     Cube_test.Move_Object(0.0f, -4.0f, 0);
-    Cube_test.Apply_Color(1.0f, 0.0f, 0.0f);
+    //Cube_test.Apply_Color(1.0f, 0.0f, 0.0f);
     Cube_test.Create_3D_Cube(5.0f,10.0f,20.0f);
 
     _3D_Shapes Sphere_test;
     Sphere_test.Move_Object(0.0f, -20.0f, 0);
-    Sphere_test.Apply_Color(1.0f, 0.0f, 1.0f);
+    Sphere_test.Apply_Color(255.0f, 67.0f, 80.0f);
     Sphere_test.Create_3D_Sphere(5.0f, 10.0f, 20.0f);
+
+    _3D_Shapes Sphere_test2;
+    Sphere_test2.Move_Object(20.0f, -20.0f, 0);
+    Sphere_test2.Apply_Color(67, 67.0f, 80.0f);
+    Sphere_test2.Create_3D_Sphere(5.0f, 10.0f, 20.0f);
     //==============================================
     rotateAngle += 1.0f;
     glutSwapBuffers();
