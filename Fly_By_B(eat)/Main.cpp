@@ -16,7 +16,7 @@ void RenderScene(void)
     //Render 3D objects here \/ \/ \/
     _3D_Shapes Cube_test;
     Cube_test.Move_Object(0.0f, -4.0f, 0);
-    Cube_test.Create_3D_Sphere(1.0f,0.0f,0.0f,0.0f);
+    Cube_test.Create_3D_Sphere(5.0f,10.0f,20.0f);
     //==============================================
     rotateAngle += 1.0f;
     glutSwapBuffers();

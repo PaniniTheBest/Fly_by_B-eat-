@@ -1,4 +1,5 @@
 #include "_3D_Shapes.h"
+#include<GL/glu.h>
 
 const double PI = 3.1415926535897; // Value of PI  
 
@@ -71,8 +72,15 @@ void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
     glVertex3f(1.0f * x, -1.0f * y, 1.0f * z);
     glEnd();
 }
-void _3D_Shapes::Create_3D_Sphere(double R, double H, double K, double Z)
+
+void _3D_Shapes::Create_3D_Sphere(double radius, double slices, double stacks)
 {
+    glPushMatrix();   
+    glutSolidSphere(radius, slices, stacks);
+    glPopMatrix();
+    /*
+    //A bunch of code that My fible mind did not digest
+
     // Stores the sphere's texture  
     GLuint texture[1];
     // Vertex structure to store position and texture coordinates  
@@ -137,4 +145,5 @@ void _3D_Shapes::Create_3D_Sphere(double R, double H, double K, double Z)
         glVertex3f(VERTEX[b].X, VERTEX[b].Y, VERTEX[b].Z);
     }
     glEnd();
+    */
 }
