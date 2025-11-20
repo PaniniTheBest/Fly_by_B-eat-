@@ -6,7 +6,7 @@ void RenderScene(void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
-    gluLookAt(  0.0f, 0.0f, 20.0f,
+    gluLookAt(  0.0f, 0.0f, 50.0f,
                 0.0f, 0.0f, 0.0f,
                 0.0f, 1.0f, 0.0f);
 
@@ -16,7 +16,11 @@ void RenderScene(void)
     //Render 3D objects here \/ \/ \/
     _3D_Shapes Cube_test;
     Cube_test.Move_Object(0.0f, -4.0f, 0);
-    Cube_test.Create_3D_Sphere(5.0f,10.0f,20.0f);
+    Cube_test.Create_3D_Cube(5.0f,10.0f,20.0f);
+
+    _3D_Shapes Sphere_test;
+    Sphere_test.Move_Object(0.0f, -20.0f, 0);
+    Sphere_test.Create_3D_Sphere(5.0f, 10.0f, 4.0f);
     //==============================================
     rotateAngle += 1.0f;
     glutSwapBuffers();
