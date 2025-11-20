@@ -10,7 +10,7 @@ using namespace std;
 class _3D_Shapes
 {
 	private:
-		float red = 1.0f, green = 1.0f, blue = 1.0f;
+		float red = 0.5f, green = 0.5f, blue = 0.5f;
 	public:
 		_3D_Shapes();
 		_3D_Shapes(float red, float green, float blue)

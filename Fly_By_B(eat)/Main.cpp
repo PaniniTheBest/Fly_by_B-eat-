@@ -21,7 +21,7 @@ void RenderScene(void)
 
     _3D_Shapes Sphere_test;
     Sphere_test.Move_Object(0.0f, -20.0f, 0);
-    Sphere_test.Apply_Color(255.0f, 67.0f, 80.0f);
+    Sphere_test.Apply_Color(255, 67, 80);
     Sphere_test.Create_3D_Sphere(5.0f, 10.0f, 20.0f);
 
     _3D_Shapes Sphere_test2;
