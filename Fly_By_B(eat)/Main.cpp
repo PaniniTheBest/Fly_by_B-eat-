@@ -1,4 +1,7 @@
 #include "_3D_Shapes.h"
+#include "Camera.h"
+
+camera cam;
 float rotateAngle = 0.0f;
 
 void RenderScene(void)
@@ -6,30 +9,19 @@ void RenderScene(void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
-    gluLookAt(  0.0f, 0.0f, 80.0f,
-                0.0f, 0.0f, 0.0f,
-                0.0f, 1.0f, 0.0f);
-
-    glTranslatef(0.0f, 5.0f, 0.0f);
-    glRotatef(rotateAngle, 3.0f, 4.0f, 2.0f);
+    cam.ApplyCamera();
     //==============================================
     //Render 3D objects here \/ \/ \/
     _3D_Shapes Cube_test;
     Cube_test.Move_Object(0.0f, -4.0f, 0);
-    //Cube_test.Apply_Color(1.0f, 0.0f, 0.0f);
+    //Cube_test.Apply_Color(255.0f, 0.0f, 0.0f);
     Cube_test.Create_3D_Cube(5.0f,10.0f,20.0f);
 
-    _3D_Shapes Sphere_test;
-    Sphere_test.Move_Object(0.0f, -20.0f, 0);
-    Sphere_test.Apply_Color(255, 67, 80);
-    Sphere_test.Create_3D_Sphere(5.0f, 10.0f, 20.0f);
-
-    _3D_Shapes Sphere_test2;
-    Sphere_test2.Move_Object(20.0f, -20.0f, 0);
-    Sphere_test2.Apply_Color(67, 67.0f, 80.0f);
-    Sphere_test2.Create_3D_Sphere(5.0f, 10.0f, 20.0f);
+    _3D_Shapes Cube_test2;
+    Cube_test.Move_Object(0.0f, 30.0f, 0);
+    Cube_test.Apply_Color(255.0f, 0.0f, 0.0f);
+    Cube_test.Create_3D_Cube(3.0f, 5.0f, 10.0f);
     //==============================================
-    rotateAngle += 1.0f;
     glutSwapBuffers();
 }
 

@@ -1,4 +1,6 @@
-﻿  Main.cpp
+﻿  AudioManager.cpp
+  Main.cpp
+  Player.cpp
   _3D_Shapes.cpp
   Generating Code...
 LINK : fatal error LNK1104: cannot open file 'glut32.lib'

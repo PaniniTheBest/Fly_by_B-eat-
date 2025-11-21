@@ -129,6 +129,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioManager.h" />
+<<<<<<< Updated upstream
+=======
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Player.h" />
+>>>>>>> Stashed changes
     <ClInclude Include="_3D_Shapes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
