@@ -13,7 +13,7 @@ struct Ray {
     Vector3 direction; 
 };
 
-struct GameObject {
+struct GameObject1 {
     Vector3 position;
     Vector3 size;     
 
@@ -22,15 +22,15 @@ struct GameObject {
 };
 
 
-bool RaycastCollision(const GameObject& obj, const Ray& ray, float maxDistance);
+bool RaycastCollision(const GameObject1& obj, const Ray& ray, float maxDistance);
 
 
-bool CoordinateOverlap(const GameObject& a, const GameObject& b);
+bool CoordinateOverlap(const GameObject1& a, const GameObject1& b);
 
 
-bool SphereCollision(const GameObject& a, const GameObject& b);
+bool SphereCollision(const GameObject1& a, const GameObject1& b);
 
 
-bool PointInsideObject(const Vector3& point, const GameObject& obj);
+bool PointInsideObject(const Vector3& point, const GameObject1& obj);
 
 #endif

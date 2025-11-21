@@ -6,7 +6,7 @@ if (v > maxVal) return maxVal;
 return v;
 }
 
-bool RaycastCollision(const GameObject& obj, const Ray& ray, float maxDistance) {
+bool RaycastCollision(const GameObject1& obj, const Ray& ray, float maxDistance) {
     float tMin = 0.0f;
     float tMax = maxDistance;
 
@@ -42,13 +42,13 @@ bool RaycastCollision(const GameObject& obj, const Ray& ray, float maxDistance) 
 }
 
 
-bool CoordinateOverlap(const GameObject& a, const GameObject& b) {
+bool CoordinateOverlap(const GameObject1& a, const GameObject1& b) {
     return (fabs(a.position.x - b.position.x) * 2 < (a.size.x + b.size.x)) &&
         (fabs(a.position.y - b.position.y) * 2 < (a.size.y + b.size.y)) &&
         (fabs(a.position.z - b.position.z) * 2 < (a.size.z + b.size.z));
 }
 
-bool SphereCollision(const GameObject& a, const GameObject& b) {
+bool SphereCollision(const GameObject1& a, const GameObject1& b) {
     float dx = a.position.x - b.position.x;
     float dy = a.position.y - b.position.y;
     float dz = a.position.z - b.position.z;
@@ -58,7 +58,7 @@ bool SphereCollision(const GameObject& a, const GameObject& b) {
 }
 
 
-bool PointInsideObject(const Vector3& point, const GameObject& obj) {
+bool PointInsideObject(const Vector3& point, const GameObject1& obj) {
     return (point.x >= obj.position.x - obj.size.x * 0.5f &&
         point.x <= obj.position.x + obj.size.x * 0.5f &&
 

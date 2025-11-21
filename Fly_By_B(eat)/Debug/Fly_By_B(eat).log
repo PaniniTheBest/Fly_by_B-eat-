@@ -1,4 +1,2 @@
-﻿  CollisionSystem.cpp
-C:\Users\Me\IdeaProjects\Fly_by_B-eat-\Fly_By_B(eat)\CollisionSystem.cpp(28,23): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\Me\IdeaProjects\Fly_by_B-eat-\Fly_By_B(eat)\CollisionSystem.cpp(30,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+﻿  Main.cpp
   Fly_By_B(eat).vcxproj -> C:\Users\Me\IdeaProjects\Fly_by_B-eat-\Debug\Fly_By_B(eat).exe
