@@ -126,10 +126,12 @@
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="_3D_Shapes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="CollisionSystem.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="_3D_Shapes.h" />
   </ItemGroup>
