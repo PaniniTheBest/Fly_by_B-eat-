@@ -82,8 +82,8 @@ void _3D_Shapes::Create_3D_Pyramid(float bottomX, float height , float bottomZ)
     glColor3f(red, green, blue);
 
     glVertex3f(0.0f, 0.5f * height, 0.0f);//tip
-    glVertex3f(0.5f * bottomX, -0.5f, 0.5f * bottomZ);
-    glVertex3f(0.5f * bottomX, -0.5f, -0.5f * bottomZ);
+    glVertex3f(0.5f * bottomX, 0.0f, 0.5f * bottomZ);
+    glVertex3f(0.5f * bottomX, 0.0f, -0.5f * bottomZ);
     
     glEnd();
 

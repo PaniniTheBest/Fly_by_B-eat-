@@ -16,12 +16,12 @@ void RenderScene(void)
     //==============================================
     //Render 3D objects here \/ \/ \/
     _3D_Shapes Cube_test;
-    Cube_test.Move_Object(0.0f, 2.0f, 0);
+    //Cube_test.Move_Object(0.0f, 2.0f, 0);
     Cube_test.Apply_Color(255.0f, 0.0f, 0.0f);
     Cube_test.Create_3D_Pyramid(10.0f, 5.0f,2.0f);
     Cube_test.Move_Object(0,-2.0f,0);
     Cube_test.Apply_Color(255.0f, 255.0f, 0.0f);
-    Cube_test.Create_3D_Cube(10.0f, 5.0f, 2.0f);
+    //Cube_test.Create_3D_Cube(10.0f, 5.0f, 2.0f);
 
     /*_3D_Shapes Sphere_test;
     Sphere_test.Move_Object(0.0f, -20.0f, 0);
