@@ -15,6 +15,8 @@ public:
 	float velX, velY, velZ;
 	float accX, accY, accZ;
 	float rotX, rotY, rotZ;
+	float moveX = 0.0f;
+	float moveY = 0.0f;
 
 	GameObject()
 	{
@@ -47,7 +49,6 @@ public:
 		this->rotX = rotX;
 		this->rotY = rotY;
 		this->rotZ = rotZ;
-		this->angle = angle;
 	}
 
 	void SetVelocity(float velX, float velY, float velZ)
