@@ -1,4 +1,5 @@
 #include "_3D_Shapes.h"
+#include "libs.h"
 
 float rotateAngle = 0.0f;
 
@@ -57,6 +58,7 @@ void ChangeSize(int w, int h)
 
 int main(int argc, char** argv)
 {
+
     //init GLUT and create a window
     glutInit(&argc, argv);
 
