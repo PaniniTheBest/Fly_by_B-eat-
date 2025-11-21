@@ -54,20 +54,16 @@ void RenderScene(void)
 	glutSwapBuffers();
 }
 
-/*void processNormalKeys(unsigned char key, int x, int y)
+void processNormalKeys(unsigned char key, int x, int y)
 {
-	switch (key)
-	{
-	case 'w':
-	case 'W':
-		if (posY == 0.0f)
-			velX = 5.0f;
-		break;
-	case 'a':
-	case 'A':
-		if (velX > 0.0f)
-			velX -= 0.5f;
-		else if (velX < 0.0f)
-			velX += 0.5f;
-	}
-}*/
+	GameObject player;
+
+	if (keyStates['a'])
+		player.moveX -= 1.0f;
+	if (keyStates['d'])
+		player.moveX += 1.0f;
+	if (keyStates['w'])
+		player.moveY += 1.0f;
+	if (keyStates['s'])
+		player.moveY += 1.0f;
+}
