@@ -15,61 +15,58 @@ void _3D_Shapes::Move_Object(float x, float y, float z)
 }
 void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
 {
-    x /= 2;
-    y /= 2;
-    z /= 2;
     glBegin(GL_QUADS);// Face 1 X-axis
     glColor3f(red, green, blue);
 
-    glVertex3f(1.0f * x, 1.0f * y, 1.0f * z);
-    glVertex3f(1.0f * x, -1.0f * y, 1.0f * z);
-    glVertex3f(1.0f * x, -1.0f * y, -1.0f * z);
-    glVertex3f(1.0f * x, 1.0f * y, -1.0f * z);
+    glVertex3f(0.5f * x, 0.5f * y, 0.5f * z);
+    glVertex3f(0.5f * x, -0.5f * y, 0.5f * z);
+    glVertex3f(0.5f * x, -0.5f * y, -0.5f * z);
+    glVertex3f(0.5f * x, 0.5f * y, -0.5f * z);
     glEnd();
 
     glBegin(GL_QUADS);// Face 2 X-axis
     glColor3f(red, green, blue);
 
-    glVertex3f(-1.0f * x, 1.0f * y, 1.0f * z);
-    glVertex3f(-1.0f * x, -1.0f * y, 1.0f * z);
-    glVertex3f(-1.0f * x, -1.0f * y, -1.0f * z);
-    glVertex3f(-1.0f * x, 1.0f * y, -1.0f * z);
+    glVertex3f(-0.5f * x, 0.5f * y, 0.5f * z);
+    glVertex3f(-0.5f * x, -0.5f * y, 0.5f * z);
+    glVertex3f(-0.5f * x, -0.5f * y, -0.5f * z);
+    glVertex3f(-0.5f * x, 0.5f * y, -0.5f * z);
     glEnd();
 
     glBegin(GL_QUADS);// Face 3 Y-axis 
     glColor3f(red, green, blue);
 
-    glVertex3f(-1.0f * x, -1.0f * y, -1.0f * z);
-    glVertex3f(-1.0f * x, -1.0f * y, 1.0f * z);
-    glVertex3f(1.0f * x, -1.0f * y, 1.0f * z);
-    glVertex3f(1.0f * x, -1.0f * y, -1.0f * z);
+    glVertex3f(-0.5f * x, -0.5f * y, -0.5f * z);
+    glVertex3f(-0.5f * x, -0.5f * y, 0.5f * z);
+    glVertex3f(0.5f * x, -0.5f * y, 0.5f * z);
+    glVertex3f(0.5f * x, -0.5f * y, -0.5f * z);
     glEnd();
 
     glBegin(GL_QUADS);// Face 4 Y-axis 
     glColor3f(red, green, blue);
 
-    glVertex3f(-1.0f * x, 1.0f * y, -1.0f * z);
-    glVertex3f(-1.0f * x, 1.0f * y, 1.0f * z);
-    glVertex3f(1.0f * x, 1.0f * y, 1.0f * z);
-    glVertex3f(1.0f * x, 1.0f * y, -1.0f * z);
+    glVertex3f(-0.5f * x, 0.5f * y, -0.5f * z);
+    glVertex3f(-0.5f * x, 0.5f * y, 0.5f * z);
+    glVertex3f(0.5f * x, 0.5f * y, 0.5f * z);
+    glVertex3f(0.5f * x, 0.5f * y, -0.5f * z);
     glEnd(); 
     
     glBegin(GL_QUADS);// Face 5 Z-axis
     glColor3f(red, green, blue);
 
-    glVertex3f(-1.0f * x, -1.0f * y, -1.0f * z);
-    glVertex3f(-1.0f * x, 1.0f * y, -1.0f * z);
-    glVertex3f(1.0f * x, 1.0f * y, -1.0f * z);
-    glVertex3f(1.0f * x, -1.0f * y, -1.0f * z);
+    glVertex3f(-0.5f * x, -0.5f * y, -0.5f * z);
+    glVertex3f(-0.5f * x, 0.5f * y, -0.5f * z);
+    glVertex3f(0.5f * x, 0.5f * y, -0.5f * z);
+    glVertex3f(0.5f * x, -0.5f * y, -0.5f * z);
     glEnd();
 
     glBegin(GL_QUADS);// Face 6 Z-axis
     glColor3f(red, green, blue);
 
-    glVertex3f(-1.0f * x, -1.0f * y, 1.0f * z);
-    glVertex3f(-1.0f * x, 1.0f * y, 1.0f * z);
-    glVertex3f(1.0f * x, 1.0f * y, 1.0f * z);
-    glVertex3f(1.0f * x, -1.0f * y, 1.0f * z);
+    glVertex3f(-0.5f * x, -0.5f * y, 0.5f * z);
+    glVertex3f(-0.5f * x, 0.5f * y, 0.5f * z);
+    glVertex3f(0.5f * x, 0.5f * y, 0.5f * z);
+    glVertex3f(0.5f * x, -0.5f * y, 0.5f * z);
     glEnd();
 }
 void _3D_Shapes::Create_3D_Sphere(double radius, double slices, double stacks)

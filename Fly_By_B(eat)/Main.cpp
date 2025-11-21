@@ -1,4 +1,5 @@
 #include "_3D_Shapes.h"
+
 float rotateAngle = 0.0f;
 
 void RenderScene(void)
@@ -17,7 +18,7 @@ void RenderScene(void)
     _3D_Shapes Cube_test;
     Cube_test.Move_Object(0.0f, -4.0f, 0);
     //Cube_test.Apply_Color(1.0f, 0.0f, 0.0f);
-    Cube_test.Create_3D_Cube(5.0f,10.0f,20.0f);
+    Cube_test.Create_3D_Cube(1.0f,10.0f,20.0f);
 
     _3D_Shapes Sphere_test;
     Sphere_test.Move_Object(0.0f, -20.0f, 0);
