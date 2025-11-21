@@ -76,6 +76,49 @@ void _3D_Shapes::Create_3D_Sphere(double radius, double slices, double stacks)
     glutSolidSphere(radius, slices, stacks);
     glPopMatrix();
 }
+void _3D_Shapes::Create_3D_Pyramid(float bottomX, float height , float bottomZ)
+{
+    glBegin(GL_TRIANGLES);// Face 1 X-axis
+    glColor3f(red, green, blue);
+
+    glVertex3f(0.0f, 0.5f * height, 0.0f);//tip
+    glVertex3f(0.5f * bottomX, -0.5f, 0.5f * bottomZ);
+    glVertex3f(0.5f * bottomX, -0.5f, -0.5f * bottomZ);
+    
+    glEnd();
+
+    glBegin(GL_TRIANGLES);// Face 2 X-axis
+    glColor3f(red, green, blue);
+
+    glVertex3f(0.0f, 0.5f * height, 0.0f);//tip
+    glVertex3f(-0.5f * bottomX, 0.0f, 0.5f * bottomZ);
+    glVertex3f(-0.5f * bottomX, 0.0f, -0.5f * bottomZ);
+    glEnd();
+
+    glBegin(GL_TRIANGLES);// Face 3 Z-axis
+    glColor3f(red, green, blue);
+    
+    glVertex3f(-0.0f, 0.5f * height, -0.0f); //tip
+    glVertex3f(-0.5f * bottomX, 0.0f, -0.5f * bottomZ); 
+    glVertex3f(0.5f * bottomX, 0.0f, -0.5f * bottomZ);
+    glEnd();
+
+    glBegin(GL_TRIANGLES);// Face 3 Z-axis
+    glColor3f(red, green, blue);
+
+    glVertex3f(-0.0f, 0.5f * height, 0.0f); //rip
+    glVertex3f(-0.5f * bottomX, 0.0f, 0.5f * bottomZ);    
+    glVertex3f(0.5f * bottomX, 0.0f, 0.5f * bottomZ);
+    glEnd();
+
+    glBegin(GL_QUADS); //base
+    glColor3f(red, green, blue);
+    glVertex3f(-0.5f * bottomX, 0.0f, -0.5f * bottomZ);
+    glVertex3f(-0.5f * bottomX, 0.0f, 0.5f * bottomZ);
+    glVertex3f(0.5f * bottomX, 0.0f, 0.5f * bottomZ);
+    glVertex3f(0.5f * bottomX, 0.0f, -0.5f * bottomZ);
+    glEnd();
+}
 /*
     //A bunch of code that My fible mind did not digest
 
