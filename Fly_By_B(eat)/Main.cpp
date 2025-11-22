@@ -17,17 +17,16 @@ void RenderScene(void)
     //==============================================
     //Render 3D objects here \/ \/ \/
     _3D_Shapes Cube_test, ObjTest_2;
-    /*Cube_test.Move_Object(0.0f, -2.0f, 0);
+    Cube_test.Move_Object(-3.0f, -2.0f, 0);
     Cube_test.Transform_Object_Size(1, 0.5, 1);
     Cube_test.Apply_Color(255.0f, 0.0f, 0.0f);
-    Cube_test.Rotate_Object(rotateAngle, 0, 45, 0);
-    Cube_test.Create_3D_Cube(5.0f, 10.0f,4);*/
+    //Cube_test.Rotate_Object(rotateAngle, 0, 45, 0);
+    Cube_test.Create_3D_Cone(5.0f, 10.0f,4);
     
-    ObjTest_2.Move_Object(0.0f, -5.0f, 0.0f);
-    ObjTest_2.Apply_Color(0, 255, 0);
+    ObjTest_2.Move_Object(5.0f, -5.0f, 0.0f);
+    ObjTest_2.Apply_Color(0, 255.0f, 0);
     ObjTest_2.Rotate_Object(rotateAngle + 3, 0, 20, 0);
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    ObjTest_2.Create_3D_Cone(3.0f, 5.0f, 6);
+    ObjTest_2.Create_3D_Cylinder(2.0f, 8.0f, 8);
     //==============================================
     rotateAngle += 1.0f;
     glutSwapBuffers();

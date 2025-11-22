@@ -89,26 +89,60 @@ void _3D_Shapes::Create_3D_Sphere(double radius, double slices, double stacks)
 void _3D_Shapes::Create_3D_Cone(float radius, float height, int slices)
 {
     glColor3f(red, green, blue);
-
     // Calculate angle increment based on number of slices
     float angleIncrement = (2.0f * PI) / slices;
 
-    // Draw the upper part of the cone
+    // Draws the sides of the cone
     glBegin(GL_TRIANGLE_FAN);
-    glVertex3f(0, 0, height);  // Sides of cone
+    glVertex3f(0, height, 0);  // Apex at top (Y-axis up)
     for (int i = 0; i <= slices; i++) {
         float angle = i * angleIncrement;
-        glVertex3f(cos(angle) * radius, sin(angle) * radius, 0);
+        glVertex3f(cos(angle) * radius, 0, sin(angle) * radius);
     }
     glEnd();
 
-    // Draw the base of the cone
+    // Draws the base of the cone
     glBegin(GL_TRIANGLE_FAN);
     glVertex3f(0, 0, 0);  // Center of base
     for (int i = 0; i <= slices; i++) {
         float angle = i * angleIncrement;
-        glNormal3f(0, 0, -1);  // Normal pointing down for base
-        glVertex3f(cos(angle) * radius, sin(angle) * radius, 0);
+        glNormal3f(0, -1, 0);  // Normal pointing down for base
+        glVertex3f(cos(angle) * radius, 0, sin(angle) * radius);
+    }
+    glEnd();
+}
+void _3D_Shapes::Create_3D_Cylinder(float radius, float height, int slices)
+{
+    // Calculate angle increment based on number of slices
+    float angleIncrement = (2.0f * PI) / slices;
+    glColor3f(red, green, blue);
+    // Draws top cap of the Cylinder
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex3f(0, height, 0);  // Center of top cap
+    for (int i = 0; i <= slices; i++) {
+        float angle = i * angleIncrement;
+        glNormal3f(0, 1, 0);  // Normal pointing up
+        glVertex3f(cos(angle) * radius, height, sin(angle) * radius);
+    }
+    glEnd();
+
+    // Draws bottom cap of the Cylinder
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex3f(0, 0, 0);  // Center of base
+    for (int i = 0; i <= slices; i++) {
+        float angle = i * angleIncrement;
+        glNormal3f(0, -1, 0);  // Normal pointing down
+        glVertex3f(cos(angle) * radius, 0, sin(angle) * radius);
+    }
+    glEnd();
+
+    // Sides of Cylinder
+    glBegin(GL_QUAD_STRIP);
+    for (int i = 0; i <= slices; i++) {
+        float angle = i * angleIncrement;
+        glNormal3f(cos(angle), 0, sin(angle));  // Outward normal
+        glVertex3f(cos(angle) * radius, 0, sin(angle) * radius);
+        glVertex3f(cos(angle) * radius, height, sin(angle) * radius);
     }
     glEnd();
 }
