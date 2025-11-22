@@ -1,5 +1,5 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef GAMEOBJECT_H
+#define GAMEOBJECT_H
 
 #include "vector3.h"
 #include <glut.h>
@@ -17,11 +17,11 @@ public:
 	void SetPosition(float x, float y, float z);
 	void SetScale(Vector3 newScale);
 	void SetScale(float x, float y, float z);
-	//void SetRotation(float angle, Vector3 rotation);
-	//void SetRotation(float angle, float x, float y, float z);
+	void SetRotation(float angle, Vector3 rotation);
+	void SetRotation(float angle, float x, float y, float z);
 
-	//Vector3 GetScale();
-	//Vector3 GetPosition();
+	Vector3 GetScale();
+	Vector3 GetPosition();
 
 	//void Draw();
 
