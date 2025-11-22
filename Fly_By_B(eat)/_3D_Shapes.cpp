@@ -21,6 +21,7 @@ void _3D_Shapes::Transform_Object_Size(float x, float y, float z)
 {
     glScalef (x, y, z);
 }
+
 void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
 {
     glBegin(GL_QUADS);// Face 1 X-axis
@@ -82,12 +83,34 @@ void _3D_Shapes::Create_3D_Sphere(double radius, double slices, double stacks)
     //glPushMatrix();
     glColor3f(red, green, blue);
     glutSolidSphere(radius, slices, stacks);
+
     //glPopMatrix();
 }
-void _3D_Shapes::Create_3D_Cone(float base, float height , int slices, int stacks)
+void _3D_Shapes::Create_3D_Cone(float radius, float height, int slices)
 {
     glColor3f(red, green, blue);
-    glutSolidCone(base, height, slices, stacks);
+
+    // Calculate angle increment based on number of slices
+    float angleIncrement = (2.0f * PI) / slices;
+
+    // Draw the upper part of the cone
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex3f(0, 0, height);  // Sides of cone
+    for (int i = 0; i <= slices; i++) {
+        float angle = i * angleIncrement;
+        glVertex3f(cos(angle) * radius, sin(angle) * radius, 0);
+    }
+    glEnd();
+
+    // Draw the base of the cone
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex3f(0, 0, 0);  // Center of base
+    for (int i = 0; i <= slices; i++) {
+        float angle = i * angleIncrement;
+        glNormal3f(0, 0, -1);  // Normal pointing down for base
+        glVertex3f(cos(angle) * radius, sin(angle) * radius, 0);
+    }
+    glEnd();
 }
 /*
     //A bunch of code that My fible mind did not digest
