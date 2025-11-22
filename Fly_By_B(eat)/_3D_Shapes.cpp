@@ -13,6 +13,14 @@ void _3D_Shapes::Move_Object(float x, float y, float z)
 {
     glTranslatef(x, y ,z);
 }
+void _3D_Shapes::Rotate_Object(float angle, float x, float y, float z)
+{
+    glRotatef(angle,x,y,z);
+}
+void _3D_Shapes::Transform_Object_Size(float x, float y, float z)
+{
+    glScalef (x, y, z);
+}
 void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
 {
     glBegin(GL_QUADS);// Face 1 X-axis
@@ -71,53 +79,15 @@ void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
 }
 void _3D_Shapes::Create_3D_Sphere(double radius, double slices, double stacks)
 {
-    glPushMatrix();
+    //glPushMatrix();
     glColor3f(red, green, blue);
     glutSolidSphere(radius, slices, stacks);
-    glPopMatrix();
+    //glPopMatrix();
 }
-void _3D_Shapes::Create_3D_Pyramid(float bottomX, float height , float bottomZ)
+void _3D_Shapes::Create_3D_Cone(float base, float height , int slices, int stacks)
 {
-    glBegin(GL_TRIANGLES);// Face 1 X-axis
     glColor3f(red, green, blue);
-
-    glVertex3f(0.0f, 0.5f * height, 0.0f);//tip
-    glVertex3f(0.5f * bottomX, 0.0f, 0.5f * bottomZ);
-    glVertex3f(0.5f * bottomX, 0.0f, -0.5f * bottomZ);
-    
-    glEnd();
-
-    glBegin(GL_TRIANGLES);// Face 2 X-axis
-    glColor3f(red, green, blue);
-
-    glVertex3f(0.0f, 0.5f * height, 0.0f);//tip
-    glVertex3f(-0.5f * bottomX, 0.0f, 0.5f * bottomZ);
-    glVertex3f(-0.5f * bottomX, 0.0f, -0.5f * bottomZ);
-    glEnd();
-
-    glBegin(GL_TRIANGLES);// Face 3 Z-axis
-    glColor3f(red, green, blue);
-    
-    glVertex3f(-0.0f, 0.5f * height, -0.0f); //tip
-    glVertex3f(-0.5f * bottomX, 0.0f, -0.5f * bottomZ); 
-    glVertex3f(0.5f * bottomX, 0.0f, -0.5f * bottomZ);
-    glEnd();
-
-    glBegin(GL_TRIANGLES);// Face 3 Z-axis
-    glColor3f(red, green, blue);
-
-    glVertex3f(-0.0f, 0.5f * height, 0.0f); //rip
-    glVertex3f(-0.5f * bottomX, 0.0f, 0.5f * bottomZ);    
-    glVertex3f(0.5f * bottomX, 0.0f, 0.5f * bottomZ);
-    glEnd();
-
-    glBegin(GL_QUADS); //base
-    glColor3f(red, green, blue);
-    glVertex3f(-0.5f * bottomX, 0.0f, -0.5f * bottomZ);
-    glVertex3f(-0.5f * bottomX, 0.0f, 0.5f * bottomZ);
-    glVertex3f(0.5f * bottomX, 0.0f, 0.5f * bottomZ);
-    glVertex3f(0.5f * bottomX, 0.0f, -0.5f * bottomZ);
-    glEnd();
+    glutSolidCone(base, height, slices, stacks);
 }
 /*
     //A bunch of code that My fible mind did not digest

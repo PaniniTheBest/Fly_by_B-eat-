@@ -13,14 +13,17 @@ void RenderScene(void)
                 0.0f, 1.0f, 0.0f);
 
     glTranslatef(0.0f, 5.0f, 0.0f);
-    glRotatef(rotateAngle, 3.0f, 4.0f, 2.0f);
+    //glRotatef(rotateAngle, 3.0f, 4.0f, 2.0f);
     //==============================================
     //Render 3D objects here \/ \/ \/
     _3D_Shapes Cube_test;
-    //Cube_test.Move_Object(0.0f, 2.0f, 0);
+    Cube_test.Move_Object(0.0f, -2.0f, 0);
+    Cube_test.Transform_Object_Size(1, 0.5, 1);
     Cube_test.Apply_Color(255.0f, 0.0f, 0.0f);
-    Cube_test.Create_3D_Pyramid(10.0f, 5.0f,2.0f);
-    Cube_test.Move_Object(0,-2.0f,0);
+    Cube_test.Rotate_Object(rotateAngle, 0, 45, 0);
+    Cube_test.Create_3D_Cube(5.0f, 10.0f,4);
+    
+    //Cube_test.Move_Object(0,-2.0f,0);
     Cube_test.Apply_Color(255.0f, 255.0f, 0.0f);
     //Cube_test.Create_3D_Cube(10.0f, 5.0f, 2.0f);
 
@@ -58,7 +61,7 @@ void ChangeSize(int w, int h)
 
 int main(int argc, char** argv)
 {
-
+    //GLFWwindow* window = glfwCreateWindow();
     //init GLUT and create a window
     glutInit(&argc, argv);
 
