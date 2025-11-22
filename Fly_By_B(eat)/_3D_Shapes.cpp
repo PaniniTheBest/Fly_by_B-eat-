@@ -1,6 +1,6 @@
 #include "_3D_Shapes.h"
 
-const double PI = 3.1415926535897; // Value of PI  
+const float PI = 3.14; // Value of PI  
 
 _3D_Shapes::_3D_Shapes(){}
 void _3D_Shapes::Apply_Color(float r, float g, float b)
@@ -83,7 +83,6 @@ void _3D_Shapes::Create_3D_Sphere(double radius, double slices, double stacks)
     //glPushMatrix();
     glColor3f(red, green, blue);
     glutSolidSphere(radius, slices, stacks);
-
     //glPopMatrix();
 }
 void _3D_Shapes::Create_3D_Cone(float radius, float height, int slices)
@@ -116,7 +115,7 @@ void _3D_Shapes::Create_3D_Cylinder(float radius, float height, int slices)
     // Calculate angle increment based on number of slices
     float angleIncrement = (2.0f * PI) / slices;
     glColor3f(red, green, blue);
-    // Draws top cap of the Cylinder
+    // Draws top side of Cylinder
     glBegin(GL_TRIANGLE_FAN);
     glVertex3f(0, height, 0);  // Center of top cap
     for (int i = 0; i <= slices; i++) {
@@ -126,7 +125,7 @@ void _3D_Shapes::Create_3D_Cylinder(float radius, float height, int slices)
     }
     glEnd();
 
-    // Draws bottom cap of the Cylinder
+    // Draws bottom side of Cylinder
     glBegin(GL_TRIANGLE_FAN);
     glVertex3f(0, 0, 0);  // Center of base
     for (int i = 0; i <= slices; i++) {
@@ -136,7 +135,7 @@ void _3D_Shapes::Create_3D_Cylinder(float radius, float height, int slices)
     }
     glEnd();
 
-    // Sides of Cylinder
+    // Draws sides of Cylinder
     glBegin(GL_QUAD_STRIP);
     for (int i = 0; i <= slices; i++) {
         float angle = i * angleIncrement;
