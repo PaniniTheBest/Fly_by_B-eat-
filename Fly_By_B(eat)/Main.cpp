@@ -40,6 +40,8 @@ void RenderScene(void)
 
 }
 
+
+
 void ChangeSize(int w, int h)
 {
     if (h == 0)
@@ -84,12 +86,19 @@ void ChangeSize(int w, int h)
 //                Vector3 rightMove(0, 0.1f, 0);
 //                playerPos += rightMove;
 //                break;
-//
 //            }
-//
 //        }
 //    }
 //}
+
+void Update()
+{
+    Vector3 colliderScale(1, 1, 1);
+    //player.SetCollider(player.GetPosition(), colliderScale)
+
+    //void processNormalKeys();
+    //player.SetPosition(playerPos)
+}
 
 int main(int argc, char** argv)
 {
