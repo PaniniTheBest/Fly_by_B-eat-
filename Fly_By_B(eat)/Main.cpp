@@ -12,17 +12,20 @@ void RenderScene(void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
-    gluLookAt(  0.0f, 0.0f, 20.0f,
-                0.0f, 0.0f, 0.0f,
-                0.0f, 1.0f, 0.0f);
+    gluLookAt(0.0f, 0.0f, 25.0f,
+        0.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f);
 
     glTranslatef(0.0f, 5.0f, 0.0f);
     //glRotatef(rotateAngle, 3.0f, 4.0f, 2.0f);
     //==============================================
-    //Render 3D objects here \/ \/ \/
+    //Render 3D objects here / / /
     _3D_Shapes ObjTest1, ObjTest_2;
-    ObjTest1.Move_Object(8, -1.0f, 0);
-    ObjTest1.Create_3D_Cylinder(2, 2, 5);
+    ObjTest1.Move_Object(8, 0.0f, 0);
+    ObjTest1.Apply_Color(255, 0, 0);
+    ObjTest1.Create_3D_Cube(2, 2, 5);
+
+
 
     ObjTest_2.Move_Object(-3, -10, 0);
     ObjTest_2.Create_3D_Cone(2, 2, 7);
@@ -83,7 +86,6 @@ void processNormalKeys()
     }
 }
 
-
 int main(int argc, char** argv)
 {
     //GLFWwindow* window = glfwCreateWindow();
@@ -101,6 +103,8 @@ int main(int argc, char** argv)
     glutDisplayFunc(RenderScene);
     glutReshapeFunc(ChangeSize);
     glutIdleFunc(RenderScene);
+    glutKeyboardFunc(&keyPressed);
+    glutKeyboardUpFunc(&keyPressedUp);
 
     glEnable(GL_DEPTH_TEST);
     // enter GLUT event processing cycle
