@@ -1,7 +1,11 @@
 #include "_3D_Shapes.h"
+#include "GameObject.h"
+#include "Input.h"
 #include "libs.h"
 
 float rotateAngle = 0.0f;
+Vector3 playerPos;
+GameObject player;
 
 void RenderScene(void)
 {
@@ -45,6 +49,40 @@ void ChangeSize(int w, int h)
     // Get Back to Model View
     glMatrixMode(GL_MODELVIEW);
 }
+
+void processNormalKeys()
+{
+    const char keys[] = { 'w', 'a', 's', 'd' };
+
+    for (char key : keys)
+    {
+        if (Input::GetKey(key))
+        {
+            switch (key)
+            {
+            case 'w':
+                Vector3 topMove(0.0f, 0.1, 0);
+                playerPos += topMove;
+                break;
+            case 'a':
+                Vector3 leftMove(-0.1f, 0, 0);
+                playerPos += leftMove;
+                break;
+            case 's':
+                Vector3 downMove(0, -0.1f, 0);
+                playerPos += downMove;
+                break;
+            case 'd':
+                Vector3 rightMove(0, 0.1f, 0);
+                playerPos += rightMove;
+                break;
+
+            }
+
+        }
+    }
+}
+
 
 int main(int argc, char** argv)
 {
