@@ -3,35 +3,33 @@
 const float PI = 3.14; // Value of PI  
 
 _3D_Shapes::_3D_Shapes(){}
-
+//Shape Properties
 void _3D_Shapes::Apply_Color(float r, float g, float b)
 {
     red = r / 255;
     green = g / 255;
     blue = b / 255;
 }
-void _3D_Shapes::Move_Object(float x, float y, float z)
+void _3D_Shapes::Transform_Object_Position(float x, float y, float z)
 {
     moveX = x; moveY = y; moveZ = z;
 }
-void _3D_Shapes::Rotate_Object(float shapeAngle, float x, float y, float z)
+void _3D_Shapes::Transform_Object_Rotation(float shapeAngle, float x, float y, float z)
 {
-    angle = shapeAngle;
-    rotateX = x;
-    rotateY = y;
-    rotateZ = z;    
+    angle = shapeAngle; rotateX = x; rotateY = y; rotateZ = z;  
 }
 void _3D_Shapes::Transform_Object_Size(float x, float y, float z)
 {
-    glScalef (x, y, z);
+    scaleX = x; scaleY = y; scaleZ = z;  
 }
-
+//types of shapes
 void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
 {   
     glPushMatrix();
     glColor3f(red, green, blue);
     glTranslatef(moveX, moveY, moveZ);
     glRotatef(angle, rotateX, rotateY, rotateZ);
+    glScalef(scaleX, scaleY, scaleZ);
 
     glBegin(GL_QUADS);// Face 1 X-axis
     glVertex3f(0.5f * x, 0.5f * y, 0.5f * z);
@@ -82,6 +80,7 @@ void _3D_Shapes::Create_3D_Sphere(double radius, double slices, double stacks)
     glColor3f(red, green, blue); 
     glTranslatef(moveX, moveY, moveZ);  
     glRotatef(angle, rotateX, rotateY, rotateZ);
+    glScalef(scaleX, scaleY, scaleZ);
 
     glutSolidSphere(radius, slices, stacks); 
     glPopMatrix(); 
@@ -94,6 +93,7 @@ void _3D_Shapes::Create_3D_Cone(float radius, float height, int slices)
     glColor3f(red, green, blue);
     glTranslatef(moveX, moveY, moveZ);   
     glRotatef(angle, rotateX, rotateY, rotateZ);
+    glScalef(scaleX, scaleY, scaleZ);
 
     // Draws the sides of the cone
     glBegin(GL_TRIANGLE_FAN);
@@ -122,6 +122,7 @@ void _3D_Shapes::Create_3D_Cylinder(float radius, float height, int slices)
     glPushMatrix(); 
     glColor3f(red, green, blue);   
     glTranslatef(moveX, moveY, moveZ); 
+    glScalef(scaleX, scaleY, scaleZ);
 
     // Draws top side of Cylinder
     glBegin(GL_TRIANGLE_FAN);
