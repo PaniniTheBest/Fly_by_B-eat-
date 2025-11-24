@@ -24,13 +24,12 @@ void RenderScene(void)
     //==============================================
     //Render 3D objects here / / /
     _3D_Shapes ObjTest1, ObjTest_2;
-    //glPushMatrix();
+
     ObjTest1.Move_Object(-5.0f, 0.0f, 0.0f);
     //ObjTest1.Rotate_Object(45, 90, 15, 0);
     ObjTest1.Apply_Color(255, 0, 0);
     ObjTest1.Create_3D_Cube(2, 2, 5);
-    //glPopMatrix();
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);  // Wireframe mode
+
     ObjTest_2.Move_Object(0.01f, 0.01f, 0.0f);
     ObjTest_2.Apply_Color(0, 255, 0);
     ObjTest_2.Create_3D_Cylinder(4.0f, 4.0f, 8);

@@ -93,11 +93,11 @@ void _3D_Shapes::Create_3D_Cone(float radius, float height, int slices)
     glPushMatrix(); 
     glColor3f(red, green, blue);
     glTranslatef(moveX, moveY, moveZ);   
-    glRotatef(this->angle, rotateX, rotateY, rotateZ);
+    glRotatef(angle, rotateX, rotateY, rotateZ);
 
     // Draws the sides of the cone
     glBegin(GL_TRIANGLE_FAN);
-    glVertex3f(0, height, 0);  // Apex at top (Y-axis up)
+    glVertex3f(0, height, 0);  // Tip
     for (int i = 0; i <= slices; i++) {
         renderAngle = i * angleIncrement;
         glVertex3f(cos(renderAngle) * radius, 0, sin(renderAngle) * radius);
@@ -128,7 +128,7 @@ void _3D_Shapes::Create_3D_Cylinder(float radius, float height, int slices)
     glVertex3f(0, height, 0);  // Center of top cap
     for (int i = 0; i <= slices; i++) {
         renderAngle = i * angleIncrement;
-        glNormal3f(0, 1, 0);  // Normal pointing up
+        glNormal3f(0, 1, 0);  // top side
         glVertex3f(cos(renderAngle) * radius, height, sin(renderAngle) * radius);
     }
     glEnd();
@@ -137,7 +137,7 @@ void _3D_Shapes::Create_3D_Cylinder(float radius, float height, int slices)
     glVertex3f(0, 0, 0);  // Center of base
     for (int i = 0; i <= slices; i++) {
         renderAngle = i * angleIncrement;
-        glNormal3f(0, -1, 0);  // Normal pointing down
+        glNormal3f(0, -1, 0);  //bottom side
         glVertex3f(cos(renderAngle) * radius, 0, sin(renderAngle) * radius);
     }
     glEnd();
