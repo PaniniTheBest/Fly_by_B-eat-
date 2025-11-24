@@ -2,10 +2,9 @@
 #include "GameObject.h"
 #include "Input.h"
 #include "libs.h"
-
 float rotateAngle = 0.0f;
-Vector3 playerPos;
-GameObject player;
+//Vector3 playerPos;
+//GameObject player;
 
 void RenderScene(void)
 {
@@ -16,16 +15,15 @@ void RenderScene(void)
         0.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f);
 
-    glTranslatef(0.0f, 5.0f, 0.0f);
+    glTranslatef(0.0f, 0.0f, 0.0f);
     //glRotatef(rotateAngle, 3.0f, 4.0f, 2.0f);
     //==============================================
     //Render 3D objects here / / /
     _3D_Shapes ObjTest1, ObjTest_2;
-    ObjTest1.Move_Object(8, 0.0f, 0);
+    ObjTest1.Move_Object(-5, 0.0f, 0);
+    ObjTest1.Rotate_Object(45, 90, 15, 0);
     ObjTest1.Apply_Color(255, 0, 0);
     ObjTest1.Create_3D_Cube(2, 2, 5);
-
-
 
     ObjTest_2.Move_Object(-3, -10, 0);
     ObjTest_2.Create_3D_Cone(2, 2, 7);
@@ -53,38 +51,38 @@ void ChangeSize(int w, int h)
     glMatrixMode(GL_MODELVIEW);
 }
 
-void processNormalKeys()
-{
-    const char keys[] = { 'w', 'a', 's', 'd' };
-
-    for (char key : keys)
-    {
-        if (Input::GetKey(key))
-        {
-            switch (key)
-            {
-            case 'w':
-                Vector3 topMove(0.0f, 0.1, 0);
-                playerPos += topMove;
-                break;
-            case 'a':
-                Vector3 leftMove(-0.1f, 0, 0);
-                playerPos += leftMove;
-                break;
-            case 's':
-                Vector3 downMove(0, -0.1f, 0);
-                playerPos += downMove;
-                break;
-            case 'd':
-                Vector3 rightMove(0, 0.1f, 0);
-                playerPos += rightMove;
-                break;
-
-            }
-
-        }
-    }
-}
+//void processNormalKeys()
+//{
+//    const char keys[] = { 'w', 'a', 's', 'd' };
+//
+//    for (char key : keys)
+//    {
+//        if (Input::GetKey(key))
+//        {
+//            switch (key)
+//            {
+//            case 'w':
+//                Vector3 topMove(0.0f, 0.1, 0);
+//                playerPos += topMove;
+//                break;
+//            case 'a':
+//                Vector3 leftMove(-0.1f, 0, 0);
+//                playerPos += leftMove;
+//                break;
+//            case 's':
+//                Vector3 downMove(0, -0.1f, 0);
+//                playerPos += downMove;
+//                break;
+//            case 'd':
+//                Vector3 rightMove(0, 0.1f, 0);
+//                playerPos += rightMove;
+//                break;
+//
+//            }
+//
+//        }
+//    }
+//}
 
 int main(int argc, char** argv)
 {
