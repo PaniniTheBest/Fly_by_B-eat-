@@ -7,7 +7,7 @@ void RenderScene(void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
-    gluLookAt(  0.0f, 0.0f, 20.0f,
+    gluLookAt(  0.0f, 0.0f, 25.0f,
                 0.0f, 0.0f, 0.0f,
                 0.0f, 1.0f, 0.0f);
 
@@ -15,6 +15,7 @@ void RenderScene(void)
     glRotatef(rotateAngle, 3.0f, 4.0f, 2.0f);
     //==============================================
     //Render 3D objects here \/ \/ \/
+<<<<<<< Updated upstream
     _3D_Shapes Cube_test;
     //Cube_test.Move_Object(0.0f, 2.0f, 0);
     Cube_test.Apply_Color(255.0f, 0.0f, 0.0f);
@@ -22,6 +23,14 @@ void RenderScene(void)
     Cube_test.Move_Object(0,-2.0f,0);
     Cube_test.Apply_Color(255.0f, 255.0f, 0.0f);
     //Cube_test.Create_3D_Cube(10.0f, 5.0f, 2.0f);
+=======
+    _3D_Shapes ObjTest1, ObjTest_2;
+    ObjTest1.Move_Object(8, 0.0f, 0);
+    ObjTest1.Apply_Color(255, 0, 0);
+    ObjTest1.Create_3D_Cube(2, 2, 5);
+    
+
+>>>>>>> Stashed changes
 
     /*_3D_Shapes Sphere_test;
     Sphere_test.Move_Object(0.0f, -20.0f, 0);
