@@ -1,2 +1,6 @@
-﻿  Main.cpp
-  Fly_By_B(eat).vcxproj -> C:\Users\rocks\Documents\GitHub\Fly_by_B-eat-\Debug\Fly_By_B(eat).exe
+﻿  Key_Input.cpp
+  Main.cpp
+\Key_Input.cpp(1,1): error C1083: Cannot open source file: 'Key_Input.cpp': No such file or directory
+  (compiling source file '/Key_Input.cpp')
+  
+  Generating Code...
