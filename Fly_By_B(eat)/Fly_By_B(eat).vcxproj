@@ -130,6 +130,8 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="PLayMusic.cpp" />
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="vector3.cpp" />
     <ClCompile Include="_3D_Shapes.cpp" />
   </ItemGroup>
@@ -143,8 +145,12 @@
     <ClInclude Include="libs.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="vector3.h" />
     <ClInclude Include="_3D_Shapes.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Majula.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

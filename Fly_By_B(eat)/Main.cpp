@@ -3,14 +3,25 @@
 #include "Input.h"
 #include "libs.h"
 #include "Camera.h"
+#include "Text.h"
+#include <windows.h>
+#include <mmsystem.h>
 
+
+float value = 0.0f;
 float rotateAngle = 0.0f;
+int timeSinceStart = 0, previousTime = 0;
 //Vector3 playerPos;
 //GameObject player;
 //camera cam;
 
 void RenderScene(void)
 {
+    timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
+    float deltaTime = (timeSinceStart - previousTime) / 1000.0f;
+    previousTime = timeSinceStart;
+    value += (1.0f*deltaTime);
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
@@ -34,11 +45,18 @@ void RenderScene(void)
     ObjTest_2.Apply_Color(0, 255, 0);
     ObjTest_2.Create_3D_Cylinder(4.0f, 4.0f, 8);
     
+    
+    glTranslatef(-20.0f, 3.0f, 0.0f);
+    drawText("According to all known laws of aviation, there is no way that a bee should be able to fly."
+            ,255.0f, 255.0f, 255.0f);
+
+    glTranslatef(-1.0f, -6.0f, 0.0f);
+    drawValue(value, 255.0f, 0.0f, 0.0f);
     //==============================================
     rotateAngle += 1.0f;
     glutSwapBuffers();
-
 }
+
 void ChangeSize(int w, int h)
 {
     if (h == 0)
@@ -91,14 +109,16 @@ void ChangeSize(int w, int h)
 void Update()
 {
     Vector3 colliderScale(1, 1, 1);
+    
     //player.SetCollider(player.GetPosition(), colliderScale)
-
+    
     //void processNormalKeys();
     //player.SetPosition(playerPos)
 }
 
 int main(int argc, char** argv)
 {
+    PlaySound(TEXT ("Majula.wav"), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
     //GLFWwindow* window = glfwCreateWindow();
     //init GLUT and create a window
     glutInit(&argc, argv);
@@ -111,6 +131,7 @@ int main(int argc, char** argv)
 
     glutCreateWindow("=+= Fly by B(eat) =+=");
     //register callbacks
+    Update();
     glutDisplayFunc(RenderScene);
     glutReshapeFunc(ChangeSize);
     glutIdleFunc(RenderScene);
