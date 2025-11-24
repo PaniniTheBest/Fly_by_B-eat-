@@ -2,9 +2,12 @@
 #include "GameObject.h"
 #include "Input.h"
 #include "libs.h"
+#include "Camera.h"
+
 float rotateAngle = 0.0f;
 //Vector3 playerPos;
 //GameObject player;
+//camera cam;
 
 void RenderScene(void)
 {
@@ -14,6 +17,8 @@ void RenderScene(void)
     gluLookAt(0.0f, 0.0f, 25.0f,
         0.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f);
+
+    //cam.ApplyCamera();
 
     glTranslatef(0.0f, 0.0f, 0.0f);
     //glRotatef(rotateAngle, 3.0f, 4.0f, 2.0f);
