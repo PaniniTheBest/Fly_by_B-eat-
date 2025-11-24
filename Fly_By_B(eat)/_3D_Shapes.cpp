@@ -11,7 +11,7 @@ void _3D_Shapes::Apply_Color(float r, float g, float b)
 }
 void _3D_Shapes::Move_Object(float x, float y, float z)
 {
-    glTranslatef(x, y ,z);
+    moveX = x; moveY = y; moveZ = z;
 }
 void _3D_Shapes::Rotate_Object(float angle, float x, float y, float z)
 {
@@ -87,6 +87,7 @@ void _3D_Shapes::Create_3D_Sphere(double radius, double slices, double stacks)
 }
 void _3D_Shapes::Create_3D_Cone(float radius, float height, int slices)
 {
+    glTranslatef(moveX, moveY, moveZ);
     glColor3f(red, green, blue);
     // Calculate angle increment based on number of slices
     float angleIncrement = (2.0f * PI) / slices;
@@ -112,11 +113,13 @@ void _3D_Shapes::Create_3D_Cone(float radius, float height, int slices)
 }
 void _3D_Shapes::Create_3D_Cylinder(float radius, float height, int slices)
 {
+    
     // Calculate angle increment based on number of slices
     float angleIncrement = (2.0f * PI) / slices;
     glColor3f(red, green, blue);
     // Draws top side of Cylinder
     glBegin(GL_TRIANGLE_FAN);
+    glTranslatef(moveX, moveY, moveZ);
     glVertex3f(0, height, 0);  // Center of top cap
     for (int i = 0; i <= slices; i++) {
         float angle = i * angleIncrement;
@@ -127,6 +130,7 @@ void _3D_Shapes::Create_3D_Cylinder(float radius, float height, int slices)
 
     // Draws bottom side of Cylinder
     glBegin(GL_TRIANGLE_FAN);
+    glTranslatef(moveX, moveY, moveZ);
     glVertex3f(0, 0, 0);  // Center of base
     for (int i = 0; i <= slices; i++) {
         float angle = i * angleIncrement;
@@ -137,6 +141,7 @@ void _3D_Shapes::Create_3D_Cylinder(float radius, float height, int slices)
 
     // Draws sides of Cylinder
     glBegin(GL_QUAD_STRIP);
+    glTranslatef(moveX, moveY, moveZ);
     for (int i = 0; i <= slices; i++) {
         float angle = i * angleIncrement;
         glNormal3f(cos(angle), 0, sin(angle));  // Outward normal
