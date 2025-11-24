@@ -15,14 +15,8 @@ void _3D_Shapes::Move_Object(float x, float y, float z)
 }
 void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
 {
-    /*
-    NOTE:
-        XYZ variables are divided by 2. In order to have the user's intended scale.
-    */    
-    glColor3f(red, green, blue);
-    glPushMatrix();
-    glTranslatef(moveX, moveY, moveZ);
     glBegin(GL_QUADS);// Face 1 X-axis
+    glColor3f(red, green, blue);
 
     glVertex3f(0.5f * x, 0.5f * y, 0.5f * z);
     glVertex3f(0.5f * x, -0.5f * y, 0.5f * z);
@@ -31,6 +25,7 @@ void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
     glEnd();
 
     glBegin(GL_QUADS);// Face 2 X-axis
+    glColor3f(red, green, blue);
 
     glVertex3f(-0.5f * x, 0.5f * y, 0.5f * z);
     glVertex3f(-0.5f * x, -0.5f * y, 0.5f * z);
@@ -39,6 +34,7 @@ void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
     glEnd();
 
     glBegin(GL_QUADS);// Face 3 Y-axis 
+    glColor3f(red, green, blue);
 
     glVertex3f(-0.5f * x, -0.5f * y, -0.5f * z);
     glVertex3f(-0.5f * x, -0.5f * y, 0.5f * z);
@@ -47,6 +43,7 @@ void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
     glEnd();
 
     glBegin(GL_QUADS);// Face 4 Y-axis 
+    glColor3f(red, green, blue);
 
     glVertex3f(-0.5f * x, 0.5f * y, -0.5f * z);
     glVertex3f(-0.5f * x, 0.5f * y, 0.5f * z);
@@ -55,6 +52,7 @@ void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
     glEnd(); 
     
     glBegin(GL_QUADS);// Face 5 Z-axis
+    glColor3f(red, green, blue);
 
     glVertex3f(-0.5f * x, -0.5f * y, -0.5f * z);
     glVertex3f(-0.5f * x, 0.5f * y, -0.5f * z);
@@ -63,18 +61,17 @@ void _3D_Shapes::Create_3D_Cube(float x, float y, float z)
     glEnd();
 
     glBegin(GL_QUADS);// Face 6 Z-axis
+    glColor3f(red, green, blue);
 
     glVertex3f(-0.5f * x, -0.5f * y, 0.5f * z);
     glVertex3f(-0.5f * x, 0.5f * y, 0.5f * z);
     glVertex3f(0.5f * x, 0.5f * y, 0.5f * z);
     glVertex3f(0.5f * x, -0.5f * y, 0.5f * z);
     glEnd();
-    glPopMatrix();
 }
 void _3D_Shapes::Create_3D_Sphere(double radius, double slices, double stacks)
 {
     glPushMatrix();
-<<<<<<< Updated upstream
     glColor3f(red, green, blue);
     glutSolidSphere(radius, slices, stacks);
     glPopMatrix();
@@ -87,51 +84,11 @@ void _3D_Shapes::Create_3D_Pyramid(float bottomX, float height , float bottomZ)
     glVertex3f(0.0f, 0.5f * height, 0.0f);//tip
     glVertex3f(0.5f * bottomX, 0.0f, 0.5f * bottomZ);
     glVertex3f(0.5f * bottomX, 0.0f, -0.5f * bottomZ);
-=======
-    glTranslatef(moveX, moveY, moveZ);
-    glColor3f(red, green, blue);
-    glutSolidSphere(radius, slices, stacks);
-    glPopMatrix();
-}
-void _3D_Shapes::Create_3D_Cone(float radius, float height, int slices)
-{ 
-    glColor3f(red, green, blue);
-
-    glPushMatrix();
-    glTranslatef(moveX, moveY, moveZ);
-    // Calculate angle increment based on number of slices
-    float angleIncrement = (2.0f * PI) / slices;
-
-    // Draws the sides of the cone
-    glBegin(GL_TRIANGLE_FAN);    
-    glVertex3f(0, height, 0);  // Apex at top (Y-axis up)
-    for (int i = 0; i <= slices; i++) {
-        float angle = i * angleIncrement;
-        glVertex3f(cos(angle) * radius, 0, sin(angle) * radius);
-    }
-    glEnd();
-
-    // Draws the base of the cone
-    glBegin(GL_TRIANGLE_FAN);  
-    glVertex3f(0, 0, 0);  // Center of base
-    for (int i = 0; i <= slices; i++) {
-        float angle = i * angleIncrement;
-        glNormal3f(0, -1, 0);  // Normal pointing down for base
-        glVertex3f(cos(angle) * radius, 0, sin(angle) * radius);
-    }
-    glEnd();
-
-    glPopMatrix();
-}
-void _3D_Shapes::Create_3D_Cylinder(float radius, float height, int slices)
-{
->>>>>>> Stashed changes
     
     glEnd();
 
     glBegin(GL_TRIANGLES);// Face 2 X-axis
     glColor3f(red, green, blue);
-<<<<<<< Updated upstream
 
     glVertex3f(0.0f, 0.5f * height, 0.0f);//tip
     glVertex3f(-0.5f * bottomX, 0.0f, 0.5f * bottomZ);
@@ -160,40 +117,7 @@ void _3D_Shapes::Create_3D_Cylinder(float radius, float height, int slices)
     glVertex3f(-0.5f * bottomX, 0.0f, 0.5f * bottomZ);
     glVertex3f(0.5f * bottomX, 0.0f, 0.5f * bottomZ);
     glVertex3f(0.5f * bottomX, 0.0f, -0.5f * bottomZ);
-=======
-    glPushMatrix();
-    glTranslatef(moveX, moveY, moveZ);
-    // Draws top side of Cylinder
-    glBegin(GL_TRIANGLE_FAN);
-    glVertex3f(0, height, 0);  // Center of top cap
-    for (int i = 0; i <= slices; i++) {
-        float angle = i * angleIncrement;
-        glNormal3f(0, 1, 0);  // Normal pointing up
-        glVertex3f(cos(angle) * radius, height, sin(angle) * radius);
-    }
     glEnd();
-
-    // Draws bottom side of Cylinder
-    glBegin(GL_TRIANGLE_FAN);
-    glVertex3f(0, 0, 0);  // Center of base
-    for (int i = 0; i <= slices; i++) {
-        float angle = i * angleIncrement;
-        glNormal3f(0, -1, 0);  // Normal pointing down
-        glVertex3f(cos(angle) * radius, 0, sin(angle) * radius);
-    }
-    glEnd();
-
-    // Draws sides of Cylinder
-    glBegin(GL_QUAD_STRIP);   
-    for (int i = 0; i <= slices; i++) {
-        float angle = i * angleIncrement;
-        glNormal3f(cos(angle), 0, sin(angle));  // Outward normal
-        glVertex3f(cos(angle) * radius, 0, sin(angle) * radius);
-        glVertex3f(cos(angle) * radius, height, sin(angle) * radius);
-    }
->>>>>>> Stashed changes
-    glEnd();
-    glPopMatrix();
 }
 /*
     //A bunch of code that My fible mind did not digest
