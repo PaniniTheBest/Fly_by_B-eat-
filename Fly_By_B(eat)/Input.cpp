@@ -16,3 +16,5 @@ bool Input::GetKey(unsigned char key)
 {
 	return keyPress[key];
 }
+
+// test
