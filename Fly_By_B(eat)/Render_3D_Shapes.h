@@ -1,14 +1,14 @@
-#ifndef _3D_SHAPES_H
-#define _3D_SHAPES_H
+#ifndef RENDER_3D_SHAPES_H
+#define RENDER_3D_SHAPES_H
 
 //#include <iostream>
 #include "glut.h"
 #include <cmath>
-#include "_3D_Shapes.h"
+#include "Render_3D_Shapes.h"
 #include <string>
 
 using namespace std;
-class _3D_Shapes
+class Render_3D_Shapes
 {
 	private:
 		float red = 0.5f, green = 0.5f, blue = 0.5f;//RGB colors
@@ -16,8 +16,8 @@ class _3D_Shapes
 		float scaleX = 1.0f, scaleY = 1.0f, scaleZ = 1.0f;//Size scaling
 		float angle = 0.0f, rotateX = 0.0f, rotateY = 0.0f, rotateZ = 0.0f;//Rotation
 	public:
-		_3D_Shapes();
-		/*_3D_Shapes(	float red, float green, float blue,
+		Render_3D_Shapes();
+		/*Render_3D_Shapes(	float red, float green, float blue,
 					float moveX, float moveY, float moveZ,
 					float scaleX, float scaleY, float scaleZ, 
 					float angle, float rotateX, float rotateY, float rotateZ)

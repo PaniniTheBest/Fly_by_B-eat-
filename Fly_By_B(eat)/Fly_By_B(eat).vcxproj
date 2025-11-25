@@ -126,14 +126,13 @@
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Key_Input.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="PLayMusic.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="vector3.cpp" />
-    <ClCompile Include="_3D_Shapes.cpp" />
+    <ClCompile Include="Render_3D_Shapes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioManager.h" />
@@ -141,13 +140,12 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="Key_Input.h" />
     <ClInclude Include="libs.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="vector3.h" />
-    <ClInclude Include="_3D_Shapes.h" />
+    <ClInclude Include="Render_3D_Shapes.h" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Majula.wav" />
