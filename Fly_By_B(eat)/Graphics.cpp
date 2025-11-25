@@ -42,7 +42,7 @@ void RenderScene()
     //glRotatef(rotateAngle, 3.0f, 4.0f, 2.0f);
     //==============================================
     //Render 3D objects here / / /
-    _3D_Shapes ObjTest1, ObjTest_2;
+    Render_3D_Shapes ObjTest1, ObjTest_2;
 
     ObjTest1.Transform_Object_Position(-5.0f, 0.0f, 0.0f);
     ObjTest1.Transform_Object_Size(-1.0f, 5.0f, 0.0f);
