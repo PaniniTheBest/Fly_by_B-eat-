@@ -4,6 +4,7 @@
 #include "libs.h"
 #include "Camera.h"
 #include "Text.h"
+#include "engine.h"
 #include <windows.h>
 #include <mmsystem.h>
 
@@ -142,6 +143,8 @@ int main(int argc, char** argv)
     // enter GLUT event processing cycle
     glutMainLoop();
     return 1;
+
+   // PrepEngine(argc, argv);
 }
 
 //IDK WHY MY SHIT ISN'T WORKING
