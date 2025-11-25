@@ -2,7 +2,12 @@
 
 const float PI = 3.14; // Value of PI  
 
-Render_3D_Shapes::Render_3D_Shapes(){}
+Render_3D_Shapes::Render_3D_Shapes()
+{
+	setPosition.SetValue(0.0f, 0.0f, 0.0f);
+	setRotationValue.SetValue(0.0f, 0.0f, 0.0f);
+	setScale.SetValue(1.0f, 1.0f, 1.0f);
+};
 //Shape Properties
 void Render_3D_Shapes::Apply_Color(float r, float g, float b)
 {
@@ -10,26 +15,46 @@ void Render_3D_Shapes::Apply_Color(float r, float g, float b)
     green = g / 255;
     blue = b / 255;
 }
-void Render_3D_Shapes::Transform_Object_Position(float x, float y, float z)//Support Vector3
+void Render_3D_Shapes::Apply_Color(float r, float g, float b, float a)
 {
-    moveX = x; moveY = y; moveZ = z;
+	red = r / 255;
+	green = g / 255;
+	blue = b / 255;
+	alpha = a / 100;
+}
+void Render_3D_Shapes::Transform_Object_Position(float x, float y, float z)
+{
+	setPosition.SetValue(x, y, z);
+}
+void Render_3D_Shapes::Transform_Object_Position(Vector3 setNewPosition)
+{
+	setPosition.SetValue(setNewPosition);
 }
 void Render_3D_Shapes::Transform_Object_Rotation(float shapeAngle, float x, float y, float z)
 {
-    angle = shapeAngle; rotateX = x; rotateY = y; rotateZ = z;  
+	angle = shapeAngle; 
+	setRotationValue.SetValue(x, y, z);	
+}
+void Render_3D_Shapes::Transform_Object_Rotation(float angle, Vector3 setNewRotationValue)
+{
+	setRotationValue.SetValue(setNewRotationValue);
 }
 void Render_3D_Shapes::Transform_Object_Size(float x, float y, float z)
 {
-    scaleX = x; scaleY = y; scaleZ = z;  
+	setRotationValue.SetValue(x, y, z);
+}
+void Render_3D_Shapes::Transform_Object_Size(Vector3 setNewScale)
+{
+	setScale.SetValue(setNewScale);
 }
 //types of shapes
 void Render_3D_Shapes::Create_3D_Cube(float x, float y, float z)
 {   
     glPushMatrix();
-    glColor3f(red, green, blue);
-    glTranslatef(moveX, moveY, moveZ);
-    glRotatef(angle, rotateX, rotateY, rotateZ);
-    glScalef(scaleX, scaleY, scaleZ);
+    glColor4f(red, green, blue, alpha);
+    glTranslatef(setPosition.x, setPosition.y, setPosition.z);
+    glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
+    glScalef(setScale.x, setScale.y, setScale.z);
 
     glBegin(GL_QUADS);// Face 1 X-axis
     glVertex3f(0.5f * x, 0.5f * y, 0.5f * z);
@@ -77,23 +102,27 @@ void Render_3D_Shapes::Create_3D_Cube(float x, float y, float z)
 void Render_3D_Shapes::Create_3D_Sphere(double radius, double slices, double stacks)
 {
     glPushMatrix();
-    glColor3f(red, green, blue); 
-    glTranslatef(moveX, moveY, moveZ);  
-    glRotatef(angle, rotateX, rotateY, rotateZ);
-    glScalef(scaleX, scaleY, scaleZ);
+    glColor4f(red, green, blue,alpha); 
+    glTranslatef(setPosition.x, setPosition.y, setPosition.z);  
+    glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
+    glScalef(setScale.x, setScale.y, setScale.z);
 
     glutSolidSphere(radius, slices, stacks); 
     glPopMatrix(); 
 }
 void Render_3D_Shapes::Create_3D_Cone(float radius, float height, int slices)
 {   
+	/*
+	* Credits to "Jiew Meng" & "Nobody moving away from SE" for the Cone function
+	* https://stackoverflow.com/questions/19245363/opengl-glut-surface-normals-of-cone
+	*/
     float angleIncrement = (2.0f * PI) / slices;// Calculate angle increment based on number of slices
     float renderAngle = 0.0f;
     glPushMatrix(); 
-    glColor3f(red, green, blue);
-    glTranslatef(moveX, moveY, moveZ);   
-    glRotatef(angle, rotateX, rotateY, rotateZ);
-    glScalef(scaleX, scaleY, scaleZ);
+    glColor4f(red, green, blue,alpha);
+    glTranslatef(setPosition.x, setPosition.y, setPosition.z);   
+    glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
+    glScalef(setScale.x, setScale.y, setScale.z);
 
     // Draws the sides of the cone
     glBegin(GL_TRIANGLE_FAN);
@@ -120,9 +149,10 @@ void Render_3D_Shapes::Create_3D_Cylinder(float radius, float height, int slices
     float angleIncrement = (2.0f * PI) / slices;// Calculate angle increment based on number of slices
     float renderAngle = 0.0f;
     glPushMatrix(); 
-    glColor3f(red, green, blue);   
-    glTranslatef(moveX, moveY, moveZ); 
-    glScalef(scaleX, scaleY, scaleZ);
+    glColor4f(red, green, blue,alpha);   
+    glTranslatef(setPosition.x, setPosition.y, setPosition.z); 
+	glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
+    glScalef(setScale.x, setScale.y, setScale.z);
 
     // Draws top side of Cylinder
     glBegin(GL_TRIANGLE_FAN);

@@ -43,7 +43,7 @@ void RenderScene(void)
     ObjTest1.Create_3D_Cube(2, 2, 5);
 
     ObjTest_2.Transform_Object_Position(0.01f, 0.01f, 0.0f);
-    ObjTest_2.Apply_Color(0, 255, 0);
+    ObjTest_2.Apply_Color(0, 255, 0, 100);
     ObjTest_2.Create_3D_Cylinder(4.0f, 4.0f, 8);
     
     

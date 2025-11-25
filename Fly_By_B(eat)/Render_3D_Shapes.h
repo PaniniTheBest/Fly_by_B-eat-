@@ -1,36 +1,32 @@
 #ifndef RENDER_3D_SHAPES_H
 #define RENDER_3D_SHAPES_H
-
-//#include <iostream>
 #include "glut.h"
 #include <cmath>
-#include "Render_3D_Shapes.h"
+#include "Render_3D_Shapes.h" 
+#include "vector3.h"
 #include <string>
 
 using namespace std;
 class Render_3D_Shapes
 {
+	
 	private:
-		float red = 0.5f, green = 0.5f, blue = 0.5f;//RGB colors
-		float moveX = 0.0f, moveY = 0.0f, moveZ = 0.0f; //Moving object
-		float scaleX = 1.0f, scaleY = 1.0f, scaleZ = 1.0f;//Size scaling
-		float angle = 0.0f, rotateX = 0.0f, rotateY = 0.0f, rotateZ = 0.0f;//Rotation
+		float red = 0.5f, green = 0.5f, blue = 0.5f; float alpha = 1.0f;//RGBA colors
+		float angle = 0.0f;//Rotation
+		//Vector3
+		Vector3 setPosition;
+		Vector3 setRotationValue;
+		Vector3 setScale;
 	public:
 		Render_3D_Shapes();
-		/*Render_3D_Shapes(	float red, float green, float blue,
-					float moveX, float moveY, float moveZ,
-					float scaleX, float scaleY, float scaleZ, 
-					float angle, float rotateX, float rotateY, float rotateZ)
-		{
-			this->red = red; this->green = green; this->blue = blue;
-			this->moveX = moveX; this->moveY = moveY; this->moveZ = moveZ;
-			this->scaleX = scaleX; this->scaleY = scaleY; this->scaleZ = scaleZ;
-			this->rotateX = rotateX; this->rotateY = rotateY; this->rotateZ = rotateZ;
-		}*/
 		void Apply_Color(float r, float g, float b);
+		void Apply_Color(float r, float g, float b ,float a);
 		void Transform_Object_Position(float x, float y, float z);
+		void Transform_Object_Position(Vector3 setPosition);
 		void Transform_Object_Rotation(float angle, float x, float y, float z);
+		void Transform_Object_Rotation(float angle, Vector3 setRotationValue);
 		void Transform_Object_Size(float x, float y, float z);
+		void Transform_Object_Size(Vector3 setScale);
 
 		void Create_3D_Cube(float x, float y, float z);
 		void Create_3D_Sphere(double radius, double slices, double stacks);
