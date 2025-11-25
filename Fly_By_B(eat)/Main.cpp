@@ -107,6 +107,25 @@ void ChangeSize(int w, int h)
 //    }
 //}
 
+//void processSpecialKeys(int key, int x, int y)
+//{
+//    switch (key)
+//    {
+//        case GLUT_KEY_UP:
+//            Vector3 topMove(0.0f, 0.1f, 0.0f);
+//            playerPos += topMove;
+//        case GLUT_KEY_DOWN:
+//            Vector3 downMove(0.0f, -0.1f, 0.0f);
+//            playerPos += downMove;
+//        case GLUT_KEY_LEFT:
+//            Vector3 leftMove(-0.1f, 0.0f, 0.0f);
+//            playerPos += leftMove;
+//        case GLUT_KEY_RIGHT:
+//            Vector3 rightMove(0.1f, 0.0f, 0.0f);
+//            playerPos += rightMove;
+//    }
+//}
+
 void Update()
 {
     Vector3 colliderScale(1, 1, 1);

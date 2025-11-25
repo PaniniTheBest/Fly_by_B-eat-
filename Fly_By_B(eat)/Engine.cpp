@@ -19,6 +19,8 @@ void PrepEngine(int argc, char** argv)
     glutIdleFunc(RenderScene);
     glutKeyboardFunc(&keyPressed);
     glutKeyboardUpFunc(&keyPressedUp);
+    glutSpecialFunc(&specialkeyPressed);
+    glutSpecialUpFunc(&specialkeyPressedUp);
 
     glEnable(GL_DEPTH_TEST);
     // enter GLUT event processing cycle
