@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void drawText(string message, float red, float green, float blue)
+void RenderText(string message, float red, float green, float blue)
 {
 	glPushMatrix();
 	glColor3f(red, green, blue);
@@ -15,7 +15,7 @@ void drawText(string message, float red, float green, float blue)
 	glPopMatrix();
 }
 
-void drawValue(float value, float red, float green, float blue)
+void RenderVariable(float value, float red, float green, float blue)
 {
 	glPushMatrix();
 	char buffer[256];

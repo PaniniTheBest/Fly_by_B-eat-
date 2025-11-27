@@ -138,6 +138,7 @@
   <ItemGroup>
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="ImageLoader.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="libs.h" />
     <ClInclude Include="Player.h" />
