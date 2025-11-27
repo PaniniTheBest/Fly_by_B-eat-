@@ -7,7 +7,7 @@
 #include "engine.h"
 #include <windows.h>
 #include <mmsystem.h>
-
+#include "ImageLoader.h"
 
 GameObject player;
 camera cam;
@@ -37,6 +37,16 @@ float rotateAngle = 0.0f;
 int timeSinceStart = 0, previousTime = 0;
 
 
+void InitiateRender()
+{
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_LIGHTING);
+        glEnable(GL_LIGHT0);
+        glEnable(GL_NORMALIZE);
+        glEnable(GL_COLOR_MATERIAL);
+
+		InitializeTexture("vtr4.bmp");
+}
 void RenderScene(void)
 {
     timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
@@ -66,16 +76,56 @@ void RenderScene(void)
     ObjTest_2.Transform_Object_Position(0.01f, 0.01f, 0.0f);
     ObjTest_2.Apply_Color(0, 255, 0, 100);
     ObjTest_2.Create_3D_Cylinder(4.0f, 4.0f, 8);
+    //==============================================
 
-
+    //TEXT TEXT//
     glTranslatef(-20.0f, 3.0f, 0.0f);
-    drawText("According to all known laws of aviation, there is no way that a bee should be able to fly."
+    RenderText("According to all known laws of aviation, there is no way that a bee should be able to fly."
         , 255.0f, 255.0f, 255.0f);
 
     glTranslatef(-1.0f, -6.0f, 0.0f);
-    drawValue(value, 255.0f, 0.0f, 0.0f);
-    //==============================================
+    RenderVariable(value, 255.0f, 0.0f, 0.0f);
+    
     rotateAngle += 1.0f;
+
+    //TEXTURE TEST //
+    glEnable(GL_TEXTURE_2D);
+    
+    //EVERYTHING BELOW SHOULD BE STREAMLINED//
+    /*glBindTexture(GL_TEXTURE_2D, _textureId);*/
+
+    //Bottom triangle//
+    RenderType(true);
+    glColor3f(1.0f, 0.2f, 0.2f); //this just gives it a red sheen//
+    glBegin(GL_QUADS);
+
+    glNormal3f(0.0, 1.0f, 0.0f);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex3f(-2.5f, -2.5f, 2.5f);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex3f(2.5f, -2.5f, 2.5f);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex3f(2.5f, -2.5f, -2.5f);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex3f(-2.5f, -2.5f, -2.5f);
+
+    glEnd();
+
+    //Back triangle//
+    RenderType(false);
+    glColor3f(1.0f, 1.0f, 1.0f); //100% lightness means it appears normal//
+    glBegin(GL_TRIANGLES);
+
+    glNormal3f(0.0f, 0.0f, 1.0f);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex3f(-2.5f, -2.5f, -2.5f);
+    glTexCoord2f(5.0f, 5.0f);
+    glVertex3f(0.0f, 2.5f, -2.5f);
+    glTexCoord2f(10.0f, 0.0f);
+    glVertex3f(2.5f, -2.5f, -2.5f);
+
+    glEnd();
+
     glutSwapBuffers();
 }
 
@@ -122,6 +172,7 @@ int main(int argc, char** argv)
     glutCreateWindow("=+= Fly by B(eat) =+=");
     //register callbacks
     Update();
+    InitiateRender(); //Test Func//
     glutDisplayFunc(RenderScene);
     glutReshapeFunc(ChangeSize);
     glutIdleFunc(RenderScene);
