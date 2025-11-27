@@ -2,6 +2,7 @@
 #define GAMEOBJECT_H
 
 #include "vector3.h"
+#include "Render_3D_Shapes.h"
 #include <glut.h>
 #include <cmath>
 #include <iostream>
@@ -24,7 +25,6 @@ public:
 	Vector3 GetPosition();
 
 	//void Draw();
-
 private:
 	Vector3 position;
 	Vector3 scale;

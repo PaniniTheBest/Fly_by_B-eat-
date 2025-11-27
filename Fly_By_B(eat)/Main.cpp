@@ -9,30 +9,10 @@
 #include <mmsystem.h>
 
 
-Vector3 playerPos;
 GameObject player;
 camera cam;
 
 
-void processNormalKeys()
-{
-    const char keys[] = { 'w', 'a', 's', 'd' };
-
-    for (char key : keys)
-    {
-        if (Input::GetKey(key))
-        {
-            Vector3 movement(0, 0, 0);
-
-            if (Input::GetKey('w')) movement.y += 0.1f;
-            if (Input::GetKey('s')) movement.y -= 0.1f;
-            if (Input::GetKey('a')) movement.x -= 0.1f;
-            if (Input::GetKey('d')) movement.x += 0.1f;
-
-            playerPos += movement;
-        }
-    }
-}
 
 //void processSpecialKeys(int key, int x, int y)
 //{
@@ -55,9 +35,7 @@ void processNormalKeys()
 float value = 0.0f;
 float rotateAngle = 0.0f;
 int timeSinceStart = 0, previousTime = 0;
-//Vector3 playerPos;
-//GameObject player;
-//camera cam;
+
 
 void RenderScene(void)
 {

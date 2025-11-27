@@ -142,7 +142,6 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Collider.cpp" />
-    <ClCompile Include="PLayMusic.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="vector3.cpp" />
     <ClCompile Include="Render_3D_Shapes.cpp" />
