@@ -1,4 +1,10 @@
 ﻿  Main.cpp
   _3D_Shapes.cpp
   Generating Code...
+  LINK : C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Debug\Fly_By_B(eat).exe not found or not built by the last incremental link; performing full link
+vector3.obj : warning LNK4099: PDB '' was not found with 'vector3.obj' or at ''; linking object as if no debug info
+Collider.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'Collider.obj' or at 'C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Debug\vc143.pdb'; linking object as if no debug info
+Player.obj : warning LNK4099: PDB '' was not found with 'Player.obj' or at ''; linking object as if no debug info
+GameObject.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'GameObject.obj' or at 'C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Debug\vc143.pdb'; linking object as if no debug info
+AudioManager.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'AudioManager.obj' or at 'C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Debug\vc143.pdb'; linking object as if no debug info
   Fly_By_B(eat).vcxproj -> C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Debug\Fly_By_B(eat).exe
