@@ -37,8 +37,8 @@ Vector3 Vector3::operator+(const Vector3& other)
 {
 	Vector3 sum;
 	sum.x = this->x + other.x;
-	sum.x = this->x + other.x;
-	sum.x = this->x + other.x;
+	sum.y = this->y + other.y;
+	sum.z = this->z + other.z;
 	return sum;
 }
 
@@ -46,8 +46,8 @@ Vector3 Vector3::operator+=(const Vector3& other)
 {
 	Vector3 sum;
 	sum.x = this->x += other.x;
-	sum.x = this->x += other.x;
-	sum.x = this->x += other.x;
+	sum.y = this->y += other.y;
+	sum.z = this->z += other.z;
 	return sum;
 }
 
@@ -55,8 +55,8 @@ Vector3 Vector3::operator-(const Vector3& other)
 {
 	Vector3 difference;
 	difference.x = this->x - other.x;
-	difference.x = this->x - other.x;
-	difference.x = this->x - other.x;
+	difference.y = this->y - other.y;
+	difference.z = this->z - other.z;
 	return difference;
 }
 
@@ -64,8 +64,8 @@ Vector3 Vector3::operator-=(const Vector3& other)
 {
 	Vector3 difference;
 	difference.x = this->x -= other.x;
-	difference.x = this->x -= other.x;
-	difference.x = this->x -= other.x;
+	difference.y = this->y -= other.y;
+	difference.z = this->z -= other.z;
 	return difference;
 }
 
@@ -73,8 +73,8 @@ Vector3 Vector3::operator*(const Vector3& other)
 {
 	Vector3 product;
 	product.x = this->x * other.x;
-	product.x = this->x * other.x;
-	product.x = this->x * other.x;
+	product.y = this->y * other.y;
+	product.z = this->z * other.z;
 	return product;
 }
 
@@ -82,7 +82,7 @@ Vector3 Vector3::operator*=(const Vector3& other)
 {
 	Vector3 product;
 	product.x = this->x *= other.x;
-	product.x = this->x *= other.x;
-	product.x = this->x *= other.x;
+	product.y = this->y *= other.y;
+	product.z = this->z *= other.z;
 	return product;
 }

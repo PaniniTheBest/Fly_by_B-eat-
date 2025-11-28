@@ -2,7 +2,7 @@
 #include "vector3.h"
 
 
-Vector3 playerPos;
+//Vector3 playerPos;
 
 bool Input::keyPress[256] = { false };
 
@@ -37,24 +37,24 @@ bool Input::GetKey(int key)
 }
 
 
-void processNormalKeys()
-{
-    const char keys[] = { 'w', 'a', 's', 'd' };
-
-    for (char key : keys)
-    {
-        if (Input::GetKey(key))
-        {
-            Vector3 movement(0, 0, 0);
-
-            if (Input::GetKey('w')) movement.y += 10.1f;
-            if (Input::GetKey('s')) movement.y -= 10.1f;
-            if (Input::GetKey('a')) movement.x -= 10.1f;
-            if (Input::GetKey('d')) movement.x += 10.1f;
-
-            playerPos += movement;
-        }
-    }
-}
+//void processNormalKeys()
+//{
+//    const char keys[] = { 'w', 'a', 's', 'd' };
+//
+//    for (char key : keys)
+//    {
+//        if (Input::GetKey(key))
+//        {
+//            Vector3 movement(0, 0, 0);
+//
+//            if (Input::GetKey('w')) movement.y += 10.1f;
+//            if (Input::GetKey('s')) movement.y -= 10.1f;
+//            if (Input::GetKey('a')) movement.x -= 10.1f;
+//            if (Input::GetKey('d')) movement.x += 10.1f;
+//
+//            playerPos += movement;
+//        }
+//    }
+//}
 
 // test

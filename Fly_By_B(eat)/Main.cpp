@@ -13,7 +13,7 @@
 
 float value = 0.0f;
 float rotateAngle = 0.0f;
-
+Vector3 playerPosition;
 GameObject player;
 camera cam;
 //void processSpecialKeys(int key, int x, int y)
@@ -173,6 +173,11 @@ void RenderScene(void)
 //    // Get Back to Model View
 //    glMatrixMode(GL_MODELVIEW);
 //}
+
+
+
+
+
 void Initialize()
 {
     
@@ -258,8 +263,27 @@ void Update()
     Vector3 colliderScale(1, 1, 1); 
     player.DrawSphere(5.0f, 10, 10);
     player.SetCollider(player.GetPosition(), colliderScale);
-    void processNormalKeys();
-    player.SetPosition(11, 0, 11);
+        if (Input::GetKey('d'))
+        {
+            Vector3 rightMovement(0.1f, 0, 0);
+            playerPosition += rightMovement;
+        }
+        if (Input::GetKey('a'))
+        {
+            Vector3 leftMovement(-0.1f, 0, 0);
+            playerPosition += leftMovement;
+        }
+        if (Input::GetKey('w'))
+        {
+            Vector3 topMovement(0, 0.1f, 0);
+            playerPosition += topMovement;
+        }
+        if (Input::GetKey('s'))
+        {
+            Vector3 downMovement(0, -0.1f, 0);
+            playerPosition += downMovement;
+        }
+    player.SetPosition(playerPosition);
 }
 
 int main(int argc, char** argv)
