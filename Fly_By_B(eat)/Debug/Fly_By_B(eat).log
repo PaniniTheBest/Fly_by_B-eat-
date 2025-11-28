@@ -1,3 +1,2 @@
-﻿Engine.obj : error LNK2019: unresolved external symbol "void __cdecl ChangeSize(int,int)" (?ChangeSize@@YAXHH@Z) referenced in function "void __cdecl PrepEngine(int,char * *)" (?PrepEngine@@YAXHPAPAD@Z)
-Engine.obj : error LNK2019: unresolved external symbol "void __cdecl RenderScene(void)" (?RenderScene@@YAXXZ) referenced in function "void __cdecl PrepEngine(int,char * *)" (?PrepEngine@@YAXHPAPAD@Z)
-C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Debug\Fly_By_B(eat).exe : fatal error LNK1120: 2 unresolved externals
+﻿  Graphics.cpp
+  Fly_By_B(eat).vcxproj -> C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Debug\Fly_By_B(eat).exe

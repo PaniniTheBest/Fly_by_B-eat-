@@ -138,6 +138,7 @@
   <ItemGroup>
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />
