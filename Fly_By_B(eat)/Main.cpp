@@ -256,10 +256,12 @@ void Update()
     glVertex3f(-2.5f, 2.5f, 2.5f);
 
     glEnd();
-    //Vector3 colliderScale(1, 1, 1); 
-    //player.SetCollider(player.GetPosition(), colliderScale)   
-    //void processNormalKeys();
-    //player.SetPosition(playerPos)
+    
+    Vector3 colliderScale(1, 1, 1); 
+    player.DrawSphere(5.0f, 10, 10);
+    player.SetCollider(player.GetPosition(), colliderScale);
+    void processNormalKeys();
+    player.SetPosition(11, 0, 11);
 }
 
 int main(int argc, char** argv)

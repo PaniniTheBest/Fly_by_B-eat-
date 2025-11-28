@@ -47,10 +47,10 @@ void processNormalKeys()
         {
             Vector3 movement(0, 0, 0);
 
-            if (Input::GetKey('w')) movement.y += 0.1f;
-            if (Input::GetKey('s')) movement.y -= 0.1f;
-            if (Input::GetKey('a')) movement.x -= 0.1f;
-            if (Input::GetKey('d')) movement.x += 0.1f;
+            if (Input::GetKey('w')) movement.y += 10.1f;
+            if (Input::GetKey('s')) movement.y -= 10.1f;
+            if (Input::GetKey('a')) movement.x -= 10.1f;
+            if (Input::GetKey('d')) movement.x += 10.1f;
 
             playerPos += movement;
         }
