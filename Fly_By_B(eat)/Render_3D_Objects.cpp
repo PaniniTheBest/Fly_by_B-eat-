@@ -47,20 +47,11 @@ void Render_3D_Objects::Transform_Object_Size(Vector3 setNewScale)
 {
 	setScale.SetValue(setNewScale);
 }
-void Render_3D_Objects::TrackPoint(float MoveSpeed, Vector3 LERP, Vector3 Point1, Vector3 Point2)
+void Render_3D_Objects::TrackPoint(float MoveSpeed, Vector3 LERP, Vector3 Point1, Vector3 Point2) //Moves object towards a point using LERP values
 {
-	if (Point1.x != Point2.x)
-		setPosition.x += LERP.x * MoveSpeed;
-	else if (Point1.x == Point2.x)
-		setPosition.x == setPosition.x;
-	if(Point1.y != Point2.y)
-		setPosition.y += LERP.y * MoveSpeed;
-	else if (Point1.y == Point2.y)
-		setPosition.y == setPosition.y;
-	if(Point1.z != Point2.z)
-		setPosition.z += LERP.z * MoveSpeed;
-	else if (Point1.z == Point2.z)
-		setPosition.z == setPosition.z;
+	setPosition.x += LERP.x * MoveSpeed;
+	setPosition.y += LERP.y * MoveSpeed;
+	setPosition.z += LERP.z * MoveSpeed;
 }
 
 //Types of shapes

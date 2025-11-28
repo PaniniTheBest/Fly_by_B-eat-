@@ -108,7 +108,11 @@ void Update()
     
     glPushMatrix();
     ObjTest_2.SetCollider(ObjTest_2.GetColliderPosition(), ObjTest_2.GetColliderScale());
-    ObjTest_2.TrackPoint(movementSpeed, toLERP, ObjTest_2.GetColliderPosition(), ObjTest1.GetColliderPosition());
+    if (!ObjTest_2.CheckCollision(ObjTest1))
+    {
+        ObjTest_2.TrackPoint(movementSpeed, toLERP, ObjTest_2.GetColliderPosition(), ObjTest1.GetColliderPosition());
+    }
+        
     ObjTest_2.Apply_Color(0, 255, 0, 100);
     ObjTest_2.Create_3D_Cylinder(4.0f, 4.0f, 8);
     glPopMatrix();
