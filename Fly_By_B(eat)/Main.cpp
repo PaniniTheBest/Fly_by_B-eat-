@@ -82,10 +82,12 @@ void Update()
     glutPassiveMotionFunc([](int x, int y) { cam2.HandleMouseMotion(x, y); });
 
     Render_3D_Objects ObjTest1, ObjTest_2;
+
     cam2.targetX = playerPosition.x;
     cam2.targetY = playerPosition.y;
     cam2.targetZ = playerPosition.z;
     cam2.ApplyCamera();
+
     ObjTest1.Transform_Object_Position(0.0f, 0.0f, 10.0f);
     ObjTest1.Transform_Object_Size(-1.0f, 5.0f, 0.0f);
     ObjTest1.Apply_Color(255, 0, 0);
@@ -158,7 +160,6 @@ void Update()
     //========================================================
     //  PLAYER OBJECT
     //Camera bound by playerPosition
-    /**/
 
     Vector3 colliderScale(10, 10, 10); 
     Vector3 colliderPos(0.0f, 5.0f, 0.0f);
@@ -191,7 +192,7 @@ void Update()
             
         }
     player.Transform_Object_Position(playerPosition);
-
+    //================================================
     if (Input::GetKey('x'))
     {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -200,7 +201,7 @@ void Update()
     {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
-        
+    //=================================================    
 
     static bool initialized = false;
     if (!initialized)
