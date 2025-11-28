@@ -32,21 +32,41 @@ camera cam;
 //            playerPos += rightMove;
 //    }
 //}
+
 float value = 0.0f;
 float rotateAngle = 0.0f;
 int timeSinceStart = 0, previousTime = 0;
 
 
+//GLuint loadTexture(Image* image) {
+//    GLuint textureId;
+//    glGenTextures(1, &textureId); //Make room for our texture
+//    glBindTexture(GL_TEXTURE_2D, textureId); //Tell OpenGL which texture to edit
+//    //Map the image to the texture
+//    glTexImage2D(GL_TEXTURE_2D,                //Always GL_TEXTURE_2D
+//        0,                            //0 for now
+//        GL_RGB,                       //Format OpenGL uses for image
+//        image->width, image->height,  //Width and height
+//        0,                            //The border of the image
+//        GL_RGB, //GL_RGB, because pixels are stored in RGB format
+//        GL_UNSIGNED_BYTE, //GL_UNSIGNED_BYTE, because pixels are stored
+//        //as unsigned numbers
+//        image->pixels);               //The actual pixel data
+//    return textureId; //Returns the id of the texture
+//}
+GLuint _textureId; //The id of the texture
+
 void InitiateRender()
 {
-        glEnable(GL_DEPTH_TEST);
+        /*glEnable(GL_DEPTH_TEST);
         glEnable(GL_LIGHTING);
         glEnable(GL_LIGHT0);
         glEnable(GL_NORMALIZE);
-        glEnable(GL_COLOR_MATERIAL);
+        glEnable(GL_COLOR_MATERIAL);*/
 
-		InitializeTexture("vtr4.bmp");
+		_textureId = InitializeTexture("vtr4.bmp");
 }
+
 void RenderScene(void)
 {
     timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
@@ -68,7 +88,7 @@ void RenderScene(void)
     //Render 3D objects here / / /
     Render_3D_Shapes ObjTest1, ObjTest_2;
 
-    ObjTest1.Transform_Object_Position(-5.0f, 0.0f, 0.0f);
+    ObjTest1.Transform_Object_Position(0.0f, 0.0f, 10.0f);
     ObjTest1.Transform_Object_Size(-1.0f, 5.0f, 0.0f);
     ObjTest1.Apply_Color(255, 0, 0);
     ObjTest1.Create_3D_Cube(2, 2, 5);
@@ -89,14 +109,12 @@ void RenderScene(void)
     rotateAngle += 1.0f;
 
     //TEXTURE TEST //
-    glEnable(GL_TEXTURE_2D);
-    
-    //EVERYTHING BELOW SHOULD BE STREAMLINED//
-    /*glBindTexture(GL_TEXTURE_2D, _textureId);*/
+    StartEnablingTextures();
+	BindSelectTexture(_textureId);
 
-    //Bottom triangle//
-    RenderType(true);
-    glColor3f(1.0f, 0.2f, 0.2f); //this just gives it a red sheen//
+    //Bottom
+    RenderType(true, true);
+    glColor3f(1.0f, 0.2f, 0.2f);
     glBegin(GL_QUADS);
 
     glNormal3f(0.0, 1.0f, 0.0f);
@@ -111,9 +129,10 @@ void RenderScene(void)
 
     glEnd();
 
-    //Back triangle//
-    RenderType(false);
-    glColor3f(1.0f, 1.0f, 1.0f); //100% lightness means it appears normal//
+    //Back
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glColor3f(1.0f, 1.0f, 1.0f);
     glBegin(GL_TRIANGLES);
 
     glNormal3f(0.0f, 0.0f, 1.0f);
@@ -126,6 +145,18 @@ void RenderScene(void)
 
     glEnd();
 
+    //Left
+    glDisable(GL_TEXTURE_2D);
+    glColor3f(1.0f, 0.7f, 0.3f);
+    glBegin(GL_QUADS);
+
+    glNormal3f(1.0f, 0.0f, 0.0f);
+    glVertex3f(-2.5f, -2.5f, 2.5f);
+    glVertex3f(-2.5f, -2.5f, -2.5f);
+    glVertex3f(-2.5f, 2.5f, -2.5f);
+    glVertex3f(-2.5f, 2.5f, 2.5f);
+
+    glEnd();
     glutSwapBuffers();
 }
 

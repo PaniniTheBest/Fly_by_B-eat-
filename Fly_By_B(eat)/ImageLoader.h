@@ -42,7 +42,13 @@ public:
 
 //Reads a bitmap image from file.
 Image* loadBMP(const char* filename);
-void InitializeTexture(const char TextureName[100]); //textureName limit of 100 characters//
-void RenderType(bool choice); //true = NEAREST, false = LINEAR
+
+//Other funtions//
+GLuint InitializeTexture(const char TextureName[100]); //textureName limit of 100 characters//
+//void StartTextures();
+void RenderType(bool far, bool near); //true = NEAREST, false = LINEAR
+void TexturedTriangle();
+void StartEnablingTextures();
+void BindSelectTexture(GLuint specifiedTexture);
 
 #endif

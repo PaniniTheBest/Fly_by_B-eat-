@@ -27,8 +27,7 @@
 #include "ImageLoader.h"
 
 using namespace std;
-GLuint _textureId;
-
+//GLuint _textureId;
 
 Image::Image(char* ps, int w, int h) : pixels(ps), width(w), height(h) {
 
@@ -218,26 +217,83 @@ GLuint loadTexture(Image* image) {
 	return textureId; //Returns the id of the texture
 }
 
-void InitializeTexture(const char TextureName[100])
+GLuint InitializeTexture(const char TextureName[100])
 {
-	Image* image = loadBMP(TextureName);
-	_textureId = loadTexture(image);
-	delete image;
+	GLuint _textureId;
+	Image* image = loadBMP(TextureName); //Load the bitmap image file
+	_textureId = loadTexture(image); //Loads in the texture and stores the ID into the variable
+	delete image; //Already have a copy of the pixels array, this deletes the original
+	return _textureId;
 }
 
-void RenderType(bool choice) //true = NEAREST, false = LINEAR
+//void StartTextures()
+//{
+//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//
+//	glMatrixMode(GL_MODELVIEW);
+//	glLoadIdentity();
+//
+//	glTranslatef(0.0f, 1.0f, -6.0f);
+//
+//	GLfloat ambientLight[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+//	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight);
+//
+//	GLfloat directedLight[] = { 0.7f, 0.7f, 0.7f, 1.0f };
+//	GLfloat directedLightPos[] = { -10.0f, 15.0f, 20.0f, 0.0f };
+//	glLightfv(GL_LIGHT0, GL_DIFFUSE, directedLight);
+//	glLightfv(GL_LIGHT0, GL_POSITION, directedLightPos);
+//
+//	glEnable(GL_TEXTURE_2D); //enable texture mapping//
+//	glBindTexture(GL_TEXTURE_2D, _textureId); //lets OpenGL know the texture to paint on top of the polygons//
+//
+//	gluLookAt(0.0f, 0.0f, 50.0f,
+//		0.0f, 0.0f, 0.0f,
+//		0.0f, 1.0f, 0.0f);
+//	glTranslatef(0.0f, 3.0f, 0.0f);
+//
+//}
 
+void RenderType(bool far, bool near) //true = NEAREST, false = LINEAR
 // This function determines the render type for your next Shape
 {
-	if (choice)
-	{
+	//Use GL_NEAREST to make the textures look blocky/pixelated
+	//Use GL_LINEAR to makes the textures look blurry/smooth
+	//GL_TEXTURE_MIN_FILTER affects texture mapping when far away from the camera
+	//GL_TEXTURE_MAG_FILTER affects texture mapping when close up to the camera
+	if(far)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	}
-	
-	else if (!choice)
-	{
+	else if(!far)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	if (near)
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	else if (near)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	}
+}
+
+void TexturedTriangle()
+{
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glBegin(GL_TRIANGLES);
+
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-2.5f, -2.5f, -2.5f);
+	glTexCoord2f(5.0f, 5.0f);
+	glVertex3f(0.0f, 2.5f, -2.5f);
+	glTexCoord2f(10.0f, 0.0f);
+	glVertex3f(2.5f, -2.5f, -2.5f);
+
+	glEnd();
+}
+
+void StartEnablingTextures()
+{
+	glEnable(GL_TEXTURE_2D); //enables texture mapping//
+}
+
+void BindSelectTexture(GLuint specifiedTexture) //This should be a variable that you hold in main//
+{
+	glBindTexture(GL_TEXTURE_2D, specifiedTexture);
 }

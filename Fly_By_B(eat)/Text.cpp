@@ -27,14 +27,12 @@ void RenderVariable(float value, float red, float green, float blue)
 
 void RenderString(void* font, float x, float y, string message)
 {
-	char space = ' ';
-
 	glRasterPos3f(-10, y, 0.0f);
 	for (int x = 0; x < message.length(); x++)
 	{
 		if (message[x] == ' ')
 		{
-			glutBitmapCharacter(font, space);
+			glutBitmapCharacter(font, ' ');
 		}
 		else
 		{

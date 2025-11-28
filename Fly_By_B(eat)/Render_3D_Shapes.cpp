@@ -148,8 +148,9 @@ void Render_3D_Shapes::Create_3D_Cylinder(float radius, float height, int slices
 {   
     float angleIncrement = (2.0f * PI) / slices;// Calculate angle increment based on number of slices
     float renderAngle = 0.0f;
-    glPushMatrix(); 
-    glColor4f(red, green, blue,alpha);   
+    glPushMatrix();
+	
+    glColor4f(red, green, blue,alpha);
     glTranslatef(setPosition.x, setPosition.y, setPosition.z); 
 	glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
     glScalef(setScale.x, setScale.y, setScale.z);
