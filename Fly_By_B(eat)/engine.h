@@ -8,7 +8,9 @@
 #include "Render_3D_Shapes.h"
 #include <vector>
 
-//void Initialize();
+void InitiateRender();
+
+void Initialize();
 void Update();
 void PrepEngine(int argc, char** argv);
 
