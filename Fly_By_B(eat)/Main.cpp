@@ -21,43 +21,6 @@ Render_3D_Objects otherObject;
 camera2 cam2;
 //camera cam;
 
-//void Character()
-//{
-//    const char keys[] = { 'w', 'a', 's', 'd' };
-//
-//    player.SetPosition(0.0f, 0.0f, 0.0f);
-//    player.SetScale(1.0f, 1.0f, 1.0f);
-//    player.SetRotation(0.0f, 0.0f, 0.0f, 1.0f);
-//
-//    for (char key : keys)
-//    {
-//        if (Input::GetKey(key))
-//        {
-//            Vector3 movement(0, 0, 0);
-//
-//            if (Input::GetKey('w')) movement.y += 10.1f;
-//            if (Input::GetKey('s')) movement.y -= 10.1f;
-//            if (Input::GetKey('a')) movement.x -= 10.1f;
-//            if (Input::GetKey('d')) movement.x += 10.1f;
-//
-//           
-//            Vector3 currentPos = player.GetPosition();
-//
-//          
-//            Vector3 newPos(
-//                currentPos.x + movement.x,
-//                currentPos.y + movement.y,
-//                currentPos.z + movement.z
-//            );
-//
-//           
-//            player.SetPosition(newPos);
-//
-//            break; 
-//        }
-//    }
-//}
-
 //void processSpecialKeys(int key, int x, int y)
 //{
 //    switch (key)
@@ -119,12 +82,10 @@ void Update()
     glutPassiveMotionFunc([](int x, int y) { cam2.HandleMouseMotion(x, y); });
 
     Render_3D_Objects ObjTest1, ObjTest_2;
-
     cam2.targetX = playerPosition.x;
     cam2.targetY = playerPosition.y;
     cam2.targetZ = playerPosition.z;
     cam2.ApplyCamera();
-
     ObjTest1.Transform_Object_Position(0.0f, 0.0f, 10.0f);
     ObjTest1.Transform_Object_Size(-1.0f, 5.0f, 0.0f);
     ObjTest1.Apply_Color(255, 0, 0);
@@ -194,6 +155,11 @@ void Update()
     glVertex3f(-2.5f, 2.5f, 2.5f);
 
     glEnd();
+    //========================================================
+    //  PLAYER OBJECT
+    //Camera bound by playerPosition
+    /**/
+
     Vector3 colliderScale(10, 10, 10); 
     Vector3 colliderPos(0.0f, 5.0f, 0.0f);
     player.Create_3D_Cone(5.0f, 10, 10);
@@ -243,34 +209,24 @@ void Update()
         otherObject.Transform_Object_Size(2.0f, 2.0f, 2.0f);
         otherObject.Transform_Object_Rotation(0.0f, 0.0f, 0.0f, 1.0f);
 
-
         Vector3 colliderScale(2, 2, 2);
         otherObject.SetCollider(otherObject.GetColliderPosition(), colliderScale);
 
         initialized = true;
     }
 
-
     bool isColliding = player.CheckCollision(otherObject);
 
-
     if (isColliding)
-        glColor3f(1.0f, 0.0f, 0.0f);
+        otherObject.Apply_Color(255.0f, 0.0f, 0.0f);
     else
-        glColor3f(0.5f, 0.5f, 1.0f);
+        otherObject.Apply_Color(125.0f, 125.0f, 255.0f);
 
-
-    glPushMatrix();
-    {
-        Vector3 pos = otherObject.GetColliderPosition();
-        Vector3 scale = otherObject.GetColliderScale();
-
-        glTranslatef(pos.x, pos.y, pos.z);
-        glScalef(scale.x, scale.y, scale.z);
-
-        glutSolidCube(1.0f);
-    }
-    glPopMatrix();
+    Vector3 pos = otherObject.GetColliderPosition();
+    Vector3 scale = otherObject.GetColliderScale();
+    otherObject.Transform_Object_Position(pos.x, pos.y, pos.z);
+    otherObject.Transform_Object_Size(scale.x, scale.y, scale.z);
+    otherObject.Create_3D_Cube(1.0f, 1.0f, 1.0f);
 }
 
 int main(int argc, char** argv)
