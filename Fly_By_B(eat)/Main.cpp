@@ -2,7 +2,8 @@
 #include "GameObject.h"
 #include "Input.h"
 #include "libs.h"
-#include "Camera.h"
+//#include "Camera.h"
+#include "Camera2.h"
 #include "Text.h"
 #include "engine.h"
 #include <windows.h>
@@ -14,12 +15,11 @@
 
 float value = 0.0f;
 float rotateAngle = 0.0f;
-Vector3 playerPosition;
+Vector3 playerPosition(0, 0, 0);
 GameObject player;
 GameObject otherObject;
-camera cam;
-
-
+camera2 cam2;
+//camera cam;
 
 //void Character()
 //{
@@ -234,7 +234,15 @@ void Update()
     float deltaTime = FindDeltaTime();
     value += (1.0f * deltaTime);
 
+    glutMotionFunc([](int x, int y) { cam2.HandleMouseMotion(x, y); });
+    glutPassiveMotionFunc([](int x, int y) { cam2.HandleMouseMotion(x, y); });
+
     Render_3D_Shapes ObjTest1, ObjTest_2;
+
+    cam2.targetX = playerPosition.x;
+    cam2.targetY = playerPosition.y;
+    cam2.targetZ = playerPosition.z;
+    cam2.ApplyCamera();
 
     ObjTest1.Transform_Object_Position(0.0f, 0.0f, 10.0f);
     ObjTest1.Transform_Object_Size(-1.0f, 5.0f, 0.0f);
@@ -305,7 +313,7 @@ void Update()
     glVertex3f(-2.5f, 2.5f, 2.5f);
 
     glEnd();
-    
+
     Vector3 colliderScale(10, 10, 10); 
     player.DrawSphere(5.0f, 10, 10);
     player.SetCollider(player.GetPosition(), colliderScale);
