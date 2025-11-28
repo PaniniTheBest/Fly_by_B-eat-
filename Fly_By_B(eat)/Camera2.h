@@ -38,9 +38,9 @@ public:
         float camY = targetY + distance * sin(pitchRad);
         float camZ = targetZ + distance * cos(pitchRad) * cos(yawRad);
 
-        gluLookAt(camX, camY, camZ,
-            targetX, targetY, targetZ,
-            0.0f, 1.0f, 0.0f);
+        gluLookAt(  camX, camY, camZ,
+                    targetX, targetY, targetZ,
+                    0.0f, 1.0f, 0.0f);
     }
 
 

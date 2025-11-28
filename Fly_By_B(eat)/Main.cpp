@@ -1,11 +1,11 @@
-#include "Render_3D_Shapes.h"
-#include "GameObject.h"
+#include "Render_3D_Objects.h"
+//#include "GameObject.h"
 #include "Input.h"
 #include "libs.h"
 //#include "Camera.h"
 #include "Camera2.h"
 #include "Text.h"
-#include "engine.h"
+#include "Engine.h"
 #include <windows.h>
 #include <mmsystem.h>
 #include "ImageLoader.h"
@@ -16,8 +16,8 @@
 float value = 0.0f;
 float rotateAngle = 0.0f;
 Vector3 playerPosition(0, 0, 0);
-GameObject player;
-GameObject otherObject;
+Render_3D_Objects player;
+Render_3D_Objects otherObject;
 camera2 cam2;
 //camera cam;
 
@@ -57,10 +57,6 @@ camera2 cam2;
 //        }
 //    }
 //}
-
-
-
-
 
 //void processSpecialKeys(int key, int x, int y)
 //{
@@ -108,121 +104,6 @@ void InitiateRender()
 
 		_textureId = InitializeTexture("vtr4.bmp");
 }
-/*
-void RenderScene(void)
-{
-    timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
-    float deltaTime = (timeSinceStart - previousTime) / 1000.0f;
-    previousTime = timeSinceStart;
-    value += (1.0f * deltaTime);
-
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glLoadIdentity();
-
-    gluLookAt(0.0f, 0.0f, 50.0f,
-        0.0f, 0.0f, 0.0f,
-        0.0f, 1.0f, 0.0f);
-
-    //cam.ApplyCamera();
-    glTranslatef(0.0f, 3.0f, 0.0f);
-    //glRotatef(rotateAngle, 3.0f, 4.0f, 2.0f);
-    //==============================================
-    //Render 3D objects here / / /
-    Render_3D_Shapes ObjTest1, ObjTest_2;
-
-    ObjTest1.Transform_Object_Position(0.0f, 0.0f, 10.0f);
-    ObjTest1.Transform_Object_Size(-1.0f, 5.0f, 0.0f);
-    ObjTest1.Apply_Color(255, 0, 0);
-    ObjTest1.Create_3D_Cube(2, 2, 5);
-
-    ObjTest_2.Transform_Object_Position(0.01f, 0.01f, 0.0f);
-    ObjTest_2.Apply_Color(0, 255, 0, 100);
-    ObjTest_2.Create_3D_Cylinder(4.0f, 4.0f, 8);
-    //==============================================
-
-    //TEXT TEXT//
-    glTranslatef(-20.0f, 3.0f, 0.0f);
-    RenderText("According to all known laws of aviation, there is no way that a bee should be able to fly."
-        , 255.0f, 255.0f, 255.0f);
-
-    glTranslatef(-1.0f, -6.0f, 0.0f);
-    RenderVariable(value, 255.0f, 0.0f, 0.0f);
-    
-    rotateAngle += 1.0f;
-
-    //TEXTURE TEST //
-    StartEnablingTextures();
-	BindSelectTexture(_textureId);
-
-    //Bottom
-    RenderType(true, true);
-    glColor3f(1.0f, 0.2f, 0.2f);
-    glBegin(GL_QUADS);
-
-    glNormal3f(0.0, 1.0f, 0.0f);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex3f(-2.5f, -2.5f, 2.5f);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex3f(2.5f, -2.5f, 2.5f);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex3f(2.5f, -2.5f, -2.5f);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex3f(-2.5f, -2.5f, -2.5f);
-
-    glEnd();
-
-    //Back
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glColor3f(1.0f, 1.0f, 1.0f);
-    glBegin(GL_TRIANGLES);
-
-    glNormal3f(0.0f, 0.0f, 1.0f);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex3f(-2.5f, -2.5f, -2.5f);
-    glTexCoord2f(5.0f, 5.0f);
-    glVertex3f(0.0f, 2.5f, -2.5f);
-    glTexCoord2f(10.0f, 0.0f);
-    glVertex3f(2.5f, -2.5f, -2.5f);
-
-    glEnd();
-
-    //Left
-    glDisable(GL_TEXTURE_2D);
-    glColor3f(1.0f, 0.7f, 0.3f);
-    glBegin(GL_QUADS);
-
-    glNormal3f(1.0f, 0.0f, 0.0f);
-    glVertex3f(-2.5f, -2.5f, 2.5f);
-    glVertex3f(-2.5f, -2.5f, -2.5f);
-    glVertex3f(-2.5f, 2.5f, -2.5f);
-    glVertex3f(-2.5f, 2.5f, 2.5f);
-
-    glEnd();
-    glutSwapBuffers();
-}
-*/
-//void ChangeSize(int w, int h)
-//{
-//    if (h == 0)
-//        h = 1;
-//
-//    float ratio = 1.0 * w / h;
-//
-//    //fix the matrixmode to projection 
-//    glMatrixMode(GL_PROJECTION);
-//    //Reset the value of matrices
-//    glLoadIdentity();
-//    //Set the viewport of the window
-//    glViewport(0, 0, w, h);
-//    gluPerspective(45, ratio, 1, 1000);
-//    // Get Back to Model View
-//    glMatrixMode(GL_MODELVIEW);
-//}
-
-
-
-
 
 void Initialize()
 {
@@ -237,7 +118,7 @@ void Update()
     glutMotionFunc([](int x, int y) { cam2.HandleMouseMotion(x, y); });
     glutPassiveMotionFunc([](int x, int y) { cam2.HandleMouseMotion(x, y); });
 
-    Render_3D_Shapes ObjTest1, ObjTest_2;
+    Render_3D_Objects ObjTest1, ObjTest_2;
 
     cam2.targetX = playerPosition.x;
     cam2.targetY = playerPosition.y;
@@ -313,10 +194,11 @@ void Update()
     glVertex3f(-2.5f, 2.5f, 2.5f);
 
     glEnd();
-
     Vector3 colliderScale(10, 10, 10); 
-    player.DrawSphere(5.0f, 10, 10);
-    player.SetCollider(player.GetPosition(), colliderScale);
+    Vector3 colliderPos(0.0f, 5.0f, 0.0f);
+    player.Create_3D_Cone(5.0f, 10, 10);
+    player.Apply_Color(255, 105, 0);
+    player.SetCollider(player.GetColliderPosition() + colliderPos, colliderScale);
         if (Input::GetKey('d'))
         {
             Vector3 rightMovement(0.1f, 0, 0);
@@ -342,19 +224,28 @@ void Update()
             cout << "Collision detected!" << endl;
             
         }
-    player.SetPosition(playerPosition);
+    player.Transform_Object_Position(playerPosition);
 
+    if (Input::GetKey('x'))
+    {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    }
+    if (Input::GetKey('z'))
+    {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
+        
 
     static bool initialized = false;
     if (!initialized)
     {
-        otherObject.SetPosition(5.0f, 5.0f, 0.0f);
-        otherObject.SetScale(2.0f, 2.0f, 2.0f);
-        otherObject.SetRotation(0.0f, 0.0f, 0.0f, 1.0f);
+        otherObject.Transform_Object_Position(5.0f, 5.0f, 0.0f);
+        otherObject.Transform_Object_Size(2.0f, 2.0f, 2.0f);
+        otherObject.Transform_Object_Rotation(0.0f, 0.0f, 0.0f, 1.0f);
 
 
         Vector3 colliderScale(2, 2, 2);
-        otherObject.SetCollider(otherObject.GetPosition(), colliderScale);
+        otherObject.SetCollider(otherObject.GetColliderPosition(), colliderScale);
 
         initialized = true;
     }
@@ -371,8 +262,8 @@ void Update()
 
     glPushMatrix();
     {
-        Vector3 pos = otherObject.GetPosition();
-        Vector3 scale = otherObject.GetScale();
+        Vector3 pos = otherObject.GetColliderPosition();
+        Vector3 scale = otherObject.GetColliderScale();
 
         glTranslatef(pos.x, pos.y, pos.z);
         glScalef(scale.x, scale.y, scale.z);
