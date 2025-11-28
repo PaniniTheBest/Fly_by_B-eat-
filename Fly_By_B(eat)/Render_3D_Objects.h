@@ -37,6 +37,7 @@ class Render_3D_Objects
 
 		void SetCollider(Vector3 position, Vector3 scale);
 		bool CheckCollision(Render_3D_Objects other);
+		void TrackPoint(float MoveSpeed, Vector3 LERP, Vector3 Point1, Vector3 Point2);
 		Vector3 GetColliderScale();
 		Vector3 GetColliderPosition();
 		Collider GetCollider();

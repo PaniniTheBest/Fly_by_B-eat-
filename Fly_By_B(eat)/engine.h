@@ -13,6 +13,8 @@ void Initialize();
 void Update();
 void PrepEngine(int argc, char** argv);
 float FindDeltaTime();
+float LinearInterpolate(float currentPos, float farawayPos, float t);
+Vector3 GetLERPObjects(Render_3D_Objects Origin, Render_3D_Objects Destination); //This function is specified for objects of the 3D Objects class//
 
 #endif
 //test

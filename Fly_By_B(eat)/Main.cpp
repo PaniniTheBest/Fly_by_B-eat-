@@ -11,6 +11,9 @@
 #include "ImageLoader.h"
 #include "AudioManager.h"
 #include "Collider.h"
+#include <thread>
+#include <atomic>
+#include <mutex>
 
 
 float value = 0.0f;
@@ -73,29 +76,66 @@ void Initialize()
     
 
 }
+
+Render_3D_Objects ObjTest1, ObjTest_2;
+float movementSpeed = 0.01f;
 void Update()
 {
     float deltaTime = FindDeltaTime();
     value += (1.0f * deltaTime);
 
+	if (value >= 15.0f)
+	{
+		PlaySong(L"yay.wav");
+	}
+
     glutMotionFunc([](int x, int y) { cam2.HandleMouseMotion(x, y); });
     glutPassiveMotionFunc([](int x, int y) { cam2.HandleMouseMotion(x, y); });
-
-    Render_3D_Objects ObjTest1, ObjTest_2;
 
     cam2.targetX = playerPosition.x;
     cam2.targetY = playerPosition.y;
     cam2.targetZ = playerPosition.z;
     cam2.ApplyCamera();
 
-    ObjTest1.Transform_Object_Position(0.0f, 0.0f, 10.0f);
+    ObjTest1.Transform_Object_Position(10.0f, 0.0f, 20.0f);
     ObjTest1.Transform_Object_Size(-1.0f, 5.0f, 0.0f);
     ObjTest1.Apply_Color(255, 0, 0);
     ObjTest1.Create_3D_Cube(2, 2, 5);
+	ObjTest1.SetCollider(ObjTest1.GetColliderPosition(), ObjTest1.GetColliderScale());
 
-    ObjTest_2.Transform_Object_Position(-5.0f, 0.01f, 0.0f);
+  /*  ObjTest_2.Transform_Object_Position(-10.0f, 0.01f, 0.0f);*/
+    /*Vector3 toLERP = GetLERPObjects(ObjTest_2, ObjTest1);*/
+    float xMovement = LinearInterpolate(ObjTest_2.GetColliderPosition().x, ObjTest1.GetColliderPosition().x, 0.1f);
+    float yMovement = LinearInterpolate(ObjTest_2.GetColliderPosition().y, ObjTest1.GetColliderPosition().y, 0.1f);
+    float zMovement = LinearInterpolate(ObjTest_2.GetColliderPosition().z, ObjTest1.GetColliderPosition().z, 0.1f);
+
+    Vector3 toLERP;
+	toLERP.SetValue(xMovement,
+		            yMovement,
+		            zMovement);
+    
+    glPushMatrix();
+    ObjTest_2.SetCollider(ObjTest_2.GetColliderPosition(), ObjTest_2.GetColliderScale());
+    ObjTest_2.TrackPoint(movementSpeed, toLERP, ObjTest_2.GetColliderPosition(),ObjTest1.GetColliderPosition());
     ObjTest_2.Apply_Color(0, 255, 0, 100);
     ObjTest_2.Create_3D_Cylinder(4.0f, 4.0f, 8);
+    glPopMatrix();
+
+	glPushMatrix();
+    glTranslatef(-4.0f, 10.0f, 0.0f);
+    RenderVariable(toLERP.x, 255.0f, 0.0f, 0.0f);
+	glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-4.0f, 11.0f, 0.0f);
+    RenderVariable(toLERP.y, 0.0, 255.0f, 0.0f);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-4.0f, 12.0f, 0.0f);
+    RenderVariable(toLERP.z, 0.0f, 0.0f, 255.0f);
+    glPopMatrix();
+
     //==============================================
 
     //TEXT TEXT//

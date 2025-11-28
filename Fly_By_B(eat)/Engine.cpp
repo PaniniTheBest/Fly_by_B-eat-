@@ -41,3 +41,19 @@ float FindDeltaTime()
     previousTime = timeSinceStart;
 	return deltaTime;
 }
+
+float LinearInterpolate(float currentPos, float farawayPos, float t) //Finding the values between coordinates, Also called LERP
+{
+	//t represents how close the value is to any given position.
+    //Near 0, it is close to currentPos. Near 1, it is close to farawayPos.
+    return currentPos + t * (farawayPos - currentPos);
+}
+
+Vector3 GetLERPObjects(Render_3D_Objects Origin, Render_3D_Objects Destination) //This function is specified for objects of the 3D Objects class//
+{
+    Vector3 resultingLERP;
+    float xMovement = LinearInterpolate(Origin.GetColliderPosition().x, Destination.GetColliderPosition().x, 0.1f);
+    float yMovement = LinearInterpolate(Origin.GetColliderPosition().y, Destination.GetColliderPosition().y, 0.1f);
+    float zMovement = LinearInterpolate(Origin.GetColliderPosition().z, Destination.GetColliderPosition().z, 0.1f);
+    return resultingLERP;
+}
