@@ -2,13 +2,12 @@
 #include <mmsystem.h>
 #include <iostream>
 #include <string>
+#include "AudioManager.h"
 
 using namespace std;
 #pragma comment(lib, "winmm.lib")
 
-void string(std::wstring songName)
+void PlaySong(wstring string)
 {
-	/*cout << "Playing " << songName << " ...";
-	PlaySound(TEXT(songName), NULL, SND_FILENAME | SND_SYNC);
-	cout << "\n\n" << songName << " has finished!!!";*/
+	PlaySound(string.c_str(), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
 }

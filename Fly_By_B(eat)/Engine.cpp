@@ -2,6 +2,8 @@
 #include "Graphics.h"
 #include "Input.h"
 
+int timeSinceStart = 0, previousTime = 0;
+
 void PrepEngine(int argc, char** argv)
 {
     //GLFWwindow* window = glfwCreateWindow();
@@ -30,4 +32,12 @@ void PrepEngine(int argc, char** argv)
     Initialize();
 
     glutMainLoop();
+}
+
+float FindDeltaTime()
+{
+    timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
+    float deltaTime = (timeSinceStart - previousTime) / 1000.0f;
+    previousTime = timeSinceStart;
+	return deltaTime;
 }

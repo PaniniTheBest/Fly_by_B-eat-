@@ -181,8 +181,8 @@ void Initialize()
 void Update()
 {
     float deltaTime = FindDeltaTime();
-    value += (1.0f * deltaTime);
 
+    value += (1.0f * deltaTime);
     Render_3D_Shapes ObjTest1, ObjTest_2;
 
     ObjTest1.Transform_Object_Position(0.0f, 0.0f, 10.0f);
