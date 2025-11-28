@@ -104,15 +104,7 @@ void Update()
 	ObjTest1.SetCollider(ObjTest1.GetColliderPosition(), ObjTest1.GetColliderScale());
 
   /*  ObjTest_2.Transform_Object_Position(-10.0f, 0.01f, 0.0f);*/
-    /*Vector3 toLERP = GetLERPObjects(ObjTest_2, ObjTest1);*/
-    float xMovement = LinearInterpolate(ObjTest_2.GetColliderPosition().x, ObjTest1.GetColliderPosition().x, 0.1f);
-    float yMovement = LinearInterpolate(ObjTest_2.GetColliderPosition().y, ObjTest1.GetColliderPosition().y, 0.1f);
-    float zMovement = LinearInterpolate(ObjTest_2.GetColliderPosition().z, ObjTest1.GetColliderPosition().z, 0.1f);
-
-    Vector3 toLERP;
-	toLERP.SetValue(xMovement,
-		            yMovement,
-		            zMovement);
+    Vector3 toLERP = GetLERPObjects(ObjTest_2, ObjTest1);
     
     glPushMatrix();
     ObjTest_2.SetCollider(ObjTest_2.GetColliderPosition(), ObjTest_2.GetColliderScale());
