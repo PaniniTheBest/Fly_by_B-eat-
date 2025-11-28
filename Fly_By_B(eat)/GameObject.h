@@ -3,6 +3,7 @@
 
 #include "vector3.h"
 #include "Render_3D_Shapes.h"
+#include "Collider.h"
 #include <glut.h>
 #include <cmath>
 #include <iostream>
@@ -20,16 +21,23 @@ public:
 	void SetScale(float x, float y, float z);
 	void SetRotation(float angle, Vector3 rotation);
 	void SetRotation(float angle, float x, float y, float z);
+	void SetCollider(Vector3 position, Vector3 scale);
+	bool CheckCollision(GameObject other);
+
 
 	Vector3 GetScale();
 	Vector3 GetPosition();
+	Collider GetCollider();
 
-	//void Draw();
+	void Draw();
+	void DrawSphere(float radius, int slices, int stacks);
+
 private:
 	Vector3 position;
 	Vector3 scale;
 	Vector3 rotation;
 	float angle;
+	Collider collider;
 };
 
 #endif
