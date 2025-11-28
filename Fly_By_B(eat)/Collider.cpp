@@ -1,4 +1,8 @@
 #include "collider.h"
+#include "GameObject.h"
+
+
+
 
 Collider::Collider()
 {
@@ -48,3 +52,6 @@ bool Collider::CheckCollision(Collider other)
 	else
 		return true;
 }
+
+
+

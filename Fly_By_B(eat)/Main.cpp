@@ -9,13 +9,59 @@
 #include <mmsystem.h>
 #include "ImageLoader.h"
 #include "AudioManager.h"
+#include "Collider.h"
 
 
 float value = 0.0f;
 float rotateAngle = 0.0f;
 Vector3 playerPosition;
 GameObject player;
+GameObject otherObject;
 camera cam;
+
+
+
+//void Character()
+//{
+//    const char keys[] = { 'w', 'a', 's', 'd' };
+//
+//    player.SetPosition(0.0f, 0.0f, 0.0f);
+//    player.SetScale(1.0f, 1.0f, 1.0f);
+//    player.SetRotation(0.0f, 0.0f, 0.0f, 1.0f);
+//
+//    for (char key : keys)
+//    {
+//        if (Input::GetKey(key))
+//        {
+//            Vector3 movement(0, 0, 0);
+//
+//            if (Input::GetKey('w')) movement.y += 10.1f;
+//            if (Input::GetKey('s')) movement.y -= 10.1f;
+//            if (Input::GetKey('a')) movement.x -= 10.1f;
+//            if (Input::GetKey('d')) movement.x += 10.1f;
+//
+//           
+//            Vector3 currentPos = player.GetPosition();
+//
+//          
+//            Vector3 newPos(
+//                currentPos.x + movement.x,
+//                currentPos.y + movement.y,
+//                currentPos.z + movement.z
+//            );
+//
+//           
+//            player.SetPosition(newPos);
+//
+//            break; 
+//        }
+//    }
+//}
+
+
+
+
+
 //void processSpecialKeys(int key, int x, int y)
 //{
 //    switch (key)
@@ -260,7 +306,7 @@ void Update()
 
     glEnd();
     
-    Vector3 colliderScale(1, 1, 1); 
+    Vector3 colliderScale(10, 10, 10); 
     player.DrawSphere(5.0f, 10, 10);
     player.SetCollider(player.GetPosition(), colliderScale);
         if (Input::GetKey('d'))
@@ -283,7 +329,49 @@ void Update()
             Vector3 downMovement(0, -0.1f, 0);
             playerPosition += downMovement;
         }
+        if (player.CheckCollision(otherObject))
+        {
+            cout << "Collision detected!" << endl;
+            
+        }
     player.SetPosition(playerPosition);
+
+
+    static bool initialized = false;
+    if (!initialized)
+    {
+        otherObject.SetPosition(5.0f, 5.0f, 0.0f);
+        otherObject.SetScale(2.0f, 2.0f, 2.0f);
+        otherObject.SetRotation(0.0f, 0.0f, 0.0f, 1.0f);
+
+
+        Vector3 colliderScale(2, 2, 2);
+        otherObject.SetCollider(otherObject.GetPosition(), colliderScale);
+
+        initialized = true;
+    }
+
+
+    bool isColliding = player.CheckCollision(otherObject);
+
+
+    if (isColliding)
+        glColor3f(1.0f, 0.0f, 0.0f);
+    else
+        glColor3f(0.5f, 0.5f, 1.0f);
+
+
+    glPushMatrix();
+    {
+        Vector3 pos = otherObject.GetPosition();
+        Vector3 scale = otherObject.GetScale();
+
+        glTranslatef(pos.x, pos.y, pos.z);
+        glScalef(scale.x, scale.y, scale.z);
+
+        glutSolidCube(1.0f);
+    }
+    glPopMatrix();
 }
 
 int main(int argc, char** argv)
