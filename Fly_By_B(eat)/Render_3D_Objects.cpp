@@ -2,6 +2,7 @@
 
 const float PI = 3.14; // Value of PI  
 
+//Initialized Variables
 Render_3D_Objects::Render_3D_Objects()
 {
 	objectColor.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -9,7 +10,7 @@ Render_3D_Objects::Render_3D_Objects()
 	setRotationValue.SetValue(0.0f, 0.0f, 0.0f);
 	setScale.SetValue(1.0f, 1.0f, 1.0f);
 };
-//Shape Properties
+//COLOR
 void Render_3D_Objects::Apply_Color(float r, float g, float b) //RGB values 
 {
 	this->objectColor.SetColor(r, g, b);
@@ -18,10 +19,11 @@ void Render_3D_Objects::Apply_Color(float r, float g, float b, float a) //RGB va
 {
 	this->objectColor.SetColor(r, g, b, a);
 }
-void Render_3D_Objects::Apply_Color(Color newColor)
+void Render_3D_Objects::Apply_Color(Color newColor)//RGBA values that supports Color.h
 {
 	this->objectColor.SetColor (newColor);
 }
+//TRANSFORM POSITION
 void Render_3D_Objects::Transform_Object_Position(float x, float y, float z) //Sets position of an Object
 {
 	setPosition.SetValue(x, y, z);
@@ -30,6 +32,7 @@ void Render_3D_Objects::Transform_Object_Position(Vector3 setNewPosition)//Sets 
 {
 	setPosition.SetValue(setNewPosition);
 }
+//TRANSFORM ROTATION
 void Render_3D_Objects::Transform_Object_Rotation(float shapeAngle, float x, float y, float z)
 {
 	angle = shapeAngle; 
@@ -39,6 +42,7 @@ void Render_3D_Objects::Transform_Object_Rotation(float angle, Vector3 setNewRot
 {
 	setRotationValue.SetValue(setNewRotationValue);
 }
+//TRANSFORM SIZE
 void Render_3D_Objects::Transform_Object_Size(float x, float y, float z)
 {
 	setRotationValue.SetValue(x, y, z);
@@ -54,7 +58,6 @@ void Render_3D_Objects::TrackPoint(float MoveSpeed, Vector3 LERP, Vector3 Point1
 	setPosition.y += LERP.y * MoveSpeed;
 	setPosition.z += LERP.z * MoveSpeed;
 }
-
 //Types of shapes
 void Render_3D_Objects::Create_3D_Cube(float x, float y, float z)
 {   

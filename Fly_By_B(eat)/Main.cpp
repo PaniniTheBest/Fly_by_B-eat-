@@ -182,6 +182,7 @@ void Update()
     Vector3 colliderScale(10, 10, 10); 
     Vector3 colliderPos(0.0f, 5.0f, 0.0f);
     Color betterColorTest(255, 0.0f, 255);
+
     player.Create_3D_Cone(5.0f, 10, 10);
     player.Apply_Color(betterColorTest);
     player.SetCollider(player.GetColliderPosition() + colliderPos, colliderScale);
