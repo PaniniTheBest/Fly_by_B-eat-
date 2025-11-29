@@ -6,23 +6,29 @@
 #include "Collider.h"
 #include "vector3.h"
 #include <string>
+#include "Color.h"
 
 using namespace std;
 class Render_3D_Objects
 {
 	private:
-		float red = 0.5f, green = 0.5f, blue = 0.5f; float alpha = 1.0f;//RGBA colors
+		//float red = 0.5f, green = 0.5f, blue = 0.5f; float alpha = 1.0f;//RGBA colors
 		float angle = 0.0f;//Rotation
+		
 		//Vector3
 		Vector3 setPosition;
 		Vector3 setRotationValue;
 		Vector3 setScale;
-
+		//Collider
 		Collider collider;
+		//
+		Color objectColor;
 	public:
 		Render_3D_Objects();
 		void Apply_Color(float r, float g, float b);
 		void Apply_Color(float r, float g, float b ,float a);
+		void Apply_Color(Color newColor);
+
 		void Transform_Object_Position(float x, float y, float z);
 		void Transform_Object_Position(Vector3 setPosition);
 		void Transform_Object_Rotation(float angle, float x, float y, float z);

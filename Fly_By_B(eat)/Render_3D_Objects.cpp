@@ -4,6 +4,7 @@ const float PI = 3.14; // Value of PI
 
 Render_3D_Objects::Render_3D_Objects()
 {
+	objectColor.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 	setPosition.SetValue(0.0f, 0.0f, 0.0f);
 	setRotationValue.SetValue(0.0f, 0.0f, 0.0f);
 	setScale.SetValue(1.0f, 1.0f, 1.0f);
@@ -11,16 +12,15 @@ Render_3D_Objects::Render_3D_Objects()
 //Shape Properties
 void Render_3D_Objects::Apply_Color(float r, float g, float b) //RGB values 
 {
-    red = r / 255;
-    green = g / 255;
-    blue = b / 255;
+	this->objectColor.SetColor(r, g, b);
 }
 void Render_3D_Objects::Apply_Color(float r, float g, float b, float a) //RGB values with Opacity(aka Alpha)
 {
-	red = r / 255;
-	green = g / 255;
-	blue = b / 255;
-	alpha = a / 100;
+	this->objectColor.SetColor(r, g, b, a);
+}
+void Render_3D_Objects::Apply_Color(Color newColor)
+{
+	this->objectColor.SetColor (newColor);
 }
 void Render_3D_Objects::Transform_Object_Position(float x, float y, float z) //Sets position of an Object
 {
@@ -47,6 +47,7 @@ void Render_3D_Objects::Transform_Object_Size(Vector3 setNewScale)
 {
 	setScale.SetValue(setNewScale);
 }
+//LERP aka Object tracking
 void Render_3D_Objects::TrackPoint(float MoveSpeed, Vector3 LERP, Vector3 Point1, Vector3 Point2) //Moves object towards a point using LERP values
 {
 	setPosition.x += LERP.x * MoveSpeed;
@@ -58,7 +59,7 @@ void Render_3D_Objects::TrackPoint(float MoveSpeed, Vector3 LERP, Vector3 Point1
 void Render_3D_Objects::Create_3D_Cube(float x, float y, float z)
 {   
     glPushMatrix();
-    glColor4f(red, green, blue, alpha);
+    glColor4f(objectColor.red, objectColor.green, objectColor.blue, objectColor.alpha);
     glTranslatef(setPosition.x, setPosition.y, setPosition.z);
     glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
     glScalef(setScale.x, setScale.y, setScale.z);
@@ -109,7 +110,7 @@ void Render_3D_Objects::Create_3D_Cube(float x, float y, float z)
 void Render_3D_Objects::Create_3D_Sphere(double radius, double slices, double stacks)
 {
     glPushMatrix();
-    glColor4f(red, green, blue,alpha); 
+    glColor4f(objectColor.red, objectColor.green, objectColor.blue, objectColor.alpha);
     glTranslatef(setPosition.x, setPosition.y, setPosition.z);  
     glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
     glScalef(setScale.x, setScale.y, setScale.z);
@@ -126,7 +127,7 @@ void Render_3D_Objects::Create_3D_Cone(float radius, float height, int slices)
     float angleIncrement = (2.0f * PI) / slices;// Calculate angle increment based on number of slices
     float renderAngle = 0.0f;
     glPushMatrix(); 
-    glColor4f(red, green, blue,alpha);
+    glColor4f(objectColor.red, objectColor.green, objectColor.blue, objectColor.alpha);
     glTranslatef(setPosition.x, setPosition.y, setPosition.z);   
     glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
     glScalef(setScale.x, setScale.y, setScale.z);
@@ -157,7 +158,7 @@ void Render_3D_Objects::Create_3D_Cylinder(float radius, float height, int slice
     float renderAngle = 0.0f;
     glPushMatrix();
 	
-    glColor4f(red, green, blue,alpha);
+    glColor4f(objectColor.red, objectColor.green, objectColor.blue, objectColor.alpha);
     glTranslatef(setPosition.x, setPosition.y, setPosition.z); 
 	glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
     glScalef(setScale.x, setScale.y, setScale.z);

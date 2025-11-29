@@ -23,25 +23,6 @@ Render_3D_Objects player;
 Render_3D_Objects otherObject;
 camera2 cam2;
 //camera cam;
-
-//void processSpecialKeys(int key, int x, int y)
-//{
-//    switch (key)
-//    {
-//        case GLUT_KEY_UP:
-//            Vector3 topMove(0.0f, 0.1f, 0.0f);
-//            playerPos += topMove;
-//        case GLUT_KEY_DOWN:
-//            Vector3 downMove(0.0f, -0.1f, 0.0f);
-//            playerPos += downMove;
-//        case GLUT_KEY_LEFT:
-//            Vector3 leftMove(-0.1f, 0.0f, 0.0f);
-//            playerPos += leftMove;
-//        case GLUT_KEY_RIGHT:
-//            Vector3 rightMove(0.1f, 0.0f, 0.0f);
-//            playerPos += rightMove;
-//    }
-//}
 //GLuint loadTexture(Image* image) {
 //    GLuint textureId;
 //    glGenTextures(1, &textureId); //Make room for our texture
@@ -81,6 +62,7 @@ Render_3D_Objects ObjTest1, ObjTest_2;
 float movementSpeed = 0.01f;
 void Update()
 {
+    Color color;
     float deltaTime = FindDeltaTime();
     value += (1.0f * deltaTime);
 
@@ -199,8 +181,9 @@ void Update()
 
     Vector3 colliderScale(10, 10, 10); 
     Vector3 colliderPos(0.0f, 5.0f, 0.0f);
+    Color betterColorTest(255, 0.0f, 255);
     player.Create_3D_Cone(5.0f, 10, 10);
-    player.Apply_Color(255, 105, 0);
+    player.Apply_Color(betterColorTest);
     player.SetCollider(player.GetColliderPosition() + colliderPos, colliderScale);
         if (Input::GetKey('d'))
         {
