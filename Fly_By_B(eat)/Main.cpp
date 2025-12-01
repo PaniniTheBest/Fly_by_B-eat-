@@ -193,7 +193,7 @@ void Update()
         {
             /*Vector3 rightMovement(0.1f, 0, 0);
             playerPosition += rightMovement;*/
-            Vector3 rightRotation(5.0f, 0, 0.0f);
+            Vector3 rightRotation(0.0f, 0, 5.0f);
             playerRotation += rightRotation;
             playerAngle += 1.0f;
         }
@@ -201,7 +201,7 @@ void Update()
         {
             /*Vector3 leftMovement(-0.1f, 0, 0);
             playerPosition += leftMovement;*/
-            Vector3 leftRotation(-5.0f, 0, 0.0f);
+            Vector3 leftRotation(0.0f, 0, -5.0f);
             playerRotation += leftRotation;
             playerAngle -= 1.0f;
         }
