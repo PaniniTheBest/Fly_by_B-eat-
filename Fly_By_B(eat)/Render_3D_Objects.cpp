@@ -38,8 +38,9 @@ void Render_3D_Objects::Transform_Object_Rotation(float shapeAngle, float x, flo
 	angle = shapeAngle; 
 	setRotationValue.SetValue(x, y, z);	
 }
-void Render_3D_Objects::Transform_Object_Rotation(float angle, Vector3 setNewRotationValue)
+void Render_3D_Objects::Transform_Object_Rotation(float shapeAngle, Vector3 setNewRotationValue)
 {
+	angle = shapeAngle;
 	setRotationValue.SetValue(setNewRotationValue);
 }
 //TRANSFORM SIZE

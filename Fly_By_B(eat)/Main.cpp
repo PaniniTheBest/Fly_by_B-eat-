@@ -19,6 +19,8 @@
 float value = 0.0f;
 float rotateAngle = 0.0f;
 Vector3 playerPosition(0, 0, 0);
+Vector3 playerRotation(0, 0, 0);
+float playerAngle = 0.0f;
 Render_3D_Objects player;
 Render_3D_Objects otherObject;
 camera2 cam2;
@@ -184,17 +186,24 @@ void Update()
     Color betterColorTest(255, 0.0f, 255);
 
     player.Create_3D_Cone(5.0f, 10, 10);
+    player.Transform_Object_Position(0.0f, 0.0f, 0.0f);
     player.Apply_Color(betterColorTest);
     player.SetCollider(player.GetColliderPosition() + colliderPos, colliderScale);
         if (Input::GetKey('d'))
         {
-            Vector3 rightMovement(0.1f, 0, 0);
-            playerPosition += rightMovement;
+            /*Vector3 rightMovement(0.1f, 0, 0);
+            playerPosition += rightMovement;*/
+            Vector3 rightRotation(5.0f, 0, 0.0f);
+            playerRotation += rightRotation;
+            playerAngle += 1.0f;
         }
         if (Input::GetKey('a'))
         {
-            Vector3 leftMovement(-0.1f, 0, 0);
-            playerPosition += leftMovement;
+            /*Vector3 leftMovement(-0.1f, 0, 0);
+            playerPosition += leftMovement;*/
+            Vector3 leftRotation(-5.0f, 0, 0.0f);
+            playerRotation += leftRotation;
+            playerAngle -= 1.0f;
         }
         if (Input::GetKey('w'))
         {
@@ -209,9 +218,9 @@ void Update()
         if (player.CheckCollision(otherObject))
         {
             cout << "Collision detected!" << endl;
-            
         }
     player.Transform_Object_Position(playerPosition);
+    player.Transform_Object_Rotation(playerAngle, playerRotation);
     //================================================
     if (Input::GetKey('x'))
     {
@@ -256,4 +265,4 @@ int main(int argc, char** argv)
     PrepEngine(argc, argv);
 }
 
-//IDK WHY MY SHIT ISN'T WORKING
+
