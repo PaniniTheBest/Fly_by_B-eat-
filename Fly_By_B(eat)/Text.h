@@ -15,14 +15,13 @@ class Text {
 	public:
 		Text();
 		void RenderString(void* font, float x, float y, string message);
-		void RenderText(string message, float red, float green, float blue);
+		void RenderText(string message);
 		void ColorText(float r, float g, float b);
 		void ColorText(Color newRGB);
 		void TranslateText(float x, float y, float z);
 		void TranslateText(Vector3 newTranslate);
 		void RenderVariableAsText(float variable);
-		void RenderVariableAsText(float variable); //If you wanna declare
-
+		void RenderVariableAsText2(float variable, float r, float g, float b); //If you wanna declare
 };
 
 

@@ -27,12 +27,13 @@ void RenderString(void* font, float x, float y, string message)
 	}
 }
 
-void RenderText(string message, float red, float green, float blue)
+void Text::RenderText(string message)
 {
 	glPushMatrix();
-	glColor3f(red, green, blue);
+	glColor3f(TextRGB.red, TextRGB.green, TextRGB.blue);
 	if (message.length() > 0)
 		RenderString(GLUT_BITMAP_HELVETICA_18, 0, 0, message);
+	glTranslatef(Translate.x, Translate.y, Translate.z);
 	glPopMatrix();
 }
 
@@ -67,12 +68,12 @@ void Text::RenderVariableAsText(float variable)
 	glPopMatrix();
 }
 
-void Text::RenderVariableAsText(float variable)
+void Text::RenderVariableAsText2(float variable, float r, float g, float b)
 {
 	glPushMatrix();
 	char buffer[256];
 	sprintf_s(buffer, "%f", variable);
-	glColor3f(TextRGB.red, TextRGB.green, TextRGB.blue);
+	glColor3f( r,  g,  b);
 	RenderString(GLUT_BITMAP_HELVETICA_18, -5, 5, buffer);
 	glTranslatef(Translate.x, Translate.y, Translate.z);
 	glPopMatrix();

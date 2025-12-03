@@ -1,6 +1,4 @@
-﻿  Main.cpp
-  Text.cpp
-C:\Users\rocks\Documents\GitHub\Fly_by_B-eat-\Fly_By_B(eat)\Text.cpp(32,26): error C2065: 'value': undeclared identifier
-C:\Users\rocks\Documents\GitHub\Fly_by_B-eat-\Fly_By_B(eat)\Text.cpp(33,32): error C2065: 'blue': undeclared identifier
-C:\Users\rocks\Documents\GitHub\Fly_by_B-eat-\Fly_By_B(eat)\Text.cpp(41,20): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
+﻿  Text.cpp
+C:\Users\rocks\Documents\GitHub\Fly_by_B-eat-\Fly_By_B(eat)\Text.cpp(17,20): warning C4018: '<': signed/unsigned mismatch
+Text.obj : error LNK2019: unresolved external symbol "public: void __thiscall Text::RenderString(void *,float,float,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?RenderString@Text@@QAEXPAXMMV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) referenced in function "public: void __thiscall Text::RenderText(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?RenderText@Text@@QAEXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+C:\Users\rocks\Documents\GitHub\Fly_by_B-eat-\Debug\Fly_By_B(eat).exe : fatal error LNK1120: 1 unresolved externals

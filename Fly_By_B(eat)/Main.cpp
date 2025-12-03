@@ -87,6 +87,7 @@ void Update()
     ObjTest1.Create_3D_Cube(2, 2, 5);
 	ObjTest1.SetCollider(ObjTest1.GetColliderPosition(), ObjTest1.GetColliderScale());
 
+    //EVERYTHING BELOW HERE IS LERP//
   /*  ObjTest_2.Transform_Object_Position(-10.0f, 0.01f, 0.0f);*/
     Vector3 toLERP = GetLERPObjects(ObjTest_2, ObjTest1);
     
@@ -101,30 +102,31 @@ void Update()
     ObjTest_2.Create_3D_Cylinder(4.0f, 4.0f, 8);
     /*glPopMatrix();*/
 
-	glPushMatrix();
-    glTranslatef(-4.0f, 10.0f, 0.0f);
-    RenderVariableAsText(toLERP.x, 255.0f, 0.0f, 0.0f);
-	glPopMatrix();
+    Text LERPx, LERPy, LERPz;
+	LERPx.ColorText(255.0f, 0.0f, 0.0f);
+	LERPx.TranslateText(-4.0f, 10.0f, 0.0f);
+    LERPx.RenderVariableAsText(toLERP.x);
 
-    glPushMatrix();
-    glTranslatef(-4.0f, 11.0f, 0.0f);
-    RenderVariableAsText(toLERP.y, 0.0, 255.0f, 0.0f);
-    glPopMatrix();
+    LERPy.ColorText(0.0, 255.0f, 0.0f);
+    LERPy.TranslateText(-4.0f, 11.0f, 0.0f);
+    LERPy.RenderVariableAsText(toLERP.y);
 
-    glPushMatrix();
-    glTranslatef(-4.0f, 12.0f, 0.0f);
-    RenderVariableAsText(toLERP.z, 0.0f, 0.0f, 255.0f);
-    glPopMatrix();
+	LERPz.ColorText(0.0f, 0.0f, 255.0f);
+	LERPz.TranslateText(-4.0f, 12.0f, 0.0f);
+    LERPz.RenderVariableAsText(toLERP.z);
 
     //==============================================
 
     //TEXT TEXT//
-    glTranslatef(-20.0f, 3.0f, 0.0f);
-    RenderText("According to all known laws of aviation, there is no way that a bee should be able to fly."
-        , 255.0f, 255.0f, 255.0f);
+	Text BeeMovieString, TimerString;
 
-    glTranslatef(-1.0f, -6.0f, 0.0f);
-    RenderVariable(value, 255.0f, 0.0f, 0.0f);
+    BeeMovieString.ColorText(255.0f, 255.0f, 0.0f);
+	BeeMovieString.TranslateText(-1.0f, 8.0f, 0.0f);
+    BeeMovieString.RenderText("According to all known laws of aviation, there is no way that a bee should be able to fly.");
+
+    TimerString.ColorText(255.0f, 0.0f, 0.0f);
+    TimerString.TranslateText(-1.0f, 8.0f, 0.0f);
+    TimerString.RenderVariableAsText(value);
 
     //rotateAngle += 1.0f;
 
