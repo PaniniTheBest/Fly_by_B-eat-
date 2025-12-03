@@ -15,7 +15,7 @@
 #include <atomic>
 #include <mutex>
 
-
+const Vector3 gravity (0.0f, 0.0f, 0.0f);
 float value = 0.0f;
 float rotateAngle = 0.0f;
 Vector3 playerPosition(0, 0, 0);
@@ -23,7 +23,15 @@ Vector3 playerRotation(0, 0, 0);
 float playerAngle = 0.0f;
 Render_3D_Objects player;
 Render_3D_Objects otherObject;
+Render_3D_Objects fly[5];
 camera2 cam2;
+//Enemy Test
+Vector3 enemyFormation;
+float enemyCount = 10;
+vector<Render_3D_Objects> enemies;
+float spacing = 1.5f;
+float scaleFactor = 20.0f;
+float colorFactor = 0.1f;
 //camera cam;
 //GLuint loadTexture(Image* image) {
 //    GLuint textureId;
@@ -56,14 +64,29 @@ void InitiateRender()
 
 void Initialize()
 {
-    
-
+    enemyFormation.SetValue(-7.5f, 5, 0);
+    for (int i = 0; i < enemyCount; i++) {
+        Render_3D_Objects enemy;
+        // set the position to have interval for each based on index
+        enemy.Transform_Object_Position(enemyFormation.x + (spacing * i), enemyFormation.y, 0);
+        enemy.Transform_Object_Size(1, enemy.GetObjectPosition().y - (scaleFactor * i), 1);
+        enemy.Apply_Color(100 - (colorFactor * i), 255, 0);
+        // Add the enemy instance to the vector collection
+        enemies.push_back(enemy);
+    }
+    playerPosition.SetValue(0, 5, 0);
+    player.Transform_Object_Position(playerPosition);
 }
 
 Render_3D_Objects ObjTest1, ObjTest_2;
 float movementSpeed = 0.01f;
 void Update()
 {
+    for (int i = 0; i < enemies.size(); i++)
+    {
+        // Make sure to render them ever frame
+        enemies[i].Create_3D_Sphere(1, 12, 12);
+    }
     Color color;
     float deltaTime = FindDeltaTime();
     value += (1.0f * deltaTime);

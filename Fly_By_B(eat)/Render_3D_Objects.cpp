@@ -32,6 +32,10 @@ void Render_3D_Objects::Transform_Object_Position(Vector3 setNewPosition)//Sets 
 {
 	setPosition.SetValue(setNewPosition);
 }
+Vector3 Render_3D_Objects::GetObjectPosition()
+{
+	return setPosition;
+}
 //TRANSFORM ROTATION
 void Render_3D_Objects::Transform_Object_Rotation(float shapeAngle, float x, float y, float z)
 {
@@ -43,6 +47,10 @@ void Render_3D_Objects::Transform_Object_Rotation(float shapeAngle, Vector3 setN
 	angle = shapeAngle;
 	setRotationValue.SetValue(setNewRotationValue);
 }
+Vector3 Render_3D_Objects::GetObjectRotation()
+{
+	return setRotationValue;
+}
 //TRANSFORM SIZE
 void Render_3D_Objects::Transform_Object_Size(float x, float y, float z)
 {
@@ -51,6 +59,10 @@ void Render_3D_Objects::Transform_Object_Size(float x, float y, float z)
 void Render_3D_Objects::Transform_Object_Size(Vector3 setNewScale)
 {
 	setScale.SetValue(setNewScale);
+}
+Vector3 Render_3D_Objects::GetObjectSize()
+{
+	return setScale;
 }
 //LERP aka Object tracking
 void Render_3D_Objects::TrackPoint(float MoveSpeed, Vector3 LERP, Vector3 Point1, Vector3 Point2) //Moves object towards a point using LERP values

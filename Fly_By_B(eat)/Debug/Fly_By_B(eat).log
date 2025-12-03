@@ -1,18 +1,3 @@
-﻿  AudioManager.cpp
-  Color.cpp
-  Engine.cpp
-  Graphics.cpp
-  ImageLoader.cpp
-  Input.cpp
-  Main.cpp
-  ModelLoader.cpp
-C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Fly_By_B(eat)\ModelLoader.cpp(141,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Fly_By_B(eat)\ModelLoader.cpp(144,21): warning C4018: '<': signed/unsigned mismatch
-  Player.cpp
-  Collider.cpp
-  Text.cpp
-C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Fly_By_B(eat)\Text.cpp(17,20): warning C4018: '<': signed/unsigned mismatch
-  vector3.cpp
-  Render_3D_Objects.cpp
-  Generating Code...
+﻿  Main.cpp
+C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Fly_By_B(eat)\Main.cpp(85,23): warning C4018: '<': signed/unsigned mismatch
   Fly_By_B(eat).vcxproj -> C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Debug\Fly_By_B(eat).exe

@@ -26,7 +26,6 @@ void Text::RenderString(void* font, float x, float y, string message)
 		}
 	}
 }
-
 void Text::RenderText(string message)
 {
 	glPushMatrix();
@@ -36,27 +35,22 @@ void Text::RenderText(string message)
 	glTranslatef(Translate.x, Translate.y, Translate.z);
 	glPopMatrix();
 }
-
 void Text::ColorText(float r, float g, float b)
 {
 	this->TextRGB.SetColor(r, g, b);
 }
-
 void Text::ColorText(Color newRGB)
 {
 	this->TextRGB.SetColor(newRGB);
 }
-
 void Text::TranslateText(float x, float y, float z)
 {
 	this->Translate.SetValue(x, y, z);
 }
-
 void Text::TranslateText(Vector3 newTranslate)
 {
 	this->Translate.SetValue(newTranslate);
 }
-
 void Text::RenderVariableAsText(float variable)
 {
 	glPushMatrix();

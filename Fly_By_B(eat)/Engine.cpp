@@ -18,7 +18,6 @@ void PrepEngine(int argc, char** argv)
 
     glutCreateWindow("=+= Fly by B(eat) =+=");
     //register callbacks
-    //Update();
     InitiateRender(); //Test Func//
 
     glutDisplayFunc(RenderScene);

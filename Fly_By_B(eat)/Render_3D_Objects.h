@@ -13,8 +13,7 @@ class Render_3D_Objects
 {
 	private:
 		//float red = 0.5f, green = 0.5f, blue = 0.5f; float alpha = 1.0f;//RGBA colors
-		float angle = 0.0f;//Rotation
-		
+		float angle = 0.0f;//Rotation	
 		//Vector3
 		Vector3 setPosition;
 		Vector3 setRotationValue;
@@ -31,10 +30,13 @@ class Render_3D_Objects
 
 		void Transform_Object_Position(float x, float y, float z);
 		void Transform_Object_Position(Vector3 setPosition);
+		Vector3 GetObjectPosition();
 		void Transform_Object_Rotation(float angle, float x, float y, float z);
 		void Transform_Object_Rotation(float angle, Vector3 setRotationValue);
+		Vector3 GetObjectRotation();
 		void Transform_Object_Size(float x, float y, float z);
 		void Transform_Object_Size(Vector3 setScale);
+		Vector3 GetObjectSize();
 
 		void Create_3D_Cube(float x, float y, float z);
 		void Create_3D_Sphere(double radius, double slices, double stacks);
