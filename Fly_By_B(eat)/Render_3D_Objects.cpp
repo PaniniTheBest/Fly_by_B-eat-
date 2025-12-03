@@ -176,14 +176,15 @@ void RenderObjects::Create3DCube(Vector3 boxScale)
 }
 void RenderObjects::Create3DSphere(double radius, double slices, double stacks)
 {
-    glPushMatrix();
-    glColor4f(objectColor.red, objectColor.green, objectColor.blue, objectColor.alpha);
-    glTranslatef(setPosition.x, setPosition.y, setPosition.z);  
-    glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
-    glScalef(setScale.x, setScale.y, setScale.z);
+	glPushMatrix();
+	ApplyParentTransform();
+	glColor4f(objectColor.red, objectColor.green, objectColor.blue, objectColor.alpha);
+	glTranslatef(setPosition.x, setPosition.y, setPosition.z);
+	glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
+	glScalef(setScale.x, setScale.y, setScale.z);
+	glutSolidSphere(radius, (int)slices, (int)stacks);
 
-    glutSolidSphere(radius, slices, stacks); 
-    glPopMatrix(); 
+	glPopMatrix();
 }
 void RenderObjects::Create3DCone(float radius, float height, int slices)
 {   
@@ -280,6 +281,40 @@ Vector3 RenderObjects::GetColliderPosition()
 Collider RenderObjects::GetCollider()
 {
 	return collider;
+}
+void RenderObjects::SetParent(RenderObjects* newParent)
+{
+	
+	if (newParent == this) {
+		parent = nullptr;
+		return;
+	}
+
+	RenderObjects* p = newParent;
+	while (p != nullptr) {
+		if (p == this) { 
+			parent = nullptr;
+			return;
+		}
+		p = p->parent;
+	}
+	parent = newParent;
+}
+
+void RenderObjects::ApplyParentTransform() const
+{
+	if (parent == nullptr) return;
+
+
+	parent->ApplyParentTransform();
+
+
+	glTranslatef(parent->setPosition.x, parent->setPosition.y, parent->setPosition.z);
+	glRotatef(parent->angle,
+		parent->setRotationValue.x,
+		parent->setRotationValue.y,
+		parent->setRotationValue.z);
+	glScalef(parent->setScale.x, parent->setScale.y, parent->setScale.z);
 }
 
 #include <fstream>

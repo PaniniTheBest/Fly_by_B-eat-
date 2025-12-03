@@ -50,7 +50,13 @@ class RenderObjects
 		Vector3 GetColliderScale();
 		Vector3 GetColliderPosition();
 		Collider GetCollider();
+		RenderObjects* parent = nullptr;
+
+		void SetParent(RenderObjects* newParent);
+		void ApplyParentTransform() const;
 };
+
+
 //Initializes 3D text.  Must be called before other functions in this header.
 void t3dInit();
 //Frees memory allocated for 3D text.  No other functions in this header may be

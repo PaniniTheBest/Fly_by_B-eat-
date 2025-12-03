@@ -188,33 +188,59 @@ void Update()
     frogPart1.Apply_Color(frogGreen);
     frogPart1.Create3DSphere(5, 15, 15);
 
-    frogPart2.TransformObjectPosition(3.5f, 13, 0);
+    frogPart2.TransformObjectPosition(3.5f, 3, 0);
     frogPart2.Apply_Color(frogEyeGreen);
     frogPart2.Create3DSphere(2, 15, 15);
 
-    frogPart3.TransformObjectPosition(0, 13, 3.5f);
+    frogPart3.TransformObjectPosition(0, 3, 3.5f);
     frogPart3.Apply_Color(frogEyeGreen);
     frogPart3.Create3DSphere(2, 15, 15);
 
-    frogPart4.TransformObjectPosition(2, 11, 2);
+    frogPart4.TransformObjectPosition(2, 1, 2);
     frogPart4.Apply_Color(frogGreen);
     frogPart4.Create3DSphere(4, 15, 15);
 
-    frogEye1.TransformObjectPosition(4.5f, 13, 0);
+    frogEye1.TransformObjectPosition(4.5f, 3, 0);
     frogEye1.Apply_Color(WhiteEyes);
     frogEye1.Create3DSphere(1.5, 15, 15);
 
-    frogEye1.TransformObjectPosition(5, 13, 0.3);
-    frogEye1.Apply_Color(BlackEyes);
-    frogEye1.Create3DSphere(1.3, 15, 15);
+    frogEye2.TransformObjectPosition(5, 3, 0.3);
+    frogEye2.Apply_Color(BlackEyes);
+    frogEye2.Create3DSphere(1.3, 15, 15);
 
-    frogEye2.TransformObjectPosition(0, 13, 4.5f);
-    frogEye2.Apply_Color(WhiteEyes);
-    frogEye2.Create3DSphere(1.5, 15, 15);
+    frogEye3.TransformObjectPosition(0, 3, 4.5f);
+    frogEye3.Apply_Color(WhiteEyes);
+    frogEye3.Create3DSphere(1.5, 15, 15);
 
-    frogEye1.TransformObjectPosition(0.3, 13, 5);
-    frogEye1.Apply_Color(BlackEyes);
-    frogEye1.Create3DSphere(1.3, 15, 15);
+    frogEye4.TransformObjectPosition(0.3, 3, 5);
+    frogEye4.Apply_Color(BlackEyes);
+    frogEye4.Create3DSphere(1.3, 15, 15);
+
+    frogPart2.SetParent(&frogPart1);
+    frogPart3.SetParent(&frogPart1);
+    frogPart4.SetParent(&frogPart1);
+    frogEye1.SetParent(&frogPart1);
+    frogEye2.SetParent(&frogPart1);
+    frogEye3.SetParent(&frogPart1);
+    frogEye4.SetParent(&frogPart1);
+
+
+    if (Input::GetKey('w'))
+    {
+        frogPart1.TransformObjectRotation(90, 0, 90, 0);
+    }
+    if (Input::GetKey('a'))
+    {
+        frogPart1.TransformObjectRotation(180, 0, 180, 0);
+    }
+    if (Input::GetKey('s'))
+    {
+        frogPart1.TransformObjectRotation(270, 0, 270, 0);
+    }
+    if (Input::GetKey('d'))
+    {
+        frogPart1.TransformObjectRotation(360, 0, 360, 0);
+    }
     //=======FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===
 
     //========================================================
