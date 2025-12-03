@@ -3,28 +3,14 @@
 #include <cstring>
 #include <fstream>
 #include <math.h>
+#include <glut.h>
 
 using namespace std;
-
-void RenderText(string message, float red, float green, float blue)
+Text::Text()
 {
-	glPushMatrix();
-	glColor3f(red, green, blue);
-	if (message.length() > 0)
-		RenderString(GLUT_BITMAP_HELVETICA_18, 0, 0, message);
-	glPopMatrix();
+	TextRGB.SetColor(1.0f, 1.0f, 1.0f);
+	Translate.SetValue(0.0f, 0.0f, 0.0f);
 }
-
-void RenderVariable(float value, float red, float green, float blue)
-{
-	glPushMatrix();
-	char buffer[256];
-	sprintf_s(buffer, "%f", value);
-	glColor3f(red, green, blue);
-	RenderString(GLUT_BITMAP_HELVETICA_18, -5, 5, buffer);
-	glPopMatrix();
-}
-
 void RenderString(void* font, float x, float y, string message)
 {
 	glRasterPos3f(-10, y, 0.0f);
@@ -40,4 +26,58 @@ void RenderString(void* font, float x, float y, string message)
 		}
 	}
 }
+
+void RenderText(string message, float red, float green, float blue)
+{
+	glPushMatrix();
+	glColor3f(red, green, blue);
+	if (message.length() > 0)
+		RenderString(GLUT_BITMAP_HELVETICA_18, 0, 0, message);
+	glPopMatrix();
+}
+
+void Text::ColorText(float r, float g, float b)
+{
+	this->TextRGB.SetColor(r, g, b);
+}
+
+void Text::ColorText(Color newRGB)
+{
+	this->TextRGB.SetColor(newRGB);
+}
+
+void Text::TranslateText(float x, float y, float z)
+{
+	this->Translate.SetValue(x, y, z);
+}
+
+void Text::TranslateText(Vector3 newTranslate)
+{
+	this->Translate.SetValue(newTranslate);
+}
+
+void Text::RenderVariableAsText(float variable)
+{
+	glPushMatrix();
+	char buffer[256];
+	sprintf_s(buffer, "%f", variable);
+	glColor3f(TextRGB.red, TextRGB.green, TextRGB.blue);
+	RenderString(GLUT_BITMAP_HELVETICA_18, -5, 5, buffer);
+	glTranslatef(Translate.x, Translate.y, Translate.z);
+	glPopMatrix();
+}
+
+void Text::RenderVariableAsText(float variable)
+{
+	glPushMatrix();
+	char buffer[256];
+	sprintf_s(buffer, "%f", variable);
+	glColor3f(TextRGB.red, TextRGB.green, TextRGB.blue);
+	RenderString(GLUT_BITMAP_HELVETICA_18, -5, 5, buffer);
+	glTranslatef(Translate.x, Translate.y, Translate.z);
+	glPopMatrix();
+}
+
+
+
 

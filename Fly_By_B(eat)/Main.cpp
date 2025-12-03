@@ -90,7 +90,7 @@ void Update()
   /*  ObjTest_2.Transform_Object_Position(-10.0f, 0.01f, 0.0f);*/
     Vector3 toLERP = GetLERPObjects(ObjTest_2, ObjTest1);
     
-    glPushMatrix();
+    //glPushMatrix();
     ObjTest_2.SetCollider(ObjTest_2.GetColliderPosition(), ObjTest_2.GetColliderScale());
     if (!ObjTest_2.CheckCollision(ObjTest1))
     {
@@ -99,21 +99,21 @@ void Update()
         
     ObjTest_2.Apply_Color(0, 255, 0, 100);
     ObjTest_2.Create_3D_Cylinder(4.0f, 4.0f, 8);
-    glPopMatrix();
+    /*glPopMatrix();*/
 
 	glPushMatrix();
     glTranslatef(-4.0f, 10.0f, 0.0f);
-    RenderVariable(toLERP.x, 255.0f, 0.0f, 0.0f);
+    RenderVariableAsText(toLERP.x, 255.0f, 0.0f, 0.0f);
 	glPopMatrix();
 
     glPushMatrix();
     glTranslatef(-4.0f, 11.0f, 0.0f);
-    RenderVariable(toLERP.y, 0.0, 255.0f, 0.0f);
+    RenderVariableAsText(toLERP.y, 0.0, 255.0f, 0.0f);
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(-4.0f, 12.0f, 0.0f);
-    RenderVariable(toLERP.z, 0.0f, 0.0f, 255.0f);
+    RenderVariableAsText(toLERP.z, 0.0f, 0.0f, 255.0f);
     glPopMatrix();
 
     //==============================================
