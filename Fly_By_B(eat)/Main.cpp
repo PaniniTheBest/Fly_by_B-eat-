@@ -64,14 +64,14 @@ void Initialize()
 RenderObjects ObjTest1, ObjTest_2;
 float movementSpeed = 0.01f;
 Vector3 FloorcolliderScale(20.0f, 0.5f, 20.0f);
-
+RenderObjects frogPart1, frogPart2, frogPart3;
 void Update()
 {
 	if (value >= 15.0f)
 	{
 		PlaySong(L"yay.wav");
 	}
-
+    //Don't put 3d objects above
     glutMotionFunc([](int x, int y) { cam2.HandleMouseMotion(x, y); });
     glutPassiveMotionFunc([](int x, int y) { cam2.HandleMouseMotion(x, y); });
 
@@ -178,6 +178,13 @@ void Update()
     glVertex3f(-2.5f, 2.5f, 2.5f);
 
     glEnd();
+
+    //Vector3 origin()
+    Color berde(0, 255, 0);
+    frogPart1.TransformObjectPosition(0.0f, 13, 0);
+    frogPart1.Apply_Color(berde);
+    frogPart1.Create3DSphere(5, 15, 15);
+
     //========================================================
     //  PLAYER OBJECT
     //Camera bound by playerPosition
