@@ -64,7 +64,7 @@ void Initialize()
 RenderObjects ObjTest1, ObjTest_2;
 float movementSpeed = 0.01f;
 Vector3 FloorcolliderScale(20.0f, 0.5f, 20.0f);
-RenderObjects frogPart1, frogPart2, frogPart3;
+RenderObjects frogPart1, frogPart2, frogPart3, frogPart4, frogEye1, frogEye2, frogEye3, frogEye4;
 void Update()
 {
 	if (value >= 15.0f)
@@ -179,11 +179,43 @@ void Update()
 
     glEnd();
 
-    //Vector3 origin()
-    Color berde(0, 255, 0);
-    frogPart1.TransformObjectPosition(0.0f, 13, 0);
-    frogPart1.Apply_Color(berde);
+    //=======FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===
+    Color frogGreen(0, 255, 100);
+    Color frogEyeGreen(0, 255, 150);
+    Color WhiteEyes(255, 255, 255);
+    Color BlackEyes(0, 0, 0);
+    frogPart1.TransformObjectPosition(0, 10, 0);
+    frogPart1.Apply_Color(frogGreen);
     frogPart1.Create3DSphere(5, 15, 15);
+
+    frogPart2.TransformObjectPosition(3.5f, 13, 0);
+    frogPart2.Apply_Color(frogEyeGreen);
+    frogPart2.Create3DSphere(2, 15, 15);
+
+    frogPart3.TransformObjectPosition(0, 13, 3.5f);
+    frogPart3.Apply_Color(frogEyeGreen);
+    frogPart3.Create3DSphere(2, 15, 15);
+
+    frogPart4.TransformObjectPosition(2, 11, 2);
+    frogPart4.Apply_Color(frogGreen);
+    frogPart4.Create3DSphere(4, 15, 15);
+
+    frogEye1.TransformObjectPosition(4.5f, 13, 0);
+    frogEye1.Apply_Color(WhiteEyes);
+    frogEye1.Create3DSphere(1.5, 15, 15);
+
+    frogEye1.TransformObjectPosition(5, 13, 0.3);
+    frogEye1.Apply_Color(BlackEyes);
+    frogEye1.Create3DSphere(1.3, 15, 15);
+
+    frogEye2.TransformObjectPosition(0, 13, 4.5f);
+    frogEye2.Apply_Color(WhiteEyes);
+    frogEye2.Create3DSphere(1.5, 15, 15);
+
+    frogEye1.TransformObjectPosition(0.3, 13, 5);
+    frogEye1.Apply_Color(BlackEyes);
+    frogEye1.Create3DSphere(1.3, 15, 15);
+    //=======FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===
 
     //========================================================
     //  PLAYER OBJECT
