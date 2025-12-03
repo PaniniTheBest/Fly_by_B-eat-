@@ -167,7 +167,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="vector3.h" />
-    <ClInclude Include="Render_3D_Objects.h" />
+    <ClInclude Include="RenderObjects.h" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Majula.wav" />

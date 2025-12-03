@@ -1,8 +1,7 @@
-#include "Render_3D_Objects.h"
-//#include "GameObject.h"
+#include "RenderObjects.h"
 #include "Input.h"
 #include "libs.h"
-//#include "Camera.h"
+
 #include "Camera2.h"
 #include "Text.h"
 #include "Engine.h"
@@ -15,23 +14,18 @@
 #include <atomic>
 #include <mutex>
 
-const Vector3 gravity (0.0f, 0.0f, 0.0f);
+const Vector3 gravity (0.0f, -0.1f, 0.0f);
 float value = 0.0f;
 float rotateAngle = 0.0f;
 Vector3 playerPosition(0, 0, 0);
 Vector3 playerRotation(0, 0, 0);
 float playerAngle = 0.0f;
-Render_3D_Objects player;
-Render_3D_Objects otherObject;
-Render_3D_Objects fly[5];
+RenderObjects player;
+RenderObjects otherObject;
+RenderObjects fly[5];
 camera2 cam2;
 //Enemy Test
-Vector3 enemyFormation;
-float enemyCount = 10;
-vector<Render_3D_Objects> enemies;
-float spacing = 1.5f;
-float scaleFactor = 20.0f;
-float colorFactor = 0.1f;
+RenderObjects floorz;
 //camera cam;
 //GLuint loadTexture(Image* image) {
 //    GLuint textureId;
@@ -64,33 +58,15 @@ void InitiateRender()
 
 void Initialize()
 {
-    enemyFormation.SetValue(-7.5f, 5, 0);
-    for (int i = 0; i < enemyCount; i++) {
-        Render_3D_Objects enemy;
-        // set the position to have interval for each based on index
-        enemy.Transform_Object_Position(enemyFormation.x + (spacing * i), enemyFormation.y, 0);
-        enemy.Transform_Object_Size(1, enemy.GetObjectPosition().y - (scaleFactor * i), 1);
-        enemy.Apply_Color(100 - (colorFactor * i), 255, 0);
-        // Add the enemy instance to the vector collection
-        enemies.push_back(enemy);
-    }
-    playerPosition.SetValue(0, 5, 0);
-    player.Transform_Object_Position(playerPosition);
+   
 }
 
-Render_3D_Objects ObjTest1, ObjTest_2;
+RenderObjects ObjTest1, ObjTest_2;
 float movementSpeed = 0.01f;
+Vector3 FloorcolliderScale(20.0f, 0.5f, 20.0f);
+
 void Update()
 {
-    for (int i = 0; i < enemies.size(); i++)
-    {
-        // Make sure to render them ever frame
-        enemies[i].Create_3D_Sphere(1, 12, 12);
-    }
-    Color color;
-    float deltaTime = FindDeltaTime();
-    value += (1.0f * deltaTime);
-
 	if (value >= 15.0f)
 	{
 		PlaySong(L"yay.wav");
@@ -104,14 +80,14 @@ void Update()
     cam2.targetZ = playerPosition.z;
     cam2.ApplyCamera();
 
-    ObjTest1.Transform_Object_Position(10.0f, 0.0f, 20.0f);
-    ObjTest1.Transform_Object_Size(-1.0f, 5.0f, 0.0f);
+    ObjTest1.TransformObjectPosition(10.0f, 0.0f, 20.0f);
+    ObjTest1.TransformObjectSize(-1.0f, 5.0f, 0.0f);
     ObjTest1.Apply_Color(255, 0, 0);
-    ObjTest1.Create_3D_Cube(2, 2, 5);
+    ObjTest1.Create3DCube(2, 2, 5);
 	ObjTest1.SetCollider(ObjTest1.GetColliderPosition(), ObjTest1.GetColliderScale());
 
     //EVERYTHING BELOW HERE IS LERP//
-  /*  ObjTest_2.Transform_Object_Position(-10.0f, 0.01f, 0.0f);*/
+  /*  ObjTest_2.TransformObjectPosition(-10.0f, 0.01f, 0.0f);*/
     Vector3 toLERP = GetLERPObjects(ObjTest_2, ObjTest1);
     
     //glPushMatrix();
@@ -122,7 +98,7 @@ void Update()
     }
         
     ObjTest_2.Apply_Color(0, 255, 0, 100);
-    ObjTest_2.Create_3D_Cylinder(4.0f, 4.0f, 8);
+    ObjTest_2.Create3DCylinder(4.0f, 4.0f, 8);
     /*glPopMatrix();*/
 
     Text LERPx, LERPy, LERPz;
@@ -210,8 +186,12 @@ void Update()
     Vector3 colliderPos(0.0f, 5.0f, 0.0f);
     Color betterColorTest(255, 0.0f, 255);
 
-    player.Create_3D_Cone(5.0f, 10, 10);
-    player.Transform_Object_Position(0.0f, 0.0f, 0.0f);
+    player.Create3DCone(5.0f, 10, 10);
+    player.TransformObjectPosition(playerPosition);
+    //Floor bound
+    if(playerPosition.y > floorz.GetColliderPosition().y)
+        playerPosition += gravity;
+
     player.Apply_Color(betterColorTest);
     player.SetCollider(player.GetColliderPosition() + colliderPos, colliderScale);
         if (Input::GetKey('d'))
@@ -232,7 +212,7 @@ void Update()
         }
         if (Input::GetKey('w'))
         {
-            Vector3 topMovement(0, 0.1f, 0);
+            Vector3 topMovement(0, 0.5f, 0);
             playerPosition += topMovement;
         }
         if (Input::GetKey('s'))
@@ -244,8 +224,13 @@ void Update()
         {
             cout << "Collision detected!" << endl;
         }
-    player.Transform_Object_Position(playerPosition);
-    player.Transform_Object_Rotation(playerAngle, playerRotation);
+
+        if (player.CheckCollision(floorz))
+        {
+            cout << "Collision detected!" << endl;
+        }
+    player.TransformObjectPosition(playerPosition);
+    player.TransformObjectRotation(playerAngle, playerRotation);
     //================================================
     if (Input::GetKey('x'))
     {
@@ -260,9 +245,9 @@ void Update()
     static bool initialized = false;
     if (!initialized)
     {
-        otherObject.Transform_Object_Position(5.0f, 5.0f, 0.0f);
-        otherObject.Transform_Object_Size(2.0f, 2.0f, 2.0f);
-        otherObject.Transform_Object_Rotation(0.0f, 0.0f, 0.0f, 1.0f);
+        otherObject.TransformObjectPosition(5.0f, 5.0f, 0.0f);
+        otherObject.TransformObjectSize(2.0f, 2.0f, 2.0f);
+        otherObject.TransformObjectRotation(0.0f, 0.0f, 0.0f, 1.0f);
 
         Vector3 colliderScale(2, 2, 2);
         otherObject.SetCollider(otherObject.GetColliderPosition(), colliderScale);
@@ -279,9 +264,17 @@ void Update()
 
     Vector3 pos = otherObject.GetColliderPosition();
     Vector3 scale = otherObject.GetColliderScale();
-    otherObject.Transform_Object_Position(pos.x, pos.y, pos.z);
-    otherObject.Transform_Object_Size(scale.x, scale.y, scale.z);
-    otherObject.Create_3D_Cube(1.0f, 1.0f, 1.0f);
+    otherObject.TransformObjectPosition(pos.x, pos.y, pos.z);
+    otherObject.TransformObjectSize(scale.x, scale.y, scale.z);
+    otherObject.Create3DCube(1.0f, 1.0f, 1.0f);
+
+    //Floor
+    floorz.Create3DCube(20.0f, 0.5f, 20.0f);
+    Vector3 floorPos = floorz.GetColliderPosition();
+    Vector3 floorScale = floorz.GetColliderScale();
+    floorz.TransformObjectPosition(0, -10.0f, 0);
+    floorz.SetCollider(floorz.GetColliderPosition(), FloorcolliderScale);
+    
 }
 
 int main(int argc, char** argv)

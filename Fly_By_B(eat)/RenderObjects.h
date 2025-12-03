@@ -1,15 +1,15 @@
-#ifndef RENDER_3D_OBJECTS_H
-#define RENDER_3D_OBJECTS_H
+#ifndef RENDEROBJECTS_H
+#define RENDEROBJECTS_H
 #include "glut.h"
 #include <cmath>
-#include "Render_3D_Objects.h" 
+#include "RenderObjects.h" 
 #include "Collider.h"
 #include "vector3.h"
 #include <string>
 #include "Color.h"
 
 using namespace std;
-class Render_3D_Objects
+class RenderObjects
 {
 	private:
 		//float red = 0.5f, green = 0.5f, blue = 0.5f; float alpha = 1.0f;//RGBA colors
@@ -23,28 +23,29 @@ class Render_3D_Objects
 		//
 		Color objectColor;
 	public:
-		Render_3D_Objects();
+		RenderObjects();
 		void Apply_Color(float r, float g, float b);
 		void Apply_Color(float r, float g, float b ,float a);
 		void Apply_Color(Color newColor);
 
-		void Transform_Object_Position(float x, float y, float z);
-		void Transform_Object_Position(Vector3 setPosition);
+		void TransformObjectPosition(float x, float y, float z);
+		void TransformObjectPosition(Vector3 setPosition);
 		Vector3 GetObjectPosition();
-		void Transform_Object_Rotation(float angle, float x, float y, float z);
-		void Transform_Object_Rotation(float angle, Vector3 setRotationValue);
+		void TransformObjectRotation(float angle, float x, float y, float z);
+		void TransformObjectRotation(float angle, Vector3 setRotationValue);
 		Vector3 GetObjectRotation();
-		void Transform_Object_Size(float x, float y, float z);
-		void Transform_Object_Size(Vector3 setScale);
+		void TransformObjectSize(float x, float y, float z);
+		void TransformObjectSize(Vector3 setScale);
 		Vector3 GetObjectSize();
 
-		void Create_3D_Cube(float x, float y, float z);
-		void Create_3D_Sphere(double radius, double slices, double stacks);
-		void Create_3D_Cone(float radius, float height, int slices);
-		void Create_3D_Cylinder(float radius, float height, int slices);
+		void Create3DCube(float x, float y, float z);
+		void Create3DCube(Vector3 boxScale);
+		void Create3DSphere(double radius, double slices, double stacks);
+		void Create3DCone(float radius, float height, int slices);
+		void Create3DCylinder(float radius, float height, int slices);
 
 		void SetCollider(Vector3 position, Vector3 scale);
-		bool CheckCollision(Render_3D_Objects other);
+		bool CheckCollision(RenderObjects other);
 		void TrackPoint(float MoveSpeed, Vector3 LERP, Vector3 Point1, Vector3 Point2);
 		Vector3 GetColliderScale();
 		Vector3 GetColliderPosition();

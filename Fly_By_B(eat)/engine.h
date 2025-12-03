@@ -4,7 +4,7 @@
 // Include all the libraries and header files used here
 #include "Input.h"
 #include "Graphics.h"
-#include "Render_3D_Objects.h"
+#include "RenderObjects.h"
 #include <vector>
 
 void InitiateRender();
@@ -14,7 +14,7 @@ void Update();
 void PrepEngine(int argc, char** argv);
 float FindDeltaTime();
 float LinearInterpolate(float currentPos, float farawayPos, float t);
-Vector3 GetLERPObjects(Render_3D_Objects Origin, Render_3D_Objects Destination); //This function is specified for objects of the 3D Objects class//
+Vector3 GetLERPObjects(RenderObjects Origin, RenderObjects Destination); //This function is specified for objects of the 3D Objects class//
 
 #endif
 //test

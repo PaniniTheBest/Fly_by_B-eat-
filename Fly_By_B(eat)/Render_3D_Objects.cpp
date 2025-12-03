@@ -1,78 +1,78 @@
-#include "Render_3D_Objects.h"
+#include "RenderObjects.h"
 
 const float PI = 3.14; // Value of PI  
 
 //Initialized Variables
-Render_3D_Objects::Render_3D_Objects()
+RenderObjects::RenderObjects()
 {
-	objectColor.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
+	objectColor.SetColor(255.0f, 255.0f, 255.0f, 1.0f);
 	setPosition.SetValue(0.0f, 0.0f, 0.0f);
 	setRotationValue.SetValue(0.0f, 0.0f, 0.0f);
 	setScale.SetValue(1.0f, 1.0f, 1.0f);
 };
 //COLOR
-void Render_3D_Objects::Apply_Color(float r, float g, float b) //RGB values 
+void RenderObjects::Apply_Color(float r, float g, float b) //RGB values 
 {
 	this->objectColor.SetColor(r, g, b);
 }
-void Render_3D_Objects::Apply_Color(float r, float g, float b, float a) //RGB values with Opacity(aka Alpha)
+void RenderObjects::Apply_Color(float r, float g, float b, float a) //RGB values with Opacity(aka Alpha)
 {
 	this->objectColor.SetColor(r, g, b, a);
 }
-void Render_3D_Objects::Apply_Color(Color newColor)//RGBA values that supports Color.h
+void RenderObjects::Apply_Color(Color newColor)//RGBA values that supports Color.h
 {
 	this->objectColor.SetColor (newColor);
 }
 //TRANSFORM POSITION
-void Render_3D_Objects::Transform_Object_Position(float x, float y, float z) //Sets position of an Object
+void RenderObjects::TransformObjectPosition(float x, float y, float z) //Sets position of an Object
 {
 	setPosition.SetValue(x, y, z);
 }
-void Render_3D_Objects::Transform_Object_Position(Vector3 setNewPosition)//Sets position of an Object with Vector3
+void RenderObjects::TransformObjectPosition(Vector3 setNewPosition)//Sets position of an Object with Vector3
 {
 	setPosition.SetValue(setNewPosition);
 }
-Vector3 Render_3D_Objects::GetObjectPosition()
+Vector3 RenderObjects::GetObjectPosition()
 {
 	return setPosition;
 }
 //TRANSFORM ROTATION
-void Render_3D_Objects::Transform_Object_Rotation(float shapeAngle, float x, float y, float z)
+void RenderObjects::TransformObjectRotation(float shapeAngle, float x, float y, float z)
 {
 	angle = shapeAngle; 
 	setRotationValue.SetValue(x, y, z);	
 }
-void Render_3D_Objects::Transform_Object_Rotation(float shapeAngle, Vector3 setNewRotationValue)
+void RenderObjects::TransformObjectRotation(float shapeAngle, Vector3 setNewRotationValue)
 {
 	angle = shapeAngle;
 	setRotationValue.SetValue(setNewRotationValue);
 }
-Vector3 Render_3D_Objects::GetObjectRotation()
+Vector3 RenderObjects::GetObjectRotation()
 {
 	return setRotationValue;
 }
 //TRANSFORM SIZE
-void Render_3D_Objects::Transform_Object_Size(float x, float y, float z)
+void RenderObjects::TransformObjectSize(float x, float y, float z)
 {
 	setRotationValue.SetValue(x, y, z);
 }
-void Render_3D_Objects::Transform_Object_Size(Vector3 setNewScale)
+void RenderObjects::TransformObjectSize(Vector3 setNewScale)
 {
 	setScale.SetValue(setNewScale);
 }
-Vector3 Render_3D_Objects::GetObjectSize()
+Vector3 RenderObjects::GetObjectSize()
 {
 	return setScale;
 }
 //LERP aka Object tracking
-void Render_3D_Objects::TrackPoint(float MoveSpeed, Vector3 LERP, Vector3 Point1, Vector3 Point2) //Moves object towards a point using LERP values
+void RenderObjects::TrackPoint(float MoveSpeed, Vector3 LERP, Vector3 Point1, Vector3 Point2) //Moves object towards a point using LERP values
 {
 	setPosition.x += LERP.x * MoveSpeed;
 	setPosition.y += LERP.y * MoveSpeed;
 	setPosition.z += LERP.z * MoveSpeed;
 }
 //Types of shapes
-void Render_3D_Objects::Create_3D_Cube(float x, float y, float z)
+void RenderObjects::Create3DCube(float x, float y, float z)
 {   
     glPushMatrix();
     glColor4f(objectColor.red, objectColor.green, objectColor.blue, objectColor.alpha);
@@ -123,7 +123,58 @@ void Render_3D_Objects::Create_3D_Cube(float x, float y, float z)
     glEnd();
     glPopMatrix();
 }
-void Render_3D_Objects::Create_3D_Sphere(double radius, double slices, double stacks)
+void RenderObjects::Create3DCube(Vector3 boxScale)
+{
+	glPushMatrix();
+	glColor4f(objectColor.red, objectColor.green, objectColor.blue, objectColor.alpha);
+	glTranslatef(setPosition.x, setPosition.y, setPosition.z);
+	glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
+	glScalef(setScale.x, setScale.y, setScale.z);
+
+	glBegin(GL_QUADS);// Face 1 X-axis
+	glVertex3f(0.5f * boxScale.x, 0.5f * boxScale.y, 0.5f * boxScale.z);
+	glVertex3f(0.5f * boxScale.x, -0.5f * boxScale.y, 0.5f * boxScale.z);
+	glVertex3f(0.5f * boxScale.x, -0.5f * boxScale.y, -0.5f * boxScale.z);
+	glVertex3f(0.5f * boxScale.x, 0.5f * boxScale.y, -0.5f * boxScale.z);
+	glEnd();
+
+	glBegin(GL_QUADS);// Face 2 X-axis
+	glVertex3f(-0.5f * boxScale.x, 0.5f * boxScale.y, 0.5f * boxScale.z);
+	glVertex3f(-0.5f * boxScale.x, -0.5f * boxScale.y, 0.5f * boxScale.z);
+	glVertex3f(-0.5f * boxScale.x, -0.5f * boxScale.y, -0.5f * boxScale.z);
+	glVertex3f(-0.5f * boxScale.x, 0.5f * boxScale.y, -0.5f * boxScale.z);
+	glEnd();
+
+	glBegin(GL_QUADS);// Face 3 Y-axis 
+	glVertex3f(-0.5f * boxScale.x, -0.5f * boxScale.y, -0.5f * boxScale.z);
+	glVertex3f(-0.5f * boxScale.x, -0.5f * boxScale.y, 0.5f * boxScale.z);
+	glVertex3f(0.5f * boxScale.x, -0.5f * boxScale.y, 0.5f * boxScale.z);
+	glVertex3f(0.5f * boxScale.x, -0.5f * boxScale.y, -0.5f * boxScale.z);
+	glEnd();
+
+	glBegin(GL_QUADS);// Face 4 Y-axis 
+	glVertex3f(-0.5f * boxScale.x, 0.5f * boxScale.y, -0.5f * boxScale.z);
+	glVertex3f(-0.5f * boxScale.x, 0.5f * boxScale.y, 0.5f * boxScale.z);
+	glVertex3f(0.5f * boxScale.x, 0.5f * boxScale.y, 0.5f * boxScale.z);
+	glVertex3f(0.5f * boxScale.x, 0.5f * boxScale.y, -0.5f * boxScale.z);
+	glEnd();
+
+	glBegin(GL_QUADS);// Face 5 Z-axis
+	glVertex3f(-0.5f * boxScale.x, -0.5f * boxScale.y, -0.5f * boxScale.z);
+	glVertex3f(-0.5f * boxScale.x, 0.5f * boxScale.y, -0.5f * boxScale.z);
+	glVertex3f(0.5f * boxScale.x, 0.5f * boxScale.y, -0.5f * boxScale.z);
+	glVertex3f(0.5f * boxScale.x, -0.5f * boxScale.y, -0.5f * boxScale.z);
+	glEnd();
+
+	glBegin(GL_QUADS);// Face 6 Z-axis
+	glVertex3f(-0.5f * boxScale.x, -0.5f * boxScale.y, 0.5f * boxScale.z);
+	glVertex3f(-0.5f * boxScale.x, 0.5f * boxScale.y, 0.5f * boxScale.z);
+	glVertex3f(0.5f * boxScale.x, 0.5f * boxScale.y, 0.5f * boxScale.z);
+	glVertex3f(0.5f * boxScale.x, -0.5f * boxScale.y, 0.5f * boxScale.z);
+	glEnd();
+	glPopMatrix();
+}
+void RenderObjects::Create3DSphere(double radius, double slices, double stacks)
 {
     glPushMatrix();
     glColor4f(objectColor.red, objectColor.green, objectColor.blue, objectColor.alpha);
@@ -134,7 +185,7 @@ void Render_3D_Objects::Create_3D_Sphere(double radius, double slices, double st
     glutSolidSphere(radius, slices, stacks); 
     glPopMatrix(); 
 }
-void Render_3D_Objects::Create_3D_Cone(float radius, float height, int slices)
+void RenderObjects::Create3DCone(float radius, float height, int slices)
 {   
 	/*
 	* Credits to "Jiew Meng" & "Nobody moving away from SE" for the Cone function
@@ -168,7 +219,7 @@ void Render_3D_Objects::Create_3D_Cone(float radius, float height, int slices)
     glEnd();
     glPopMatrix(); 
 }
-void Render_3D_Objects::Create_3D_Cylinder(float radius, float height, int slices)
+void RenderObjects::Create3DCylinder(float radius, float height, int slices)
 {   
     float angleIncrement = (2.0f * PI) / slices;// Calculate angle increment based on number of slices
     float renderAngle = 0.0f;
@@ -210,23 +261,23 @@ void Render_3D_Objects::Create_3D_Cylinder(float radius, float height, int slice
     glPopMatrix();
 }
 //Collider for Objects
-void Render_3D_Objects::SetCollider(Vector3 position, Vector3 scale)
+void RenderObjects::SetCollider(Vector3 position, Vector3 scale)
 {
 	collider.SetDimension(position, scale);
 }
-bool Render_3D_Objects::CheckCollision(Render_3D_Objects other)
+bool RenderObjects::CheckCollision(RenderObjects other)
 {
 	return collider.CheckCollision(other.collider);
 }
-Vector3 Render_3D_Objects::GetColliderScale()
+Vector3 RenderObjects::GetColliderScale()
 {
 	return setScale;
 }
-Vector3 Render_3D_Objects::GetColliderPosition()
+Vector3 RenderObjects::GetColliderPosition()
 {
 	return setPosition;
 }
-Collider Render_3D_Objects::GetCollider()
+Collider RenderObjects::GetCollider()
 {
 	return collider;
 }
@@ -241,7 +292,7 @@ Collider Render_3D_Objects::GetCollider()
 #include <glut.h>
 #endif
 
-#include "Render_3D_Objects.h"
+#include "RenderObjects.h"
 
 using namespace std;
 
