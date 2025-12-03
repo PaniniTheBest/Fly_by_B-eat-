@@ -1,4 +1,18 @@
-﻿  Text.cpp
-C:\Users\rocks\Documents\GitHub\Fly_by_B-eat-\Fly_By_B(eat)\Text.cpp(17,20): warning C4018: '<': signed/unsigned mismatch
-Text.obj : error LNK2019: unresolved external symbol "public: void __thiscall Text::RenderString(void *,float,float,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?RenderString@Text@@QAEXPAXMMV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) referenced in function "public: void __thiscall Text::RenderText(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?RenderText@Text@@QAEXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
-C:\Users\rocks\Documents\GitHub\Fly_by_B-eat-\Debug\Fly_By_B(eat).exe : fatal error LNK1120: 1 unresolved externals
+﻿  AudioManager.cpp
+  Color.cpp
+  Engine.cpp
+  Graphics.cpp
+  ImageLoader.cpp
+  Input.cpp
+  Main.cpp
+  ModelLoader.cpp
+C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Fly_By_B(eat)\ModelLoader.cpp(141,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Fly_By_B(eat)\ModelLoader.cpp(144,21): warning C4018: '<': signed/unsigned mismatch
+  Player.cpp
+  Collider.cpp
+  Text.cpp
+C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Fly_By_B(eat)\Text.cpp(17,20): warning C4018: '<': signed/unsigned mismatch
+  vector3.cpp
+  Render_3D_Objects.cpp
+  Generating Code...
+  Fly_By_B(eat).vcxproj -> C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Debug\Fly_By_B(eat).exe

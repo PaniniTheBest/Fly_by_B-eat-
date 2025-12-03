@@ -21,7 +21,7 @@ class Text {
 		void TranslateText(float x, float y, float z);
 		void TranslateText(Vector3 newTranslate);
 		void RenderVariableAsText(float variable);
-		void RenderVariableAsText2(float variable, float r, float g, float b); //If you wanna declare
+		//void RenderVariableAsText(float variable, float r, float g, float b); //If you wanna declare
 };
 
 

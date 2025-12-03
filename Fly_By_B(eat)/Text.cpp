@@ -11,7 +11,7 @@ Text::Text()
 	TextRGB.SetColor(1.0f, 1.0f, 1.0f);
 	Translate.SetValue(0.0f, 0.0f, 0.0f);
 }
-void RenderString(void* font, float x, float y, string message)
+void Text::RenderString(void* font, float x, float y, string message)
 {
 	glRasterPos3f(-10, y, 0.0f);
 	for (int x = 0; x < message.length(); x++)
@@ -60,24 +60,24 @@ void Text::TranslateText(Vector3 newTranslate)
 void Text::RenderVariableAsText(float variable)
 {
 	glPushMatrix();
+	glTranslatef(Translate.x, Translate.y, Translate.z);
 	char buffer[256];
 	sprintf_s(buffer, "%f", variable);
 	glColor3f(TextRGB.red, TextRGB.green, TextRGB.blue);
 	RenderString(GLUT_BITMAP_HELVETICA_18, -5, 5, buffer);
-	glTranslatef(Translate.x, Translate.y, Translate.z);
 	glPopMatrix();
 }
 
-void Text::RenderVariableAsText2(float variable, float r, float g, float b)
-{
-	glPushMatrix();
-	char buffer[256];
-	sprintf_s(buffer, "%f", variable);
-	glColor3f( r,  g,  b);
-	RenderString(GLUT_BITMAP_HELVETICA_18, -5, 5, buffer);
-	glTranslatef(Translate.x, Translate.y, Translate.z);
-	glPopMatrix();
-}
+//void Text::RenderVariableAsText(float variable, float r, float g, float b)
+//{
+//	glPushMatrix();
+//	char buffer[256];
+//	sprintf_s(buffer, "%f", variable);
+//	glColor3f( r,  g,  b);
+//	RenderString(GLUT_BITMAP_HELVETICA_18, -5, 5, buffer);
+//	glTranslatef(Translate.x, Translate.y, Translate.z);
+//	glPopMatrix();
+//}
 
 
 
