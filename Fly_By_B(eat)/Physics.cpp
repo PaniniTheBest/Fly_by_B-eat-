@@ -86,15 +86,9 @@ void Physics::UpdatePhysics(float deltaTime, Vector3& position)
     // Reset forces for next frame
     addForce.x = addForce.y = addForce.z = 0.0f;
 }
-void Physics::SetMass(float m)
-{
-    mass = m;
-}
-void Physics::SetDrag(float d)
-{
-    drag = d;
-}
-//following is to be removed:
+void Physics::SetMass(float m){mass = m;} //How heavy the object is
+void Physics::SetDrag(float d){drag = d;} //How slippery the object is
+//following might be removed:
 void Physics::SetVelocity(float x, float y, float z)
 {
     velocity.x = x;
@@ -120,11 +114,6 @@ void Physics::GetVelocity(Vector3& currentVelocity)
     currentVelocity.z = velocity.z;
 }
 //These are chill to keep:
-void Physics::UseGravity(bool toggle)
-{
-    booleanGravity = toggle;
-}
-bool Physics::ToggleGravity()
-{
-    return booleanGravity;
-}
+void Physics::UseGravity(bool toggle){booleanGravity = toggle;}
+bool Physics::ToggleGravity(){return booleanGravity;}
+

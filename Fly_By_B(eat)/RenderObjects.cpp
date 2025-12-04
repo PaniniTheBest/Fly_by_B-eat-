@@ -286,7 +286,6 @@ void RenderObjects::TrackPoint(float MoveSpeed, Vector3 LERP, Vector3 Point1, Ve
 //GROUPING || PARENTS
 void RenderObjects::SetParent(RenderObjects* newParent)
 {
-	
 	if (newParent == this) {
 		parent = nullptr;
 		return;
@@ -331,19 +330,9 @@ void RenderObjects::UpdatePhysics(float deltaTime)
 {
 	physics.UpdatePhysics(deltaTime, setPosition.x, setPosition.y, setPosition.z);
 }
-void RenderObjects::SetMass(float m)
-{
-	physics.SetMass(m);
-}
-void RenderObjects::SetDrag(float d)
-{
-	physics.SetDrag(d);
-}
-void RenderObjects::SetUseGravity(bool enabled)
-{
-	physics.UseGravity(enabled);
-}
-
+void RenderObjects::SetMass(float m){physics.SetMass(m);}
+void RenderObjects::SetDrag(float d){physics.SetDrag(d);}
+void RenderObjects::SetUseGravity(bool enabled){physics.UseGravity(enabled);}
 void RenderObjects::SetVelocity(float x, float y, float z)
 {
 	physics.SetVelocity(x, y, z);

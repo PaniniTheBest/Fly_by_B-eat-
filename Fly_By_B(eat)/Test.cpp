@@ -191,12 +191,12 @@ void HandleInput()
             west(-0.2f, 0.0f, 0.0f), 
             south(0.0f, 0.0f,0.2f ),
             east(0.2f, 0.0f, 0.0f),
-            jump(0.0f, 5.0f, 0.0f);
+            jump(0.0f, 500.0f, 0.0f);
     playerPos = player.GetObjectPosition();
     // Jump
     // Movement
-    if (Input::GetKey('v')&&onGround)
-        player.TransformObjectPosition(playerPos+=jump);
+    if (Input::GetKey('v') && onGround)
+        player.AddForce(jump);
     if (Input::GetKey('a'))
     {
         player.TransformObjectPosition(playerPos+=west);
@@ -235,11 +235,9 @@ void HandleInput()
 void Update()
 {
     // Calculate delta time
-    float currentTime = glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
-    float deltaTime = currentTime - lastTime;
-    if (deltaTime > 0.1f) deltaTime = 0.1f;  // Cap delta time
-    lastTime = currentTime;
-
+    float deltaTime;
+    deltaTime = FindDeltaTime();
+ 
     // Handle input
     HandleInput();
 
