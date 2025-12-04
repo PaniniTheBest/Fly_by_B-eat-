@@ -1,33 +1,34 @@
 #ifndef PHYSICS_H
 #define PHYSICS_H
 #include "vector3.h"
-#include "engine.h"
-
+#include <cmath>
 #pragma once
 class Physics
 {
-    private:
-	    Vector3 velocity;
-	    Vector3 addForce;
-	    float mass;
-        float gravity;
-        bool booleanGravity = false;
-	    //float drag;
-    public:
-        Physics();
-        Physics(float m, float d, bool toggleGravity);
+private:
+    Vector3 velocity;
+    Vector3 addForce;
+    float mass;
+    float drag;
+    bool booleanGravity;
+public:
+    Physics();
+    Physics(float m, float d, bool toggleGravity);
+    //Addforce ... to be removed
+    void AddForce(float& x, float& y, float& z);
+    void AddForce(Vector3& addForce);
 
-        void AddForce(float x, float y, float z);
-        void AddForce(Vector3 newForce);
-        void Update(float& positionX, float& positionY, float& positionZ);
-        void Update(Vector3& position);
-        void SetMass(float m);
-        void SetDrag(float d);
-        void SetVelocity(float x, float y, float z);
-        void GetVelocity(float& x, float& y, float& z);
-        void GetVelocity(Vector3& position);
-        void SetUseGravity(bool enabled);
-        bool ToggleGravity();
-        void Reset();
+    void UpdatePhysics(float deltaTime, float& positionX, float& positionY, float& positionZ);
+    void UpdatePhysics(float deltaTime, Vector3& position);
+    void SetMass(float m);
+    void SetDrag(float d);
+    //following is to be removed:
+    void SetVelocity(float x, float y, float z); 
+    void SetVelocity(Vector3 newVelocity);
+    void GetVelocity(float& x, float& y, float& z);
+    void GetVelocity(Vector3& newVelocity);
+    //These are chill to keep:
+    void UseGravity(bool toggle);
+    bool ToggleGravity();
 };
-#endif // !PHYSICS_H
+#endif

@@ -147,9 +147,10 @@
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Test.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="vector3.cpp" />
-    <ClCompile Include="Render_3D_Objects.cpp" />
+    <ClCompile Include="RenderObjects.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioManager.h" />
