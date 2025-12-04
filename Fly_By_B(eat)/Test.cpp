@@ -20,7 +20,8 @@ RenderObjects ground;
 RenderObjects obstacle1;
 RenderObjects obstacle2;
 RenderObjects movingPlatform;
-Vector3 playerPos (0.0f, 50.0f, 0.0f);
+
+Vector3 Box2_Scale(5.0f, 0.1f, 5.0f);
 void InitiateRender()
 {
         /*glEnable(GL_DEPTH_TEST);
@@ -33,13 +34,14 @@ void InitiateRender()
 }
 void Initialize()
 {
+    Vector3 playerPos(0.0f, 50.0f, 0.0f);
     // Setup Player with physics
     player.TransformObjectPosition(playerPos);
     player.Apply_Color(0, 255, 0);  // Green
-    player.SetMass(1.0f);
+    player.SetMass(800.0f);
     player.SetUseGravity(true);
-    player.SetDrag(0.98f);
-    player.SetCollider(Vector3(0.0f, 10.0f, 0.0f), Vector3(2.0f, 2.0f, 2.0f));
+    player.SetDrag(1.0f);
+    player.SetCollider(playerPos, Vector3(2.0f, 2.0f, 2.0f));
 
     // Setup Ground (static)
     ground.TransformObjectPosition(0.0f, -1.0f, 0.0f);
@@ -57,7 +59,7 @@ void Initialize()
     obstacle2.TransformObjectPosition(-5.0f, 2.0f, 0.0f);
     obstacle2.Apply_Color(255, 255, 0);  // Yellow
     obstacle2.SetUseGravity(false);
-    obstacle2.SetCollider(Vector3(-5.0f, 2.0f, 0.0f), Vector3(2.0f, 2.0f, 2.0f));
+    obstacle2.SetCollider(Vector3(-5.0f, 2.0f, 0.0f), Box2_Scale);
 
     // Setup Moving Platform
     movingPlatform.TransformObjectPosition(0.0f, 5.0f, -5.0f);
@@ -65,29 +67,28 @@ void Initialize()
     movingPlatform.SetUseGravity(false);
     movingPlatform.SetCollider(Vector3(0.0f, 5.0f, -5.0f), Vector3(4.0f, 0.5f, 2.0f));
 }
-
 void UpdateColliders()
 {
     // Update all collider positions to match object positions
     Vector3 pos;
 
-    player.GetCurrentPosition(pos);
+    pos = player.GetObjectPosition();
     player.SetCollider(pos, Vector3(2.0f, 2.0f, 2.0f));
 
-    obstacle1.GetCurrentPosition(pos);
+    pos = obstacle1.GetObjectPosition();
     obstacle1.SetCollider(pos, Vector3(2.0f, 2.0f, 2.0f));
 
-    obstacle2.GetCurrentPosition(pos);
-    obstacle2.SetCollider(pos, Vector3(2.0f, 2.0f, 2.0f));
+    pos = obstacle2.GetObjectPosition();
+    obstacle2.SetCollider(pos, Box2_Scale);
 
-    movingPlatform.GetCurrentPosition(pos);
+    pos = movingPlatform.GetObjectPosition();
     movingPlatform.SetCollider(pos, Vector3(4.0f, 0.5f, 2.0f));
 }
 
 void HandleCollisions()
 {
-    //Vector3 playerPos;
-    player.GetCurrentPosition(playerPos);
+    Vector3 playerPos;
+    playerPos = player.GetColliderPosition();
 
     // Player vs Ground collision
     if (player.CheckCollision(ground))
@@ -106,12 +107,21 @@ void HandleCollisions()
 
         // Push player back
         Vector3 obs1Pos;
-        obstacle1.GetCurrentPosition(obs1Pos);
+        obs1Pos = obstacle1.GetColliderPosition();
+        
 
         if (playerPos.x < obs1Pos.x)
-            player.TransformObjectPosition(playerPos.x - 0.05f, playerPos.y, playerPos.z);
+            player.TransformObjectPosition(playerPos.x -= 0.05f, playerPos.y, playerPos.z);
         else
-            player.TransformObjectPosition(playerPos.x + 0.05f, playerPos.y, playerPos.z);
+            player.TransformObjectPosition(playerPos.x += 0.05f, playerPos.y, playerPos.z);
+        /*if (playerPos.y < obs1Pos.y)
+            player.TransformObjectPosition(playerPos.x , playerPos.y -= 0.05f, playerPos.z);
+        else
+            player.TransformObjectPosition(playerPos.x , playerPos.y += 0.05f, playerPos.z);
+        if (playerPos.z < obs1Pos.z)
+            player.TransformObjectPosition(playerPos.x , playerPos.y, playerPos.z- 0.05f);
+        else
+            player.TransformObjectPosition(playerPos.x , playerPos.y, playerPos.z+ 0.05f);*/
     }
 
     // Player vs Obstacle2 collision
@@ -120,19 +130,27 @@ void HandleCollisions()
         player.Apply_Color(255, 128, 0);  // Orange on collision
 
         Vector3 obs2Pos;
-        obstacle2.GetCurrentPosition(obs2Pos);
+        obs2Pos = obstacle2.GetColliderPosition();
 
         if (playerPos.x < obs2Pos.x)
-            player.TransformObjectPosition(playerPos.x - 0.05f, playerPos.y, playerPos.z);
+            player.TransformObjectPosition(obs2Pos.x - 0.05f, playerPos.y, playerPos.z);
         else
-            player.TransformObjectPosition(playerPos.x + 0.05f, playerPos.y, playerPos.z);
+            player.TransformObjectPosition(obs2Pos.x + 0.05f, playerPos.y, playerPos.z);
+        if (playerPos.y < obs2Pos.y)
+            player.TransformObjectPosition(playerPos.x , obs2Pos.y- 0.05f, playerPos.z);
+        else
+            player.TransformObjectPosition(playerPos.x , obs2Pos.y+ 0.05f, playerPos.z);
+        if (playerPos.z < obs2Pos.z)
+            player.TransformObjectPosition(playerPos.x , playerPos.y, obs2Pos.z - 0.05f);
+        else
+            player.TransformObjectPosition(playerPos.x , playerPos.y, obs2Pos.z+ 0.05f);
     }
 
     // Player vs Moving Platform collision
     if (player.CheckCollision(movingPlatform))
     {
         Vector3 platformPos;
-        movingPlatform.GetCurrentPosition(platformPos);
+        platformPos = movingPlatform.GetObjectPosition();
 
         // Land on top of platform
         if (playerPos.y > platformPos.y)
@@ -154,7 +172,7 @@ void UpdateMovingPlatform(float deltaTime)
 {
     static float platformDirection = 1.0f;
     Vector3 platformPos;
-    movingPlatform.GetCurrentPosition(platformPos);
+    platformPos = movingPlatform.GetObjectPosition();
 
     // Move platform back and forth
     platformPos.x += platformDirection * 2.0f * deltaTime;
@@ -168,17 +186,17 @@ void UpdateMovingPlatform(float deltaTime)
 
 void HandleInput()
 {
-    //Vector3 playerPos;
+    Vector3 playerPos;
     Vector3 north(0.0f,0.0f,-0.2f), 
             west(-0.2f, 0.0f, 0.0f), 
             south(0.0f, 0.0f,0.2f ),
             east(0.2f, 0.0f, 0.0f),
-            jump(0.0f, 10.0f, 0.0f);
-    player.GetCurrentPosition(playerPos);
+            jump(0.0f, 5.0f, 0.0f);
+    playerPos = player.GetObjectPosition();
     // Jump
     // Movement
-    if (Input::GetKey(' ')&& onGround)
-        player.TransformObjectPosition(playerPos+jump);
+    if (Input::GetKey('v')&&onGround)
+        player.TransformObjectPosition(playerPos+=jump);
     if (Input::GetKey('a'))
     {
         player.TransformObjectPosition(playerPos+=west);
@@ -238,8 +256,8 @@ void Update()
     HandleCollisions();
 
     // Camera follows player
-    //Vector3 playerPos;
-    player.GetCurrentPosition(playerPos);
+    Vector3 playerPos;
+    playerPos = player.GetObjectPosition();
     cam2.targetX = playerPos.x;
     cam2.targetY = playerPos.y + 5.0f;
     cam2.targetZ = playerPos.z + 15.0f;
@@ -252,7 +270,7 @@ void Update()
     player.Create3DCube(2, 2, 2);
     ground.Create3DCube(20, 1, 20);
     obstacle1.Create3DCube(2, 2, 2);
-    obstacle2.Create3DCube(2, 2, 2);
+    obstacle2.Create3DCube(Box2_Scale);
     movingPlatform.Create3DCube(4, 0.5, 2);
 
     // Display info text

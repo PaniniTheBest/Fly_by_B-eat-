@@ -63,24 +63,7 @@
 //
 //void Initialize()
 //{
-//    // Setup Player
-//    player.TransformObjectPosition(0.0f, 10.0f, 0.0f);
-//    player.Apply_Color(0, 255, 0);  // Green
-//    player.SetMass(1.0f);
-//    player.SetUseGravity(true);
-//    player.SetCollider(Vector3(0.0f, 10.0f, 0.0f), Vector3(2.0f, 2.0f, 2.0f));
 //
-//    // Setup Obstacle
-//    obstacle.TransformObjectPosition(5.0f, 1.0f, 0.0f);
-//    obstacle.Apply_Color(255, 0, 0);  // Red
-//    obstacle.SetUseGravity(false);
-//    obstacle.SetCollider(Vector3(5.0f, 1.0f, 0.0f), Vector3(2.0f, 2.0f, 2.0f));
-//
-//    // Setup Ground
-//    ground.TransformObjectPosition(0.0f, -1.0f, 0.0f);
-//    ground.Apply_Color(100, 100, 100);  // Gray
-//    ground.SetUseGravity(false);
-//    ground.SetCollider(Vector3(0.0f, -1.0f, 0.0f), Vector3(20.0f, 1.0f, 20.0f));
 //}
 //
 //RenderObjects ObjTest1, ObjTest_2;
@@ -88,6 +71,72 @@
 //Vector3 FloorcolliderScale(20.0f, 0.5f, 20.0f);
 //RenderObjects frogPart1, frogPart2, frogPart3, frogPart4, frogEye1, frogEye2, frogEye3, frogEye4;
 //
+//void Squegee()
+//{
+//    //=======FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===
+//    Color frogGreen(0, 255, 100);
+//    Color frogEyeGreen(0, 255, 150);
+//    Color WhiteEyes(255, 255, 255);
+//    Color BlackEyes(0, 0, 0);
+//    frogPart1.TransformObjectPosition(0, 10, 0);
+//    frogPart1.Apply_Color(frogGreen);
+//    frogPart1.Create3DSphere(5, 15, 15);
+//
+//    frogPart2.TransformObjectPosition(3.5f, 3, 0);
+//    frogPart2.Apply_Color(frogEyeGreen);
+//    frogPart2.Create3DSphere(2, 15, 15);
+//
+//    frogPart3.TransformObjectPosition(0, 3, 3.5f);
+//    frogPart3.Apply_Color(frogEyeGreen);
+//    frogPart3.Create3DSphere(2, 15, 15);
+//
+//    frogPart4.TransformObjectPosition(2, 1, 2);
+//    frogPart4.Apply_Color(frogGreen);
+//    frogPart4.Create3DSphere(4, 15, 15);
+//
+//    frogEye1.TransformObjectPosition(4.5f, 3, 0);
+//    frogEye1.Apply_Color(WhiteEyes);
+//    frogEye1.Create3DSphere(1.5, 15, 15);
+//
+//    frogEye2.TransformObjectPosition(5, 3, 0.3);
+//    frogEye2.Apply_Color(BlackEyes);
+//    frogEye2.Create3DSphere(1.3, 15, 15);
+//
+//    frogEye3.TransformObjectPosition(0, 3, 4.5f);
+//    frogEye3.Apply_Color(WhiteEyes);
+//    frogEye3.Create3DSphere(1.5, 15, 15);
+//
+//    frogEye4.TransformObjectPosition(0.3, 3, 5);
+//    frogEye4.Apply_Color(BlackEyes);
+//    frogEye4.Create3DSphere(1.3, 15, 15);
+//
+//    frogPart2.SetParent(&frogPart1);
+//    frogPart3.SetParent(&frogPart1);
+//    frogPart4.SetParent(&frogPart1);
+//    frogEye1.SetParent(&frogPart1);
+//    frogEye2.SetParent(&frogPart1);
+//    frogEye3.SetParent(&frogPart1);
+//    frogEye4.SetParent(&frogPart1);
+//
+//
+//    if (Input::GetKey('w'))
+//    {
+//        frogPart1.TransformObjectRotation(90, 0, 90, 0);
+//    }
+//    if (Input::GetKey('a'))
+//    {
+//        frogPart1.TransformObjectRotation(180, 0, 180, 0);
+//    }
+//    if (Input::GetKey('s'))
+//    {
+//        frogPart1.TransformObjectRotation(270, 0, 270, 0);
+//    }
+//    if (Input::GetKey('d'))
+//    {
+//        frogPart1.TransformObjectRotation(360, 0, 360, 0);
+//    }
+//    //=======FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===
+//}
 //void Update()
 //{
 //	if (value >= 15.0f)
@@ -202,70 +251,7 @@
 //
 //    glEnd();
 //
-//    //=======FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===
-//    Color frogGreen(0, 255, 100);
-//    Color frogEyeGreen(0, 255, 150);
-//    Color WhiteEyes(255, 255, 255);
-//    Color BlackEyes(0, 0, 0);
-//    frogPart1.TransformObjectPosition(0, 10, 0);
-//    frogPart1.Apply_Color(frogGreen);
-//    frogPart1.Create3DSphere(5, 15, 15);
-//
-//    frogPart2.TransformObjectPosition(3.5f, 3, 0);
-//    frogPart2.Apply_Color(frogEyeGreen);
-//    frogPart2.Create3DSphere(2, 15, 15);
-//
-//    frogPart3.TransformObjectPosition(0, 3, 3.5f);
-//    frogPart3.Apply_Color(frogEyeGreen);
-//    frogPart3.Create3DSphere(2, 15, 15);
-//
-//    frogPart4.TransformObjectPosition(2, 1, 2);
-//    frogPart4.Apply_Color(frogGreen);
-//    frogPart4.Create3DSphere(4, 15, 15);
-//
-//    frogEye1.TransformObjectPosition(4.5f, 3, 0);
-//    frogEye1.Apply_Color(WhiteEyes);
-//    frogEye1.Create3DSphere(1.5, 15, 15);
-//
-//    frogEye2.TransformObjectPosition(5, 3, 0.3);
-//    frogEye2.Apply_Color(BlackEyes);
-//    frogEye2.Create3DSphere(1.3, 15, 15);
-//
-//    frogEye3.TransformObjectPosition(0, 3, 4.5f);
-//    frogEye3.Apply_Color(WhiteEyes);
-//    frogEye3.Create3DSphere(1.5, 15, 15);
-//
-//    frogEye4.TransformObjectPosition(0.3, 3, 5);
-//    frogEye4.Apply_Color(BlackEyes);
-//    frogEye4.Create3DSphere(1.3, 15, 15);
-//
-//    frogPart2.SetParent(&frogPart1);
-//    frogPart3.SetParent(&frogPart1);
-//    frogPart4.SetParent(&frogPart1);
-//    frogEye1.SetParent(&frogPart1);
-//    frogEye2.SetParent(&frogPart1);
-//    frogEye3.SetParent(&frogPart1);
-//    frogEye4.SetParent(&frogPart1);
-//
-//
-//    if (Input::GetKey('w'))
-//    {
-//        frogPart1.TransformObjectRotation(90, 0, 90, 0);
-//    }
-//    if (Input::GetKey('a'))
-//    {
-//        frogPart1.TransformObjectRotation(180, 0, 180, 0);
-//    }
-//    if (Input::GetKey('s'))
-//    {
-//        frogPart1.TransformObjectRotation(270, 0, 270, 0);
-//    }
-//    if (Input::GetKey('d'))
-//    {
-//        frogPart1.TransformObjectRotation(360, 0, 360, 0);
-//    }
-//    //=======FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===
-//
+//    Squegee();
 //    //========================================================
 //    //  PLAYER OBJECT
 //    //Camera bound by playerPosition
@@ -363,10 +349,6 @@
 //    floorz.TransformObjectPosition(0, -10.0f, 0);
 //    floorz.SetCollider(floorz.GetColliderPosition(), FloorcolliderScale);
 //    
-//}
-//void Update()
-//{
-//
 //}
 //
 //int main(int argc, char** argv)

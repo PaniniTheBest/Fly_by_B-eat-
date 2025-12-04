@@ -14,10 +14,8 @@ private:
 public:
     Physics();
     Physics(float m, float d, bool toggleGravity);
-    //Addforce ... to be removed
     void AddForce(float& x, float& y, float& z);
     void AddForce(Vector3& addForce);
-
     void UpdatePhysics(float deltaTime, float& positionX, float& positionY, float& positionZ);
     void UpdatePhysics(float deltaTime, Vector3& position);
     void SetMass(float m);

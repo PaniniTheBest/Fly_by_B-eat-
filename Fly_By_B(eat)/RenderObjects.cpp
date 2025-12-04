@@ -317,15 +317,15 @@ void RenderObjects::ApplyParentTransform() const
 		parent->setRotationValue.z);
 	glScalef(parent->setScale.x, parent->setScale.y, parent->setScale.z);
 }
-//to be removed
-//void RenderObjects::AddForce(float x, float y, float z)
-//{
-//	physics.AddForce(x, y, z);
-//}
-//void RenderObjects::AddForce(Vector3 newForce)
-//{
-//	physics.AddForce(newForce.x, newForce.y, newForce.z);
-//}
+//AddForce might be removed
+void RenderObjects::AddForce(float x, float y, float z)
+{
+	physics.AddForce(x, y, z);
+}
+void RenderObjects::AddForce(Vector3 newForce)
+{
+	physics.AddForce(newForce.x, newForce.y, newForce.z);
+}
 
 void RenderObjects::UpdatePhysics(float deltaTime)
 {
@@ -343,19 +343,7 @@ void RenderObjects::SetUseGravity(bool enabled)
 {
 	physics.UseGravity(enabled);
 }
-//following is to be removed:
-void RenderObjects::GetCurrentPosition(float& x, float& y, float& z)
-{
-	x = setPosition.x;
-	y = setPosition.y;
-	z = setPosition.z;
-}
-void RenderObjects::GetCurrentPosition(Vector3& currentPosition)
-{
-	currentPosition.x = setPosition.x;
-	currentPosition.y = setPosition.y;
-	currentPosition.z = setPosition.z;
-}
+
 void RenderObjects::SetVelocity(float x, float y, float z)
 {
 	physics.SetVelocity(x, y, z);

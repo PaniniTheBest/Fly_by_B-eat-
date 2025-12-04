@@ -24,6 +24,7 @@ class RenderObjects
 
 		Physics physics;
 	public:
+		RenderObjects* parent = nullptr;
 		RenderObjects();
 		//COLOR
 		void Apply_Color(float r, float g, float b);
@@ -56,25 +57,24 @@ class RenderObjects
 		//LERP	
 		void TrackPoint(float MoveSpeed, Vector3 LERP, Vector3 Point1, Vector3 Point2);
 		//PARENTS || GROUPING 
-		RenderObjects* parent = nullptr;
 		void SetParent(RenderObjects* newParent);
 		void ApplyParentTransform() const;
 		//PHYSICS
-		//void AddForce(float x, float y, float z);
-		//void AddForce(Vector3 newForce);
+		void AddForce(float x, float y, float z);
+		void AddForce(Vector3 newForce);
 		void UpdatePhysics(float deltaTime);
 		void SetMass(float m);
 		void SetDrag(float d);
 		void SetUseGravity(bool enabled);
-		//following is to be removed:
-		void GetCurrentPosition(float& x, float& y, float& z);
-		void GetCurrentPosition(Vector3& currentPosition);
+
 		void SetVelocity(float x, float y, float z);
 		void SetVelocity(Vector3 newVelocity);
 		void GetVelocity(float& x, float& y, float& z);
 		void GetVelocity(Vector3& newVelocity);
 };
-
+//==============================================================================
+//				\/ \/	Make this its own Header file	\/  \/
+//==============================================================================
 
 //Initializes 3D text.  Must be called before other functions in this header.
 void t3dInit();

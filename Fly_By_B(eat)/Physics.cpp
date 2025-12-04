@@ -1,5 +1,5 @@
 #include "Physics.h"
-const float GRAVITY = -0.98f;
+const float GRAVITY = -9.81f;
 Physics::Physics()
 {
     velocity.SetValue(0.0f, 0.0f, 0.0f);
@@ -17,7 +17,6 @@ Physics::Physics(float m, float d, bool toggleGravity)
     drag = d;
     booleanGravity = toggleGravity;
 }
-//Addforce ... to be removed
 void Physics::AddForce(float& x, float& y, float& z)
 {
     this -> addForce.x = x;
@@ -35,11 +34,11 @@ void Physics::UpdatePhysics(float deltaTime, float& positionX, float& positionY,
 {
     // Apply gravity automatically if enabled
     if (booleanGravity)
-        velocity.y += GRAVITY * mass;
+        addForce.y += GRAVITY * mass;
     //Acceleration
-    float accelerationX = velocity.x / mass;
-    float accelerationY = velocity.y / mass;
-    float accelerationZ = velocity.z / mass;
+    float accelerationX = addForce.x / mass;
+    float accelerationY = addForce.y / mass;
+    float accelerationZ = addForce.z / mass;
 
     // Update velocity
     velocity.x += accelerationX * deltaTime;
@@ -63,11 +62,11 @@ void Physics::UpdatePhysics(float deltaTime, Vector3& position)
 {
     // Apply gravity automatically if enabled
     if (booleanGravity)
-        velocity.y += GRAVITY * mass;
+        addForce.y += GRAVITY * mass;
     // Acceleration
-    float accelerationX = velocity.x / mass;
-    float accelerationY = velocity.y / mass;
-    float accelerationZ = velocity.z / mass;
+    float accelerationX = addForce.x / mass;
+    float accelerationY = addForce.y / mass;
+    float accelerationZ = addForce.z / mass;
 
     // Update velocity
     velocity.x += accelerationX * deltaTime;
