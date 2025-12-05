@@ -73,18 +73,18 @@ RenderObjects ObjTest1, ObjTest_2, Goober;
 float movementSpeed = 0.01f;
 Vector3 FloorcolliderScale(20.0f, 0.5f, 20.0f);
 RenderObjects frogPart1, frogPart2, frogPart3, frogPart4, frogEye1, frogEye2, frogEye3, frogEye4;
+float frogRotation = 0.0f;
 
 void Squegee()
 {
-    //=======FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===
+
     Color frogGreen(0, 255, 100);
     Color frogEyeGreen(0, 255, 150);
     Color WhiteEyes(255, 255, 255);
     Color BlackEyes(0, 0, 0);
     frogPart1.TransformObjectPosition(0, 10, 0);
-    frogPart1.TransformObjectRotation(Rotation::camYaw, 0, 1, 0);
+    //frogPart1.TransformObjectRotation(Rotation::camYaw, 0, 1, 0);
     frogPart1.Apply_Color(frogGreen);
-    frogPart1.SetCollider(frogPart1.GetObjectPosition(), Vector3(3, 3, 3));
     frogPart1.Create3DSphere(5, 15, 15);
 
     frogPart2.TransformObjectPosition(3.5f, 3, 0);
@@ -126,22 +126,71 @@ void Squegee()
 
     if (Input::GetKey('w'))
     {
-        frogPart1.TransformObjectRotation(90, 0, 90, 0);
+        if (frogRotation != 135) {
+            if (frogRotation < 135) {
+                frogRotation += 5;
+                frogPart1.TransformObjectRotation(frogRotation, 0, frogRotation, 0);
+            }
+            else if (frogRotation > 135) {
+                frogRotation -= 5;
+                frogPart1.TransformObjectRotation(frogRotation, 0, frogRotation, 0);
+            }
+
+        }
+        if (frogRotation == 405) {
+            frogRotation = 45;
+        }
+
     }
     if (Input::GetKey('a'))
     {
-        frogPart1.TransformObjectRotation(180, 0, 180, 0);
+        if (frogRotation != 225) {
+            if (frogRotation < 225) {
+                frogRotation += 5;
+                frogPart1.TransformObjectRotation(frogRotation, 0, frogRotation, 0);
+            }
+            else {
+                frogRotation -= 5;
+                frogPart1.TransformObjectRotation(frogRotation, 0, frogRotation, 0);
+            }
+        }
     }
     if (Input::GetKey('s'))
     {
-        frogPart1.TransformObjectRotation(270, 0, 270, 0);
+        if (frogRotation == 45) {
+            frogRotation = 405;
+        }
+        if (frogRotation != 315) {
+            if (frogRotation < 315) {
+                frogRotation += 5;
+                frogPart1.TransformObjectRotation(frogRotation, 0, frogRotation, 0);
+            }
+            else {
+                frogRotation -= 5;
+                frogPart1.TransformObjectRotation(frogRotation, 0, frogRotation, 0);
+            }
+        }
     }
     if (Input::GetKey('d'))
     {
-        frogPart1.TransformObjectRotation(360, 0, 360, 0);
+        if (frogRotation == 405) {
+            frogRotation = 45;
+        }
+        if (frogRotation != 405 && frogRotation != 45) {
+            if (frogRotation < 405) {
+                frogRotation += 5;
+                frogPart1.TransformObjectRotation(frogRotation, 0, frogRotation, 0);
+            }
+            else {
+                frogRotation -= 5;
+                frogPart1.TransformObjectRotation(frogRotation, 0, frogRotation, 0);
+            }
+        }
+
     }
-    //=======FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===
+
 }
+//=======FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===
 
 void AddScore()
 {
