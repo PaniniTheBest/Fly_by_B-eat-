@@ -13,6 +13,7 @@
 #include <atomic>
 #include <mutex>
 #include "RotationObject.h"
+#include "Rope.h"
 
 //float value = 0.0f;
 //float rotateAngle = 0.0f;
@@ -199,10 +200,13 @@ void AddScore()
 }
 void Initialize()
 {
-
+    
 }
+
+
 void Update()
-{
+{   
+
     bool startHitTimer = false;
     //Don't put 3d objects above "cam.ApplyCamera()"
     cam.ApplyCamera();
