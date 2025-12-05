@@ -51,7 +51,7 @@ RenderObjects Goober, GooberWing1, GooberWing2;
 float movementSpeed = 0.01f;
 Vector3 FloorcolliderScale(20.0f, 0.5f, 20.0f);
 RenderObjects frogPart1, frogPart2, frogPart3, frogPart4, frogEye1, frogEye2, frogEye3, frogEye4;
-RenderObjects tongue;
+RenderObjects tongue, tongueEnd;
 float frogRotation = 0.0f;
 
 void InitiateRender()
@@ -180,17 +180,22 @@ void Squegee()
     frogEye4.SetParent(&frogPart1);
 
     tongue.SetParent(&frogPart4);
+    tongueEnd.SetParent(&frogPart4);
 
 }
 void SquegeeTongue()
 {
-    Vector3 tongueScale(15.0f, 1.0f, 4.0f);
+    Vector3 tongueScale(16.0f, 1.0f, 1.0f);
     Vector3 tonguePos(8.0f, 0, 8.0f);
+    Vector3 tongueEndPos(14.0f, 0, 14.0f);
     tongue.TransformObjectPosition(tonguePos);
     tongue.TransformObjectRotation(45.0f,0.0f,-40.0f,0.0f);
     tongue.Apply_Color(255.0f, 70.0f, 10.0f);
     tongue.Create3DCube(tongueScale);
     tongue.SetCollider(tonguePos, tongueScale);
+    tongueEnd.Create3DSphere(1.5f, 10, 10);
+    tongueEnd.Apply_Color(255.0f, 70.0f, 10.0f);
+    tongueEnd.TransformObjectPosition(tongueEndPos);
 }
 //=======FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===
 
@@ -324,12 +329,12 @@ void Update()
     Squegee();
     UserInputHandle();
     //================================================
-    if (Input::GetKey('f'))
+    if (Input::GetKey(' '))
     {
         SquegeeTongue();
     }
     RenderObjects xRay;
-    if (Input::GetKey(' '))
+    if (Input::GetKey('f'))
         xRay.XrayAll(true);
     else
         xRay.XrayAll(false);
