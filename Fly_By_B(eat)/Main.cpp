@@ -69,7 +69,7 @@ void Initialize()
 
 }
 
-RenderObjects ObjTest1, ObjTest_2;
+RenderObjects ObjTest1, ObjTest_2, Goober;
 float movementSpeed = 0.01f;
 Vector3 FloorcolliderScale(20.0f, 0.5f, 20.0f);
 RenderObjects frogPart1, frogPart2, frogPart3, frogPart4, frogEye1, frogEye2, frogEye3, frogEye4;
@@ -84,6 +84,7 @@ void Squegee()
     frogPart1.TransformObjectPosition(0, 10, 0);
     frogPart1.TransformObjectRotation(Rotation::camYaw, 0, 1, 0);
     frogPart1.Apply_Color(frogGreen);
+    frogPart1.SetCollider(frogPart1.GetObjectPosition(), Vector3(3, 3, 3));
     frogPart1.Create3DSphere(5, 15, 15);
 
     frogPart2.TransformObjectPosition(3.5f, 3, 0);
@@ -160,7 +161,7 @@ void Update()
 
     //EVERYTHING BELOW HERE IS LERP//
   /*  ObjTest_2.TransformObjectPosition(-10.0f, 0.01f, 0.0f);*/
-    Vector3 toLERP = GetLERPObjects(ObjTest_2, ObjTest1);
+    Vector3 toLERP = GetLERPObjects(ObjTest_2, ObjTest1, 0.1);
     
     //glPushMatrix();
     ObjTest_2.SetCollider(ObjTest_2.GetColliderPosition(), ObjTest_2.GetColliderScale());
@@ -168,31 +169,33 @@ void Update()
     {
         ObjTest_2.TrackPoint(movementSpeed, toLERP, ObjTest_2.GetColliderPosition(), ObjTest1.GetColliderPosition());
     }
-     
+    
     ObjTest_2.Apply_Color(0, 255, 0, 100);
     ObjTest_2.Create3DCylinder(4.0f, 4.0f, 8);
 
-    RenderObjects Goober;
-    Color GooberColor(0.0f, 0.0f, 255.0f);
+    Color GooberColor(255.0f, 255.0f, 255.0f);
 
-    Vector3 GooberLERP = GetLERPObjects(Goober, ObjTest1, 0.005f);  // 8% per frame
+    Vector3 GooberLERP = GetLERPObjects(Goober, frogPart1, 0.005f);  // 8% per frame
     Goober.TransformObjectPosition(GooberLERP);
 
-    Goober.TransformObjectPosition(5.0f, 5.0f, 5.0f);
+    //Goober.TransformObjectPosition(5.0f, 5.0f, 5.0f);
     Goober.TransformObjectSize(5.0f, 5.0f, 5.0f);
     Goober.SetCollider(Goober.GetColliderPosition(), Goober.GetColliderScale());
     Goober.Apply_Color(GooberColor);
-    Goober.Create3DCube(5.0f, 10.0f, 10.0f);
+    Goober.Create3DSphere(2.5f, 20.0f, 10.0f);
 
-    if (!Goober.CheckCollision(ObjTest1))
+    if (!Goober.CheckCollision(frogPart1))
     {
-        Vector3 GooberLERP = GetLERPObjects(Goober, ObjTest1, 0.005f);  // 8% per frame
+        Vector3 GooberLERP = GetLERPObjects(Goober, frogPart1, 0.005f);  // 8% per frame
         Goober.TransformObjectPosition(GooberLERP);
     }
 
-    if (Goober.CheckCollision(ObjTest1))
+    if (Goober.CheckCollision(frogPart1))
     {
+        srand(time(NULL));
+        int randomSpawn = rand() % 40;
         AddScore();
+        Goober.TransformObjectPosition(randomSpawn*-1, 0, -10);
     }
     /*glPopMatrix();*/
 
