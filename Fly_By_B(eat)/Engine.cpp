@@ -60,3 +60,16 @@ Vector3 GetLERPObjects(RenderObjects Origin, RenderObjects Destination, float t)
 
     return lerpedPosition;
 }
+
+Vector3 GetLERPPoints(RenderObjects Origin, Vector3 Destination, float t)
+{
+    Vector3 lerpedPosition;
+    Vector3 originPos = Origin.GetColliderPosition();
+    Vector3 destPos = Destination;
+
+    lerpedPosition.x = LinearInterpolate(originPos.x, destPos.x, t);
+    lerpedPosition.y = LinearInterpolate(originPos.y, destPos.y, t);
+    lerpedPosition.z = LinearInterpolate(originPos.z, destPos.z, t);
+
+    return lerpedPosition;
+}

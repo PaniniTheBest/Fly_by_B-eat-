@@ -29,10 +29,12 @@ void Text::RenderString(void* font, float x, float y, string message)
 void Text::RenderText(string message)
 {
 	glPushMatrix();
+	glTranslatef(Translate.x, Translate.y, Translate.z);
 	glColor3f(TextRGB.red, TextRGB.green, TextRGB.blue);
+	glRasterPos3f(0, 0, 0);
 	if (message.length() > 0)
 		RenderString(GLUT_BITMAP_HELVETICA_18, 0, 0, message);
-	glTranslatef(Translate.x, Translate.y, Translate.z);
+	
 	glPopMatrix();
 }
 void Text::ColorText(float r, float g, float b)
@@ -51,12 +53,23 @@ void Text::TranslateText(Vector3 newTranslate)
 {
 	this->Translate.SetValue(newTranslate);
 }
-void Text::RenderVariableAsText(float variable)
+void Text::RenderFloatVariableAsText(float variable)
 {
 	glPushMatrix();
 	glTranslatef(Translate.x, Translate.y, Translate.z);
 	char buffer[256];
 	sprintf_s(buffer, "%f", variable);
+	glColor3f(TextRGB.red, TextRGB.green, TextRGB.blue);
+	RenderString(GLUT_BITMAP_HELVETICA_18, -5, 5, buffer);
+	glPopMatrix();
+}
+
+void Text::RenderIntVariableAsText(int variable)
+{
+	glPushMatrix();
+	glTranslatef(Translate.x, Translate.y, Translate.z);
+	char buffer[256];
+	sprintf_s(buffer, "%i", variable);
 	glColor3f(TextRGB.red, TextRGB.green, TextRGB.blue);
 	RenderString(GLUT_BITMAP_HELVETICA_18, -5, 5, buffer);
 	glPopMatrix();

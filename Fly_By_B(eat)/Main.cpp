@@ -33,7 +33,7 @@ RenderObjects player;
 RenderObjects obstacle;
 RenderObjects ground;
 
-float GlobalScore;
+int GlobalScore = 0;
 
 //GLuint loadTexture(Image* image) {
 //    GLuint textureId;
@@ -145,7 +145,7 @@ void Squegee()
 
 void AddScore()
 {
-    GlobalScore += 10.0f;
+    GlobalScore += 10;
 }
 
 void Update()
@@ -195,8 +195,9 @@ void Update()
         srand(time(NULL));
         int randomSpawn = rand() % 40;
         AddScore();
-        Goober.TransformObjectPosition(randomSpawn*-1, 0, -10);
+        Goober.TransformObjectPosition(randomSpawn*-1, 0, 10);
     }
+
     /*glPopMatrix();*/
 
  //   Text LERPx, LERPy, LERPz;
@@ -215,15 +216,15 @@ void Update()
     //==============================================
 
     //TEXT TEXT//
-	Text BeeMovieString, TimerString;
+	Text ScoreWord, ScoreVariable, HitMarker;
 
-    BeeMovieString.ColorText(255.0f, 255.0f, 0.0f);
-	BeeMovieString.TranslateText(-1.0f, 8.0f, 0.0f);
-    BeeMovieString.RenderText("According to all known laws of aviation, there is no way that a bee should be able to fly.");
+    ScoreWord.ColorText(255.0f, 255.0f, 0.0f);
+    ScoreWord.TranslateText(-45.0f, 0.0f, -20.0f);
+    ScoreWord.RenderText("SCORE: ");
 
-    TimerString.ColorText(255.0f, 0.0f, 0.0f);
-    TimerString.TranslateText(-1.0f, 8.0f, 0.0f);
-    TimerString.RenderVariableAsText(value);
+    ScoreVariable.ColorText(255.0f, 0.0f, 0.0f);
+    ScoreVariable.TranslateText(-35.0f, 0.0f, -19.0f);
+    ScoreVariable.RenderIntVariableAsText(GlobalScore);
 
     //rotateAngle += 1.0f;
 
