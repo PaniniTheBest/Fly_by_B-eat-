@@ -83,6 +83,7 @@ void Squegee()
     Color WhiteEyes(255, 255, 255);
     Color BlackEyes(0, 0, 0);
     frogPart1.TransformObjectPosition(0, 10, 0);
+    frogPart1.SetCollider(frogPart1.GetObjectPosition(), Vector3(3, 3, 3));
     //frogPart1.TransformObjectRotation(Rotation::camYaw, 0, 1, 0);
     frogPart1.Apply_Color(frogGreen);
     frogPart1.Create3DSphere(5, 15, 15);
@@ -243,24 +244,28 @@ void Update()
     if (Goober.CheckCollision(frogPart1))
     {
         AddScore();
-        startHitTimer = true;
+        /*startHitTimer = true;*/
 
         srand(time(NULL));
-        int randomSpawn = rand() % 40;
-        Goober.TransformObjectPosition(randomSpawn*-1, 0, 10);
+        int randomSpawn = rand() % 100;
+        int coinFlip = rand() % 100;
+        if (coinFlip >= 50)
+            randomSpawn = randomSpawn * -1;
+
+        Goober.TransformObjectPosition(randomSpawn, 0, randomSpawn);
     }
 
-    if (startHitTimer == true)
-    {
-        float Timer = 0;
-        Text HitMarker;
-        Vector3 HitMarkerFadePoint(-35.0f, 0.0f, -21.0f);
-        Vector3 HitMarkerLERP = GetLERPPoints(HitMarker.GetCurrentPosition(), HitMarkerFadePoint, 0.1);
-        HitMarker.ColorText(255.0f, 0.0f, 0.0f);
-        HitMarker.TranslateText(-35.0f, 0.0f, -20.0f);
-        //HitMarker.TranslateText(HitMarkerLERP);
-        HitMarker.RenderText("HIT!!!");
-    }
+    //if (startHitTimer == true)
+    //{
+    //    float Timer = 0;
+    //    Text HitMarker;
+    //    Vector3 HitMarkerFadePoint(-35.0f, 0.0f, -21.0f);
+    //    Vector3 HitMarkerLERP = GetLERPPoints(HitMarker.GetCurrentPosition(), HitMarkerFadePoint, 0.1);
+    //    HitMarker.ColorText(255.0f, 0.0f, 0.0f);
+    //    HitMarker.TranslateText(-35.0f, 0.0f, -20.0f);
+    //    //HitMarker.TranslateText(HitMarkerLERP);
+    //    HitMarker.RenderText("HIT!!!");
+    //}
 
     /*glPopMatrix();*/
 
