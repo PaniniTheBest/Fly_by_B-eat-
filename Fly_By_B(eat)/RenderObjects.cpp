@@ -69,6 +69,7 @@ Vector3 RenderObjects::GetObjectSize()
 void RenderObjects::Create3DCube(float x, float y, float z)
 {   
     glPushMatrix();
+	ApplyParentTransform();
     glColor4f(objectColor.red, objectColor.green, objectColor.blue, objectColor.alpha);
     glTranslatef(setPosition.x, setPosition.y, setPosition.z);
     glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
@@ -120,6 +121,7 @@ void RenderObjects::Create3DCube(float x, float y, float z)
 void RenderObjects::Create3DCube(Vector3 boxScale)
 {
 	glPushMatrix();
+	ApplyParentTransform();
 	glColor4f(objectColor.red, objectColor.green, objectColor.blue, objectColor.alpha);
 	glTranslatef(setPosition.x, setPosition.y, setPosition.z);
 	glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
@@ -189,6 +191,7 @@ void RenderObjects::Create3DCone(float radius, float height, int slices)
     float angleIncrement = (2.0f * PI) / slices;// Calculate angle increment based on number of slices
     float renderAngle = 0.0f;
     glPushMatrix(); 
+	ApplyParentTransform();
     glColor4f(objectColor.red, objectColor.green, objectColor.blue, objectColor.alpha);
     glTranslatef(setPosition.x, setPosition.y, setPosition.z);   
     glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
@@ -219,7 +222,7 @@ void RenderObjects::Create3DCylinder(float radius, float height, int slices)
     float angleIncrement = (2.0f * PI) / slices;// Calculate angle increment based on number of slices
     float renderAngle = 0.0f;
     glPushMatrix();
-	
+	ApplyParentTransform();
     glColor4f(objectColor.red, objectColor.green, objectColor.blue, objectColor.alpha);
     glTranslatef(setPosition.x, setPosition.y, setPosition.z); 
 	glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
