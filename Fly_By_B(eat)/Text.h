@@ -24,6 +24,7 @@ class Text {
 		void TranslateText(Vector3 newTranslate);
 		void RenderFloatVariableAsText(float variable);
 		void RenderIntVariableAsText(int variable);
+		Vector3 GetCurrentPosition();
 		//void RenderVariableAsText(float variable, float r, float g, float b); //If you wanna declare
 };
 

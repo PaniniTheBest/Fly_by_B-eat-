@@ -1,4 +1,5 @@
 #include "Text.h"
+#include "Engine.h"
 #include <string>
 #include <cstring>
 #include <fstream>
@@ -26,6 +27,7 @@ void Text::RenderString(void* font, float x, float y, string message)
 		}
 	}
 }
+
 void Text::RenderText(string message)
 {
 	glPushMatrix();
@@ -75,15 +77,29 @@ void Text::RenderIntVariableAsText(int variable)
 	glPopMatrix();
 }
 
-//void Text::RenderVariableAsText(float variable, float r, float g, float b)
+Vector3 Text::GetCurrentPosition()
+{
+	return this->Translate;
+}
+
+//float LinearInterpolate(float currentPos, float farawayPos, float t) //Finding the values between coordinates, Also called LERP
 //{
-//	glPushMatrix();
-//	char buffer[256];
-//	sprintf_s(buffer, "%f", variable);
-//	glColor3f( r,  g,  b);
-//	RenderString(GLUT_BITMAP_HELVETICA_18, -5, 5, buffer);
-//	glTranslatef(Translate.x, Translate.y, Translate.z);
-//	glPopMatrix();
+//	//t represents how close the value is to any given position.
+//	//Near 0, it is close to currentPos. Near 1, it is close to farawayPos.
+//	return currentPos + t * (farawayPos - currentPos);
+//}
+//
+//Vector3 GetLERPPoints(Vector3 Origin, Vector3 Destination, float t)
+//{
+//	Vector3 lerpedPosition;
+//	Vector3 originPos = Origin;
+//	Vector3 destPos = Destination;
+//
+//	lerpedPosition.x = LinearInterpolate(originPos.x, destPos.x, t);
+//	lerpedPosition.y = LinearInterpolate(originPos.y, destPos.y, t);
+//	lerpedPosition.z = LinearInterpolate(originPos.z, destPos.z, t);
+//
+//	return lerpedPosition;
 //}
 
 

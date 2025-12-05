@@ -1,6 +1,2 @@
 ﻿  Main.cpp
-  Text.cpp
-C:\Users\rocks\Documents\GitHub\Fly_by_B-eat-\Fly_By_B(eat)\Text.cpp(17,20): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
-Collider.obj : warning LNK4099: PDB '' was not found with 'Collider.obj' or at ''; linking object as if no debug info
   Fly_By_B(eat).vcxproj -> C:\Users\rocks\Documents\GitHub\Fly_by_B-eat-\Debug\Fly_By_B(eat).exe

@@ -150,6 +150,7 @@ void AddScore()
 
 void Update()
 {
+    bool startHitTimer = false;
     //Don't put 3d objects above
     cam.ApplyCamera();
 
@@ -192,10 +193,24 @@ void Update()
 
     if (Goober.CheckCollision(frogPart1))
     {
+        AddScore();
+        startHitTimer = true;
+
         srand(time(NULL));
         int randomSpawn = rand() % 40;
-        AddScore();
         Goober.TransformObjectPosition(randomSpawn*-1, 0, 10);
+    }
+
+    if (startHitTimer == true)
+    {
+        float Timer = 0;
+        Text HitMarker;
+        Vector3 HitMarkerFadePoint(-35.0f, 0.0f, -21.0f);
+        Vector3 HitMarkerLERP = GetLERPPoints(HitMarker.GetCurrentPosition(), HitMarkerFadePoint, 0.1);
+        HitMarker.ColorText(255.0f, 0.0f, 0.0f);
+        HitMarker.TranslateText(-35.0f, 0.0f, -20.0f);
+        //HitMarker.TranslateText(HitMarkerLERP);
+        HitMarker.RenderText("HIT!!!");
     }
 
     /*glPopMatrix();*/
@@ -216,7 +231,7 @@ void Update()
     //==============================================
 
     //TEXT TEXT//
-	Text ScoreWord, ScoreVariable, HitMarker;
+    Text ScoreWord, ScoreVariable;
 
     ScoreWord.ColorText(255.0f, 255.0f, 0.0f);
     ScoreWord.TranslateText(-45.0f, 0.0f, -20.0f);
