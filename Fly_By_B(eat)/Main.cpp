@@ -33,7 +33,7 @@ RenderObjects obstacle;
 RenderObjects ground;
 
 RenderObjects ObjTest1, ObjTest_2, Projectile1;
-float movementSpeed = 1.0f;
+float movementSpeed = 0.1f;
 Vector3 FloorcolliderScale(20.0f, 0.5f, 20.0f);
 RenderObjects frogPart1, frogPart2, frogPart3, frogPart4, frogEye1, frogEye2, frogEye3, frogEye4;
 bool isBuiltObj2 = false;
@@ -172,7 +172,12 @@ void Update()
     //============================================================================================================
     
     //============================================================================================================
-    Vector3 toLERP = GetLERPObjects(ObjTest_2, ObjTest1);
+	Vector3 toLERP;
+    if (!ObjTest_2.CheckCollision(ObjTest1))
+    {
+        toLERP = GetLERPObjects(ObjTest_2, ObjTest1);
+    }
+
     //CheckObj2();
     ObjTest_2.SetCollider(ObjTest_2.GetColliderPosition(), ObjTest_2.GetColliderScale());
 
@@ -180,6 +185,7 @@ void Update()
     {
         ObjTest_2.TrackPoint(movementSpeed, toLERP, ObjTest_2.GetColliderPosition(), ObjTest1.GetColliderPosition());
     }  
+    
     ObjTest_2.Apply_Color(0, 255, 0, 100);
     ObjTest_2.Create3DCylinder(4.0f, 4.0f, 8);
     //============================================================================================================

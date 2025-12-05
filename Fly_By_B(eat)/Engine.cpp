@@ -45,21 +45,26 @@ float LinearInterpolate(float currentPos, float farawayPos, float t) //Finding t
 {
 	//t represents how close the value is to any given position.
     //Near 0, it is close to currentPos. Near 1, it is close to farawayPos.
+    //OPPENHEIMER//
     return currentPos + t * (farawayPos - currentPos);
 }
 
 Vector3 GetLERPObjects(RenderObjects Origin, RenderObjects Destination)
 {
     Vector3 direction;
-    Vector3 originPos = Origin.GetColliderPosition();
-    Vector3 destPos = Destination.GetColliderPosition();
+    Vector3 originPosition = Origin.GetColliderPosition();
+    Vector3 destinationPosition = Destination.GetColliderPosition();
 
     // Calculate direction from Origin to Destination
-    direction.x = destPos.x - originPos.x;
-    direction.y = destPos.y - originPos.y;
-    direction.z = destPos.z - originPos.z;
+    direction.x = destinationPosition.x - originPosition.x;
+    direction.y = destinationPosition.y - originPosition.y;
+    direction.z = destinationPosition.z - originPosition.z;
 
-    // Normalize the direction (optional but recommended)
+    /*direction.x = LinearInterpolate(Origin.GetColliderPosition().x, Destination.GetColliderPosition().x, direction.x);
+	direction.y = LinearInterpolate(Origin.GetColliderPosition().y, Destination.GetColliderPosition().y, direction.y);
+	direction.z = LinearInterpolate(Origin.GetColliderPosition().z, Destination.GetColliderPosition().z, direction.z);*/
+
+    // This normalizes the vector
     float length = sqrt(direction.x * direction.x +
                         direction.y * direction.y +
                         direction.z * direction.z);
