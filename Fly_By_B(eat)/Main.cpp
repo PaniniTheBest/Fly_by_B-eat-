@@ -53,6 +53,9 @@ Vector3 FloorcolliderScale(20.0f, 0.5f, 20.0f);
 RenderObjects frogPart1, frogPart2, frogPart3, frogPart4, frogEye1, frogEye2, frogEye3, frogEye4;
 RenderObjects tongue, tongueEnd;
 float frogRotation = 0.0f;
+float tongueExtension = 0.0f;
+bool tongueIsExtending = false;
+
 
 void InitiateRender()
 {
@@ -185,17 +188,45 @@ void Squegee()
 }
 void SquegeeTongue()
 {
-    Vector3 tongueScale(16.0f, 1.0f, 1.0f);
-    Vector3 tonguePos(8.0f, 0, 8.0f);
-    Vector3 tongueEndPos(14.0f, 0, 14.0f);
-    tongue.TransformObjectPosition(tonguePos);
-    tongue.TransformObjectRotation(45.0f,0.0f,-40.0f,0.0f);
-    tongue.Apply_Color(255.0f, 70.0f, 10.0f);
-    tongue.Create3DCube(tongueScale);
-    tongue.SetCollider(tonguePos, tongueScale);
+    if (Input::GetKey(' '))
+    {
+        if (tongueExtension < 16.0f)
+            tongueExtension += 0.5f;
+    }
+    else
+    {
+        if (tongueExtension > 0.0f)
+            tongueExtension -= 1.0f;
+    }
+
+    if (tongueExtension > 0.1f)
+    {
+        // Get frog position
+        Vector3 frogPos = (frogPart1.GetObjectPosition());
+        Vector3 frogPart4Pos = frogPart4.GetObjectPosition();
+
+        // Calculate tongue position in world space
+        Vector3 tongueScale(tongueExtension, 5.0f, 1.0f);
+        Vector3 tonguePos;
+        tonguePos.x = frogPos.x + (tongueExtension / 2);
+        tonguePos.y = -10;
+        tonguePos.z = frogPos.z + (tongueExtension / 2);
+
+        tongue.TransformObjectPosition(tonguePos);
+        tongue.TransformObjectRotation(45.0f, 0.0f, -40.0f, 0.0f);
+        tongue.Apply_Color(255.0f, 70.0f, 10.0f);
+
+        // Now collider uses world position
+        tongue.SetCollider(tonguePos, tongueScale);
+        tongue.Create3DCube(tongueScale);
+    }
+    Vector3 tongueEndPos(tongueExtension*0.8f , 0, tongueExtension*0.8f);
+
     tongueEnd.Create3DSphere(1.5f, 10, 10);
     tongueEnd.Apply_Color(255.0f, 70.0f, 10.0f);
     tongueEnd.TransformObjectPosition(tongueEndPos);
+    tongueEnd.SetCollider(tongueEnd.GetObjectPosition(), Vector3(10, 1000000, 10));
+    
 }
 //=======FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===
 
@@ -261,7 +292,7 @@ void Update()
     }
     if (Goober.CheckCollision(frogPart1))
     {
-        AddScore();
+        //AddScore();
         /*startHitTimer = true;*/
         srand(time(NULL));
         //int randomSpawn = rand() % 100 + 45;
@@ -275,6 +306,21 @@ void Update()
         else if (d4Dice == 0)
             Goober.TransformObjectPosition(-80, 0, 0);
         //randomSpawn = randomSpawn * -1; 
+    }
+    if (Goober.CheckCollision(tongueEnd))
+    {
+        AddScore();
+        srand(time(NULL));
+        //int randomSpawn = rand() % 100 + 45;
+        int d4Dice = rand() % 3;
+        if (d4Dice == 3)
+            Goober.TransformObjectPosition(80, 0, 0);
+        else if (d4Dice == 2)
+            Goober.TransformObjectPosition(0, 0, 80);
+        else if (d4Dice == 1)
+            Goober.TransformObjectPosition(0, 0, -80);
+        else if (d4Dice == 0)
+            Goober.TransformObjectPosition(-80, 0, 0);
     }
     //if (startHitTimer == true)
     //{
@@ -329,10 +375,8 @@ void Update()
     Squegee();
     UserInputHandle();
     //================================================
-    if (Input::GetKey(' '))
-    {
-        SquegeeTongue();
-    }
+
+    SquegeeTongue();
     RenderObjects xRay;
     if (Input::GetKey('f'))
         xRay.XrayAll(true);
