@@ -26,7 +26,7 @@ struct Vec2 {
 struct RopePoint {
     Vec2 position;
     Vec2 oldPosition;
-    bool pinned; // if true, this point is fixed in space
+    bool pinned; 
 
     RopePoint(const Vec2& pos) : position(pos), oldPosition(pos), pinned(false) {}
 };
@@ -36,7 +36,7 @@ public:
     Rope(const Vec2& start, const Vec2& end, int segments);
 
     void Update(float dt, const Vec2& gravity);
-    void Draw(); // implement in your rendering system
+    void Draw(); 
 
     std::vector<RopePoint>& GetPoints() { return points; }
 

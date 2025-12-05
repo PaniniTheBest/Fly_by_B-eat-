@@ -10,12 +10,12 @@ Rope::Rope(const Vec2& start, const Vec2& end, int segments) {
         Vec2 pos = start * (1 - t) + end * t;
         points.push_back(RopePoint(pos));
     }
-    points.front().pinned = true; // anchor first point
+    points.front().pinned = true;
     segmentLength = (end - start).Length() / segments;
 }
 
 void Rope::Update(float dt, const Vec2& gravity) {
-    // Verlet integration
+
     for (auto& p : points) {
         if (p.pinned) continue;
 
@@ -25,7 +25,7 @@ void Rope::Update(float dt, const Vec2& gravity) {
         p.position += gravity * dt * dt;
     }
 
-    // Apply constraints multiple times for stability
+ 
     for (int i = 0; i < 5; ++i) ApplyConstraints();
 }
 
@@ -47,7 +47,7 @@ void Rope::Draw() {
     for (size_t i = 0; i < points.size() - 1; ++i) {
         Vec2& p1 = points[i].position;
         Vec2& p2 = points[i + 1].position;
-        // Replace with your rendering:
+       
         std::cout << "Draw line: (" << p1.x << "," << p1.y << ") -> (" << p2.x << "," << p2.y << ")\n";
     }
 }
