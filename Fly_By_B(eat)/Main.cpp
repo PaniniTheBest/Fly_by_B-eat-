@@ -33,6 +33,8 @@ RenderObjects player;
 RenderObjects obstacle;
 RenderObjects ground;
 
+float GlobalScore;
+
 //GLuint loadTexture(Image* image) {
 //    GLuint textureId;
 //    glGenTextures(1, &textureId); //Make room for our texture
@@ -139,12 +141,14 @@ void Squegee()
     }
     //=======FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===
 }
+
+void AddScore()
+{
+    GlobalScore += 10.0f;
+}
+
 void Update()
 {
-	if (value >= 15.0f)
-	{
-		PlaySong(L"yay.wav");
-	}
     //Don't put 3d objects above
     cam.ApplyCamera();
 
@@ -164,23 +168,46 @@ void Update()
     {
         ObjTest_2.TrackPoint(movementSpeed, toLERP, ObjTest_2.GetColliderPosition(), ObjTest1.GetColliderPosition());
     }
-        
+     
     ObjTest_2.Apply_Color(0, 255, 0, 100);
     ObjTest_2.Create3DCylinder(4.0f, 4.0f, 8);
+
+    RenderObjects Goober;
+    Color GooberColor(0.0f, 0.0f, 255.0f);
+
+    Vector3 GooberLERP = GetLERPObjects(Goober, ObjTest1, 0.005f);  // 8% per frame
+    Goober.TransformObjectPosition(GooberLERP);
+
+    Goober.TransformObjectPosition(5.0f, 5.0f, 5.0f);
+    Goober.TransformObjectSize(5.0f, 5.0f, 5.0f);
+    Goober.SetCollider(Goober.GetColliderPosition(), Goober.GetColliderScale());
+    Goober.Apply_Color(GooberColor);
+    Goober.Create3DCube(5.0f, 10.0f, 10.0f);
+
+    if (!Goober.CheckCollision(ObjTest1))
+    {
+        Vector3 GooberLERP = GetLERPObjects(Goober, ObjTest1, 0.005f);  // 8% per frame
+        Goober.TransformObjectPosition(GooberLERP);
+    }
+
+    if (Goober.CheckCollision(ObjTest1))
+    {
+        AddScore();
+    }
     /*glPopMatrix();*/
 
-    Text LERPx, LERPy, LERPz;
-	LERPx.ColorText(255.0f, 0.0f, 0.0f);
-	LERPx.TranslateText(-4.0f, 10.0f, 0.0f);
-    LERPx.RenderVariableAsText(toLERP.x);
+ //   Text LERPx, LERPy, LERPz;
+	//LERPx.ColorText(255.0f, 0.0f, 0.0f);
+	//LERPx.TranslateText(-4.0f, 10.0f, 0.0f);
+ //   LERPx.RenderVariableAsText(toLERP.x);
 
-    LERPy.ColorText(0.0, 255.0f, 0.0f);
-    LERPy.TranslateText(-4.0f, 11.0f, 0.0f);
-    LERPy.RenderVariableAsText(toLERP.y);
+ //   LERPy.ColorText(0.0, 255.0f, 0.0f);
+ //   LERPy.TranslateText(-4.0f, 11.0f, 0.0f);
+ //   LERPy.RenderVariableAsText(toLERP.y);
 
-	LERPz.ColorText(0.0f, 0.0f, 255.0f);
-	LERPz.TranslateText(-4.0f, 12.0f, 0.0f);
-    LERPz.RenderVariableAsText(toLERP.z);
+	//LERPz.ColorText(0.0f, 0.0f, 255.0f);
+	//LERPz.TranslateText(-4.0f, 12.0f, 0.0f);
+ //   LERPz.RenderVariableAsText(toLERP.z);
 
     //==============================================
 
@@ -197,55 +224,55 @@ void Update()
 
     //rotateAngle += 1.0f;
 
-    //TEXTURE TEST //
-    StartEnablingTextures();
-    BindSelectTexture(_textureId);
+    ////TEXTURE TEST //
+    //StartEnablingTextures();
+    //BindSelectTexture(_textureId);
 
-    //Bottom
-    RenderType(true, true);
-    glColor3f(1.0f, 0.2f, 0.2f);
-    glBegin(GL_QUADS);
+    ////Bottom
+    //RenderType(true, true);
+    //glColor3f(1.0f, 0.2f, 0.2f);
+    //glBegin(GL_QUADS);
 
-    glNormal3f(0.0, 1.0f, 0.0f);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex3f(-2.5f, -2.5f, 2.5f);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex3f(2.5f, -2.5f, 2.5f);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex3f(2.5f, -2.5f, -2.5f);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex3f(-2.5f, -2.5f, -2.5f);
+    //glNormal3f(0.0, 1.0f, 0.0f);
+    //glTexCoord2f(0.0f, 0.0f);
+    //glVertex3f(-2.5f, -2.5f, 2.5f);
+    //glTexCoord2f(1.0f, 0.0f);
+    //glVertex3f(2.5f, -2.5f, 2.5f);
+    //glTexCoord2f(1.0f, 1.0f);
+    //glVertex3f(2.5f, -2.5f, -2.5f);
+    //glTexCoord2f(0.0f, 1.0f);
+    //glVertex3f(-2.5f, -2.5f, -2.5f);
 
-    glEnd();
+    //glEnd();
 
-    //Back
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glColor3f(1.0f, 1.0f, 1.0f);
-    glBegin(GL_TRIANGLES);
+    ////Back
+    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    //glColor3f(1.0f, 1.0f, 1.0f);
+    //glBegin(GL_TRIANGLES);
 
-    glNormal3f(0.0f, 0.0f, 1.0f);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex3f(-2.5f, -2.5f, -2.5f);
-    glTexCoord2f(5.0f, 5.0f);
-    glVertex3f(0.0f, 2.5f, -2.5f);
-    glTexCoord2f(10.0f, 0.0f);
-    glVertex3f(2.5f, -2.5f, -2.5f);
+    //glNormal3f(0.0f, 0.0f, 1.0f);
+    //glTexCoord2f(0.0f, 0.0f);
+    //glVertex3f(-2.5f, -2.5f, -2.5f);
+    //glTexCoord2f(5.0f, 5.0f);
+    //glVertex3f(0.0f, 2.5f, -2.5f);
+    //glTexCoord2f(10.0f, 0.0f);
+    //glVertex3f(2.5f, -2.5f, -2.5f);
 
-    glEnd();
+    //glEnd();
 
-    //Left
-    glDisable(GL_TEXTURE_2D);
-    glColor3f(1.0f, 0.7f, 0.3f);
-    glBegin(GL_QUADS);
+    ////Left
+    //glDisable(GL_TEXTURE_2D);
+    //glColor3f(1.0f, 0.7f, 0.3f);
+    //glBegin(GL_QUADS);
 
-    glNormal3f(1.0f, 0.0f, 0.0f);
-    glVertex3f(-2.5f, -2.5f, 2.5f);
-    glVertex3f(-2.5f, -2.5f, -2.5f);
-    glVertex3f(-2.5f, 2.5f, -2.5f);
-    glVertex3f(-2.5f, 2.5f, 2.5f);
+    //glNormal3f(1.0f, 0.0f, 0.0f);
+    //glVertex3f(-2.5f, -2.5f, 2.5f);
+    //glVertex3f(-2.5f, -2.5f, -2.5f);
+    //glVertex3f(-2.5f, 2.5f, -2.5f);
+    //glVertex3f(-2.5f, 2.5f, 2.5f);
 
-    glEnd();
+    //glEnd();
 
     Squegee();
     //========================================================
@@ -339,11 +366,11 @@ void Update()
     otherObject.Create3DCube(1.0f, 1.0f, 1.0f);
 
     //Floor
-    floorz.Create3DCube(20.0f, 0.5f, 20.0f);
-    Vector3 floorPos = floorz.GetColliderPosition();
-    Vector3 floorScale = floorz.GetColliderScale();
-   floorz.TransformObjectPosition(0, -10.0f, 0);
-    floorz.SetCollider(floorz.GetColliderPosition(), FloorcolliderScale);
+   // floorz.Create3DCube(20.0f, 0.5f, 20.0f);
+   // Vector3 floorPos = floorz.GetColliderPosition();
+   // Vector3 floorScale = floorz.GetColliderScale();
+   //floorz.TransformObjectPosition(0, -10.0f, 0);
+   // floorz.SetCollider(floorz.GetColliderPosition(), FloorcolliderScale);
    
 }
 
