@@ -147,6 +147,7 @@
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="RotationObjects.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="vector3.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="RotationObject.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="vector3.h" />
     <ClInclude Include="RenderObjects.h" />
