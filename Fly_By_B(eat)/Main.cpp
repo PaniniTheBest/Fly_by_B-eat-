@@ -53,6 +53,9 @@ RenderObjects frogPart1, frogPart2, frogPart3, frogPart4, frogEye1, frogEye2, fr
 RenderObjects tongue;
 float frogRotation = 0.0f;
 
+float tongueExtension = 0.0f;
+bool tongueIsExtending = false;
+
 void InitiateRender()
 {
         /*glEnable(GL_DEPTH_TEST);
@@ -183,14 +186,41 @@ void Squegee()
 }
 void SquegeeTongue()
 {
-    Vector3 tongueScale(15.0f, 1.0f, 4.0f);
-    Vector3 tonguePos(8.0f, 0, 8.0f);
-    tongue.TransformObjectPosition(tonguePos);
-    tongue.TransformObjectRotation(45.0f,0.0f,-40.0f,0.0f);
-    tongue.Apply_Color(255.0f, 70.0f, 10.0f);
-    tongue.Create3DCube(tongueScale);
-    tongue.SetCollider(tonguePos, tongueScale);
+    // Animate tongue extension
+    if (Input::GetKey('f'))
+    {
+        if (tongueExtension < 16.0f)
+            tongueExtension += 0.5f;
+    }
+    else
+    {
+        if (tongueExtension > 0.0f)
+            tongueExtension -= 1.0f;
+    }
+
+    if (tongueExtension > 0.1f)
+    {
+        // Get frog position
+        Vector3 frogPos = frogPart1.GetObjectPosition();
+        Vector3 frogPart4Pos = frogPart4.GetObjectPosition();
+
+        // Calculate tongue position in world space
+        Vector3 tongueScale(tongueExtension, 5.0f, 4.0f);
+        Vector3 tonguePos;
+        tonguePos.x = frogPos.x + frogPart4Pos.x + (tongueExtension / 2);
+        tonguePos.y = frogPos.y + frogPart4Pos.y;
+        tonguePos.z = frogPos.z + frogPart4Pos.z + (tongueExtension / 2);
+
+        tongue.TransformObjectPosition(tonguePos);
+        tongue.TransformObjectRotation(45.0f, 0.0f, -40.0f, 0.0f);
+        tongue.Apply_Color(255.0f, 70.0f, 10.0f);
+
+        // Now collider uses world position
+        tongue.SetCollider(tonguePos, tongueScale);
+        tongue.Create3DCube(tongueScale);
+    }
 }
+
 //=======FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===
 
 void AddScore()
@@ -203,7 +233,6 @@ void Initialize()
 }
 void Update()
 {
-    bool startHitTimer = false;
     //Don't put 3d objects above "cam.ApplyCamera()"
     cam.ApplyCamera();
  //   ObjTest1.TransformObjectPosition(10.0f, 0.0f, 20.0f);
@@ -225,36 +254,59 @@ void Update()
  //   
  //   ObjTest_2.Apply_Color(0, 255, 0, 100);
  //   ObjTest_2.Create3DCylinder(4.0f, 4.0f, 8);
+    SquegeeTongue();
+    bool tongueIsActive = (tongueExtension > 0.1f);
+
+    // Goober setup
     Color GooberColor(155.0f, 255.0f, 155.0f);
-    Vector3 GooberLERP = GetLERPObjects(Goober, frogPart1, 0.0055f);  // 8% per frame
-    Goober.TransformObjectPosition(GooberLERP);
-    //Goober.TransformObjectPosition(5.0f, 5.0f, 5.0f);
     Goober.TransformObjectSize(5.0f, 5.0f, 5.0f);
     Goober.SetCollider(Goober.GetColliderPosition(), Goober.GetColliderScale());
     Goober.Apply_Color(GooberColor);
     Goober.Create3DSphere(2.5f, 20.0f, 10.0f);
 
-    if (!Goober.CheckCollision(frogPart1))
+    // Check collisions
+    bool hitFrog = Goober.CheckCollision(frogPart1);
+    bool hitTongue = tongueIsActive && Goober.CheckCollision(tongue);
+
+    // DEBUG OUTPUT
+    static int frameCount = 0;
+    if (frameCount++ % 60 == 0 && tongueIsActive)  // Print every 60 frames when tongue is out
     {
-        Vector3 GooberLERP = GetLERPObjects(Goober, frogPart1, 0.0055f);  // 8% per frame
+        Vector3 gooberPos = Goober.GetColliderPosition();
+        Vector3 tonguePos = tongue.GetColliderPosition();
+
+        cout << "=== Collision Debug ===" << endl;
+        cout << "Tongue Active: " << tongueIsActive << endl;
+        cout << "Tongue Extension: " << tongueExtension << endl;
+        cout << "Goober Pos: (" << gooberPos.x << ", " << gooberPos.y << ", " << gooberPos.z << ")" << endl;
+        cout << "Tongue Pos: (" << tonguePos.x << ", " << tonguePos.y << ", " << tonguePos.z << ")" << endl;
+        cout << "Hit Tongue: " << hitTongue << endl;
+        cout << "Hit Frog: " << hitFrog << endl;
+        cout << "=====================" << endl;
+    }
+
+    // Move Goober if not hitting anything
+    if (!hitFrog && !hitTongue)
+    {
+        Vector3 GooberLERP = GetLERPObjects(Goober, frogPart1, 0.0045f);
         Goober.TransformObjectPosition(GooberLERP);
     }
-    if (Goober.CheckCollision(frogPart1))
+
+    // Handle collision
+    if (hitFrog || hitTongue)
     {
+        cout << "COLLISION! Hit Frog: " << hitFrog << " | Hit Tongue: " << hitTongue << endl;
         AddScore();
-        /*startHitTimer = true;*/
-        srand(time(NULL));
-        //int randomSpawn = rand() % 100 + 45;
-        int d4Dice = rand() % 3;
-        if (d4Dice == 3)
-            Goober.TransformObjectPosition(80, 0, 0);
-        else if (d4Dice == 2)
-            Goober.TransformObjectPosition(0, 0, 80);
+
+        int d4Dice = rand() % 4;
+        if (d4Dice == 0)
+            Goober.TransformObjectPosition(100.0f, 0.0f, 0.0f);
         else if (d4Dice == 1)
-            Goober.TransformObjectPosition(0, 0, -80);
-        else if (d4Dice == 0)
-            Goober.TransformObjectPosition(-80, 0, 0);
-        //randomSpawn = randomSpawn * -1; 
+            Goober.TransformObjectPosition(-100.0f, 0.0f, 0.0f);
+        else if (d4Dice == 2)
+            Goober.TransformObjectPosition(0.0f, 0.0f, 100.0f);
+        else
+            Goober.TransformObjectPosition(0.0f, 0.0f, -100.0f);
     }
     //if (startHitTimer == true)
     //{
@@ -296,23 +348,19 @@ void Update()
 
     InterpolateX.ColorText(0.0f, 150.0f, 255.0f);
     InterpolateX.TranslateText(-45.0f, 0.0f, 20.0f);
-    InterpolateX.RenderFloatVariableAsText(GooberLERP.x);
+    InterpolateX.RenderFloatVariableAsText(Goober.GetObjectPosition().x);
 
     InterpolateY.ColorText(150.0f, 0.0f, 255.0f);
     InterpolateY.TranslateText(-40.0f, 0.0f, 25.0f);
-    InterpolateY.RenderFloatVariableAsText(GooberLERP.y);
+    InterpolateY.RenderFloatVariableAsText(Goober.GetObjectPosition().y);
 
     InterpolateY.ColorText(150.0f, 150.0f, 255.0f);
     InterpolateY.TranslateText(-45.0f, 0.0f, 30.0f);
-    InterpolateY.RenderFloatVariableAsText(GooberLERP.y);
+    InterpolateY.RenderFloatVariableAsText(Goober.GetObjectPosition().z);
 
     Squegee();
     UserInputHandle();
     //================================================
-    if (Input::GetKey('f'))
-    {
-        SquegeeTongue();
-    }
     RenderObjects xRay;
     if (Input::GetKey(' '))
         xRay.XrayAll(true);
