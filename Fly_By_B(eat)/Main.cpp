@@ -14,6 +14,7 @@
 #include <atomic>
 #include <mutex>
 #include "RotationObject.h"
+#include <box2d/box2d.h>
 
 const Vector3 gravity (0.0f, -0.1f, 0.0f);
 float value = 0.0f;
