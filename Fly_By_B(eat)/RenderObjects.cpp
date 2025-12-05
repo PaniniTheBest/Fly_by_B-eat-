@@ -352,6 +352,10 @@ void RenderObjects::GetVelocity(Vector3& currentVelocity)
 {
 	physics.GetVelocity(currentVelocity.x, currentVelocity.y, currentVelocity.z);
 }
+void RenderObjects::XrayAll(bool xray)
+{
+	xray ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE): glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
 //==============================================================================
 //				\/ \/	Make this its own Header file	\/  \/
 //==============================================================================

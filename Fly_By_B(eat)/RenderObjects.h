@@ -71,6 +71,7 @@ class RenderObjects
 		void SetVelocity(Vector3 newVelocity);
 		void GetVelocity(float& x, float& y, float& z);
 		void GetVelocity(Vector3& newVelocity);
+		void XrayAll(bool xray);
 };
 //==============================================================================
 //				\/ \/	Make this its own Header file	\/  \/
