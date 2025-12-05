@@ -32,6 +32,11 @@ RenderObjects player;
 RenderObjects obstacle;
 RenderObjects ground;
 
+RenderObjects ObjTest1, ObjTest_2, Projectile1;
+float movementSpeed = 1.0f;
+Vector3 FloorcolliderScale(20.0f, 0.5f, 20.0f);
+RenderObjects frogPart1, frogPart2, frogPart3, frogPart4, frogEye1, frogEye2, frogEye3, frogEye4;
+bool isBuiltObj2 = false;
 //GLuint loadTexture(Image* image) {
 //    GLuint textureId;
 //    glGenTextures(1, &textureId); //Make room for our texture
@@ -61,16 +66,17 @@ void InitiateRender()
 		_textureId = InitializeTexture("vtr4.bmp");
 }
 
-bool isBuiltObj2 = false;
+
 
 void Initialize()
 {
-}
+    ObjTest_2.TransformObjectPosition(-80.0f, -50.0f, -20.0f);
 
-RenderObjects ObjTest1, ObjTest_2, Projectile1;
-float movementSpeed = 0.01f;
-Vector3 FloorcolliderScale(20.0f, 0.5f, 20.0f);
-RenderObjects frogPart1, frogPart2, frogPart3, frogPart4, frogEye1, frogEye2, frogEye3, frogEye4;
+    Projectile1.TransformObjectPosition(-10.0f, 6.0f, -10.0f);
+    //player.SetUseGravity(true);
+    //player.SetMass(800);
+    //player.SetDrag(0.98f);
+}
 
 void CheckObj2()
 {
@@ -149,8 +155,6 @@ void Squegee()
 }
 void Update()
 {
-	CheckObj2();
-	
     //Don't put 3d objects above
     glutMotionFunc([](int x, int y) { cam2.HandleMouseMotion(x, y); });
     glutPassiveMotionFunc([](int x, int y) { cam2.HandleMouseMotion(x, y); });
@@ -165,21 +169,20 @@ void Update()
     ObjTest1.Apply_Color(255, 0, 0);
     ObjTest1.Create3DCube(2, 2, 5);
 	ObjTest1.SetCollider(ObjTest1.GetColliderPosition(), ObjTest1.GetColliderScale());
-
-    //EVERYTHING BELOW HERE IS LERP//
-    Vector3 toLERP = GetLERPObjects(ObjTest_2, ObjTest1);
+    //============================================================================================================
     
-    //glPushMatrix();
+    //============================================================================================================
+    Vector3 toLERP = GetLERPObjects(ObjTest_2, ObjTest1);
+    //CheckObj2();
     ObjTest_2.SetCollider(ObjTest_2.GetColliderPosition(), ObjTest_2.GetColliderScale());
+
     if (!ObjTest_2.CheckCollision(ObjTest1))
     {
         ObjTest_2.TrackPoint(movementSpeed, toLERP, ObjTest_2.GetColliderPosition(), ObjTest1.GetColliderPosition());
-    }
-        
+    }  
     ObjTest_2.Apply_Color(0, 255, 0, 100);
     ObjTest_2.Create3DCylinder(4.0f, 4.0f, 8);
-    /*glPopMatrix();*/
-
+    //============================================================================================================
     Text LERPx, LERPy, LERPz;
 	LERPx.ColorText(255.0f, 0.0f, 0.0f);
 	LERPx.TranslateText(-4.0f, 10.0f, 0.0f);
@@ -194,22 +197,26 @@ void Update()
     LERPz.RenderVariableAsText(toLERP.z);
 
     //FLY LERPS
+    //============================================================================================================
+    static bool proj1Initialized = false;
+    if (!proj1Initialized)
+    {
+        Projectile1.TransformObjectPosition(-10.0f, 6.0f, -10.0f);  // Start position
+        proj1Initialized = true;
+    }
 
-    Vector3 Projectile1Position(-10.0f, 6.0f, -10.0f);
-    Projectile1.TransformObjectPosition(Projectile1Position);
-    Projectile1.SetCollider(Projectile1.GetColliderPosition(), Projectile1.GetColliderScale());
-    Projectile1.Apply_Color(255, 0, 0);
-    Projectile1.SetUseGravity(false);
-    
+    // Projectile1 LERP tracking
     Vector3 LERPProjectile1 = GetLERPObjects(Projectile1, ObjTest1);
-        /*if (!Projectile1.CheckCollision(ObjTest1))
-        {*/
-            Projectile1.TrackPoint(movementSpeed, LERPProjectile1, Projectile1.GetColliderPosition(), ObjTest1.GetColliderPosition());
-      /*  }*/
+    Projectile1.SetCollider(Projectile1.GetColliderPosition(), Projectile1.GetColliderScale());
 
-        Projectile1.Apply_Color(255, 0, 0, 100);
-        Projectile1.Create3DCylinder(4.0f, 4.0f, 8);
-    //==============================================
+    if (!Projectile1.CheckCollision(ObjTest1))
+    {
+        Projectile1.TrackPoint(movementSpeed, LERPProjectile1, Projectile1.GetColliderPosition(), ObjTest1.GetColliderPosition());
+    }
+
+    Projectile1.Apply_Color(0, 100, 100);
+    Projectile1.Create3DCone(4.0f, 10.0f, 8);
+    //============================================================================================================
 
     //TEXT TEXT//
 	Text BeeMovieString, TimerString;
@@ -285,10 +292,8 @@ void Update()
 
     player.Create3DCone(5.0f, 10, 10);
     player.TransformObjectPosition(playerPosition);
+    player.SetUseGravity(true);
     //Floor bound
-    if(playerPosition.y > floorz.GetColliderPosition().y)
-        playerPosition += gravity;
-
     player.Apply_Color(betterColorTest);
     player.SetCollider(player.GetColliderPosition() + colliderPos, colliderScale);
         if (Input::GetKey('d'))

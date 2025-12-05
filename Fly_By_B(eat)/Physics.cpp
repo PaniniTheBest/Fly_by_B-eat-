@@ -6,7 +6,7 @@ Physics::Physics()
     addForce.SetValue(0.0f, 0.0f, 0.0f);
     mass = 1.0f;
     drag = 0.98f;
-    booleanGravity = true;
+    booleanGravity = false;
 }
 
 Physics::Physics(float m, float d, bool toggleGravity)

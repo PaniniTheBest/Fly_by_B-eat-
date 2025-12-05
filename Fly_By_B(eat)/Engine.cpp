@@ -48,11 +48,28 @@ float LinearInterpolate(float currentPos, float farawayPos, float t) //Finding t
     return currentPos + t * (farawayPos - currentPos);
 }
 
-Vector3 GetLERPObjects(RenderObjects Origin, RenderObjects Destination) //This function is specified for objects of the 3D Objects class//
+Vector3 GetLERPObjects(RenderObjects Origin, RenderObjects Destination)
 {
-    Vector3 resultingLERP;
-    resultingLERP.x = LinearInterpolate(Origin.GetColliderPosition().x, Destination.GetColliderPosition().x, 0.1f);
-    resultingLERP.y = LinearInterpolate(Origin.GetColliderPosition().y, Destination.GetColliderPosition().y, 0.1f);
-    resultingLERP.z = LinearInterpolate(Origin.GetColliderPosition().z, Destination.GetColliderPosition().z, 0.1f);
-    return resultingLERP;
+    Vector3 direction;
+    Vector3 originPos = Origin.GetColliderPosition();
+    Vector3 destPos = Destination.GetColliderPosition();
+
+    // Calculate direction from Origin to Destination
+    direction.x = destPos.x - originPos.x;
+    direction.y = destPos.y - originPos.y;
+    direction.z = destPos.z - originPos.z;
+
+    // Normalize the direction (optional but recommended)
+    float length = sqrt(direction.x * direction.x +
+                        direction.y * direction.y +
+                        direction.z * direction.z);
+
+    if (length > 0)
+    {
+        direction.x /= length;
+        direction.y /= length;
+        direction.z /= length;
+    }
+
+    return direction;
 }
