@@ -4,8 +4,10 @@
 #include <iostream>
 #include <glut.h>
 #include <string>
+#include "Engine.h"
 #include "Color.h"
 #include "vector3.h"
+
 using namespace std;
 
 class Text {
@@ -20,7 +22,9 @@ class Text {
 		void ColorText(Color newRGB);
 		void TranslateText(float x, float y, float z);
 		void TranslateText(Vector3 newTranslate);
-		void RenderVariableAsText(float variable);
+		void RenderFloatVariableAsText(float variable);
+		void RenderIntVariableAsText(int variable);
+		Vector3 GetCurrentPosition();
 		//void RenderVariableAsText(float variable, float r, float g, float b); //If you wanna declare
 };
 

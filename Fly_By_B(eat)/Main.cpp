@@ -33,6 +33,8 @@ RenderObjects player;
 RenderObjects obstacle;
 RenderObjects ground;
 
+int GlobalScore = 0;
+
 //GLuint loadTexture(Image* image) {
 //    GLuint textureId;
 //    glGenTextures(1, &textureId); //Make room for our texture
@@ -67,7 +69,7 @@ void Initialize()
 
 }
 
-RenderObjects ObjTest1, ObjTest_2;
+RenderObjects ObjTest1, ObjTest_2, Goober;
 float movementSpeed = 0.01f;
 Vector3 FloorcolliderScale(20.0f, 0.5f, 20.0f);
 RenderObjects frogPart1, frogPart2, frogPart3, frogPart4, frogEye1, frogEye2, frogEye3, frogEye4;
@@ -82,6 +84,7 @@ void Squegee()
     frogPart1.TransformObjectPosition(0, 10, 0);
     frogPart1.TransformObjectRotation(Rotation::camYaw, 0, 1, 0);
     frogPart1.Apply_Color(frogGreen);
+    frogPart1.SetCollider(frogPart1.GetObjectPosition(), Vector3(3, 3, 3));
     frogPart1.Create3DSphere(5, 15, 15);
 
     frogPart2.TransformObjectPosition(3.5f, 3, 0);
@@ -139,12 +142,15 @@ void Squegee()
     }
     //=======FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===
 }
+
+void AddScore()
+{
+    GlobalScore += 10;
+}
+
 void Update()
 {
-	if (value >= 15.0f)
-	{
-		PlaySong(L"yay.wav");
-	}
+    bool startHitTimer = false;
     //Don't put 3d objects above
     cam.ApplyCamera();
 
@@ -156,7 +162,7 @@ void Update()
 
     //EVERYTHING BELOW HERE IS LERP//
   /*  ObjTest_2.TransformObjectPosition(-10.0f, 0.01f, 0.0f);*/
-    Vector3 toLERP = GetLERPObjects(ObjTest_2, ObjTest1);
+    Vector3 toLERP = GetLERPObjects(ObjTest_2, ObjTest1, 0.1);
     
     //glPushMatrix();
     ObjTest_2.SetCollider(ObjTest_2.GetColliderPosition(), ObjTest_2.GetColliderScale());
@@ -164,88 +170,128 @@ void Update()
     {
         ObjTest_2.TrackPoint(movementSpeed, toLERP, ObjTest_2.GetColliderPosition(), ObjTest1.GetColliderPosition());
     }
-        
+    
     ObjTest_2.Apply_Color(0, 255, 0, 100);
     ObjTest_2.Create3DCylinder(4.0f, 4.0f, 8);
+
+    Color GooberColor(255.0f, 255.0f, 255.0f);
+
+    Vector3 GooberLERP = GetLERPObjects(Goober, frogPart1, 0.005f);  // 8% per frame
+    Goober.TransformObjectPosition(GooberLERP);
+
+    //Goober.TransformObjectPosition(5.0f, 5.0f, 5.0f);
+    Goober.TransformObjectSize(5.0f, 5.0f, 5.0f);
+    Goober.SetCollider(Goober.GetColliderPosition(), Goober.GetColliderScale());
+    Goober.Apply_Color(GooberColor);
+    Goober.Create3DSphere(2.5f, 20.0f, 10.0f);
+
+    if (!Goober.CheckCollision(frogPart1))
+    {
+        Vector3 GooberLERP = GetLERPObjects(Goober, frogPart1, 0.005f);  // 8% per frame
+        Goober.TransformObjectPosition(GooberLERP);
+    }
+
+    if (Goober.CheckCollision(frogPart1))
+    {
+        AddScore();
+        startHitTimer = true;
+
+        srand(time(NULL));
+        int randomSpawn = rand() % 40;
+        Goober.TransformObjectPosition(randomSpawn*-1, 0, 10);
+    }
+
+    if (startHitTimer == true)
+    {
+        float Timer = 0;
+        Text HitMarker;
+        Vector3 HitMarkerFadePoint(-35.0f, 0.0f, -21.0f);
+        Vector3 HitMarkerLERP = GetLERPPoints(HitMarker.GetCurrentPosition(), HitMarkerFadePoint, 0.1);
+        HitMarker.ColorText(255.0f, 0.0f, 0.0f);
+        HitMarker.TranslateText(-35.0f, 0.0f, -20.0f);
+        //HitMarker.TranslateText(HitMarkerLERP);
+        HitMarker.RenderText("HIT!!!");
+    }
+
     /*glPopMatrix();*/
 
-    Text LERPx, LERPy, LERPz;
-	LERPx.ColorText(255.0f, 0.0f, 0.0f);
-	LERPx.TranslateText(-4.0f, 10.0f, 0.0f);
-    LERPx.RenderVariableAsText(toLERP.x);
+ //   Text LERPx, LERPy, LERPz;
+	//LERPx.ColorText(255.0f, 0.0f, 0.0f);
+	//LERPx.TranslateText(-4.0f, 10.0f, 0.0f);
+ //   LERPx.RenderVariableAsText(toLERP.x);
 
-    LERPy.ColorText(0.0, 255.0f, 0.0f);
-    LERPy.TranslateText(-4.0f, 11.0f, 0.0f);
-    LERPy.RenderVariableAsText(toLERP.y);
+ //   LERPy.ColorText(0.0, 255.0f, 0.0f);
+ //   LERPy.TranslateText(-4.0f, 11.0f, 0.0f);
+ //   LERPy.RenderVariableAsText(toLERP.y);
 
-	LERPz.ColorText(0.0f, 0.0f, 255.0f);
-	LERPz.TranslateText(-4.0f, 12.0f, 0.0f);
-    LERPz.RenderVariableAsText(toLERP.z);
+	//LERPz.ColorText(0.0f, 0.0f, 255.0f);
+	//LERPz.TranslateText(-4.0f, 12.0f, 0.0f);
+ //   LERPz.RenderVariableAsText(toLERP.z);
 
     //==============================================
 
     //TEXT TEXT//
-	Text BeeMovieString, TimerString;
+    Text ScoreWord, ScoreVariable;
 
-    BeeMovieString.ColorText(255.0f, 255.0f, 0.0f);
-	BeeMovieString.TranslateText(-1.0f, 8.0f, 0.0f);
-    BeeMovieString.RenderText("According to all known laws of aviation, there is no way that a bee should be able to fly.");
+    ScoreWord.ColorText(255.0f, 255.0f, 0.0f);
+    ScoreWord.TranslateText(-45.0f, 0.0f, -20.0f);
+    ScoreWord.RenderText("SCORE: ");
 
-    TimerString.ColorText(255.0f, 0.0f, 0.0f);
-    TimerString.TranslateText(-1.0f, 8.0f, 0.0f);
-    TimerString.RenderVariableAsText(value);
+    ScoreVariable.ColorText(255.0f, 0.0f, 0.0f);
+    ScoreVariable.TranslateText(-35.0f, 0.0f, -19.0f);
+    ScoreVariable.RenderIntVariableAsText(GlobalScore);
 
     //rotateAngle += 1.0f;
 
-    //TEXTURE TEST //
-    StartEnablingTextures();
-    BindSelectTexture(_textureId);
+    ////TEXTURE TEST //
+    //StartEnablingTextures();
+    //BindSelectTexture(_textureId);
 
-    //Bottom
-    RenderType(true, true);
-    glColor3f(1.0f, 0.2f, 0.2f);
-    glBegin(GL_QUADS);
+    ////Bottom
+    //RenderType(true, true);
+    //glColor3f(1.0f, 0.2f, 0.2f);
+    //glBegin(GL_QUADS);
 
-    glNormal3f(0.0, 1.0f, 0.0f);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex3f(-2.5f, -2.5f, 2.5f);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex3f(2.5f, -2.5f, 2.5f);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex3f(2.5f, -2.5f, -2.5f);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex3f(-2.5f, -2.5f, -2.5f);
+    //glNormal3f(0.0, 1.0f, 0.0f);
+    //glTexCoord2f(0.0f, 0.0f);
+    //glVertex3f(-2.5f, -2.5f, 2.5f);
+    //glTexCoord2f(1.0f, 0.0f);
+    //glVertex3f(2.5f, -2.5f, 2.5f);
+    //glTexCoord2f(1.0f, 1.0f);
+    //glVertex3f(2.5f, -2.5f, -2.5f);
+    //glTexCoord2f(0.0f, 1.0f);
+    //glVertex3f(-2.5f, -2.5f, -2.5f);
 
-    glEnd();
+    //glEnd();
 
-    //Back
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glColor3f(1.0f, 1.0f, 1.0f);
-    glBegin(GL_TRIANGLES);
+    ////Back
+    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    //glColor3f(1.0f, 1.0f, 1.0f);
+    //glBegin(GL_TRIANGLES);
 
-    glNormal3f(0.0f, 0.0f, 1.0f);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex3f(-2.5f, -2.5f, -2.5f);
-    glTexCoord2f(5.0f, 5.0f);
-    glVertex3f(0.0f, 2.5f, -2.5f);
-    glTexCoord2f(10.0f, 0.0f);
-    glVertex3f(2.5f, -2.5f, -2.5f);
+    //glNormal3f(0.0f, 0.0f, 1.0f);
+    //glTexCoord2f(0.0f, 0.0f);
+    //glVertex3f(-2.5f, -2.5f, -2.5f);
+    //glTexCoord2f(5.0f, 5.0f);
+    //glVertex3f(0.0f, 2.5f, -2.5f);
+    //glTexCoord2f(10.0f, 0.0f);
+    //glVertex3f(2.5f, -2.5f, -2.5f);
 
-    glEnd();
+    //glEnd();
 
-    //Left
-    glDisable(GL_TEXTURE_2D);
-    glColor3f(1.0f, 0.7f, 0.3f);
-    glBegin(GL_QUADS);
+    ////Left
+    //glDisable(GL_TEXTURE_2D);
+    //glColor3f(1.0f, 0.7f, 0.3f);
+    //glBegin(GL_QUADS);
 
-    glNormal3f(1.0f, 0.0f, 0.0f);
-    glVertex3f(-2.5f, -2.5f, 2.5f);
-    glVertex3f(-2.5f, -2.5f, -2.5f);
-    glVertex3f(-2.5f, 2.5f, -2.5f);
-    glVertex3f(-2.5f, 2.5f, 2.5f);
+    //glNormal3f(1.0f, 0.0f, 0.0f);
+    //glVertex3f(-2.5f, -2.5f, 2.5f);
+    //glVertex3f(-2.5f, -2.5f, -2.5f);
+    //glVertex3f(-2.5f, 2.5f, -2.5f);
+    //glVertex3f(-2.5f, 2.5f, 2.5f);
 
-    glEnd();
+    //glEnd();
 
     Squegee();
     //========================================================
@@ -339,11 +385,11 @@ void Update()
     otherObject.Create3DCube(1.0f, 1.0f, 1.0f);
 
     //Floor
-    floorz.Create3DCube(20.0f, 0.5f, 20.0f);
-    Vector3 floorPos = floorz.GetColliderPosition();
-    Vector3 floorScale = floorz.GetColliderScale();
-   floorz.TransformObjectPosition(0, -10.0f, 0);
-    floorz.SetCollider(floorz.GetColliderPosition(), FloorcolliderScale);
+   // floorz.Create3DCube(20.0f, 0.5f, 20.0f);
+   // Vector3 floorPos = floorz.GetColliderPosition();
+   // Vector3 floorScale = floorz.GetColliderScale();
+   //floorz.TransformObjectPosition(0, -10.0f, 0);
+   // floorz.SetCollider(floorz.GetColliderPosition(), FloorcolliderScale);
    
 }
 
