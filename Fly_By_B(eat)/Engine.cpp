@@ -38,38 +38,25 @@ float FindDeltaTime()
     timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
     float deltaTime = (timeSinceStart - previousTime) / 1000.0f;
     previousTime = timeSinceStart;
-	return deltaTime;
+    return deltaTime;
 }
 
 float LinearInterpolate(float currentPos, float farawayPos, float t) //Finding the values between coordinates, Also called LERP
 {
-	//t represents how close the value is to any given position.
+    //t represents how close the value is to any given position.
     //Near 0, it is close to currentPos. Near 1, it is close to farawayPos.
     return currentPos + t * (farawayPos - currentPos);
 }
 
-Vector3 GetLERPObjects(RenderObjects Origin, RenderObjects Destination)
+Vector3 GetLERPObjects(RenderObjects Origin, RenderObjects Destination, float t)
 {
-    Vector3 direction;
+    Vector3 lerpedPosition;
     Vector3 originPos = Origin.GetColliderPosition();
     Vector3 destPos = Destination.GetColliderPosition();
 
-    // Calculate direction from Origin to Destination
-    direction.x = destPos.x - originPos.x;
-    direction.y = destPos.y - originPos.y;
-    direction.z = destPos.z - originPos.z;
+    lerpedPosition.x = LinearInterpolate(originPos.x, destPos.x, t);
+    lerpedPosition.y = LinearInterpolate(originPos.y, destPos.y, t);
+    lerpedPosition.z = LinearInterpolate(originPos.z, destPos.z, t);
 
-    // Normalize the direction (optional but recommended)
-    float length = sqrt(direction.x * direction.x +
-                        direction.y * direction.y +
-                        direction.z * direction.z);
-
-    if (length > 0)
-    {
-        direction.x /= length;
-        direction.y /= length;
-        direction.z /= length;
-    }
-
-    return direction;
+    return lerpedPosition;
 }

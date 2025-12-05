@@ -172,49 +172,51 @@ void Update()
     //============================================================================================================
     
     //============================================================================================================
-    Vector3 toLERP = GetLERPObjects(ObjTest_2, ObjTest1);
+    //Vector3 toLERP = GetLERPObjects(ObjTest_2, ObjTest1,0.5f);
     //CheckObj2();
-    ObjTest_2.SetCollider(ObjTest_2.GetColliderPosition(), ObjTest_2.GetColliderScale());
 
+    // ObjTest_2 LERP movement
     if (!ObjTest_2.CheckCollision(ObjTest1))
     {
-        ObjTest_2.TrackPoint(movementSpeed, toLERP, ObjTest_2.GetColliderPosition(), ObjTest1.GetColliderPosition());
-    }  
+        Vector3 nextPos = GetLERPObjects(ObjTest_2, ObjTest1, 0.005f);  // 5% per frame
+        ObjTest_2.TransformObjectPosition(nextPos);
+    }
+
+    ObjTest_2.SetCollider(ObjTest_2.GetColliderPosition(), ObjTest_2.GetColliderScale());
     ObjTest_2.Apply_Color(0, 255, 0, 100);
     ObjTest_2.Create3DCylinder(4.0f, 4.0f, 8);
     //============================================================================================================
     Text LERPx, LERPy, LERPz;
 	LERPx.ColorText(255.0f, 0.0f, 0.0f);
 	LERPx.TranslateText(-4.0f, 10.0f, 0.0f);
-    LERPx.RenderVariableAsText(toLERP.x);
+    LERPx.RenderVariableAsText(ObjTest_2.GetColliderPosition().x);
 
     LERPy.ColorText(0.0, 255.0f, 0.0f);
     LERPy.TranslateText(-4.0f, 11.0f, 0.0f);
-    LERPy.RenderVariableAsText(toLERP.y);
+    LERPy.RenderVariableAsText(ObjTest_2.GetColliderPosition().y);
 
 	LERPz.ColorText(0.0f, 0.0f, 255.0f);
 	LERPz.TranslateText(-4.0f, 12.0f, 0.0f);
-    LERPz.RenderVariableAsText(toLERP.z);
+    LERPz.RenderVariableAsText(ObjTest_2.GetColliderPosition().z);
 
     //FLY LERPS
     //============================================================================================================
-    static bool proj1Initialized = false;
-    if (!proj1Initialized)
-    {
-        Projectile1.TransformObjectPosition(-10.0f, 6.0f, -10.0f);  // Start position
-        proj1Initialized = true;
-    }
+    //static bool proj1Initialized = false;
+    //if (!proj1Initialized)
+    //{
+    //    Projectile1.TransformObjectPosition(-10.0f, 6.0f, -10.0f);  // Start position
+    //    proj1Initialized = true;
+    //}
 
-    // Projectile1 LERP tracking
-    Vector3 LERPProjectile1 = GetLERPObjects(Projectile1, ObjTest1);
-    Projectile1.SetCollider(Projectile1.GetColliderPosition(), Projectile1.GetColliderScale());
-
+    // Projectile1 LERP movement (faster)
     if (!Projectile1.CheckCollision(ObjTest1))
     {
-        Projectile1.TrackPoint(movementSpeed, LERPProjectile1, Projectile1.GetColliderPosition(), ObjTest1.GetColliderPosition());
+        Vector3 nextPos = GetLERPObjects(Projectile1, ObjTest1, 0.005f);  // 8% per frame
+        Projectile1.TransformObjectPosition(nextPos);
     }
 
-    Projectile1.Apply_Color(0, 100, 100);
+    Projectile1.SetCollider(Projectile1.GetColliderPosition(), Projectile1.GetColliderScale());
+    Projectile1.Apply_Color(250, 100, 100);
     Projectile1.Create3DCone(4.0f, 10.0f, 8);
     //============================================================================================================
 
