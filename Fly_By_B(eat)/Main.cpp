@@ -47,7 +47,7 @@ int GlobalScore = 0;
 GLuint _textureId; //The id of the texture
 
 RenderObjects ObjTest1, ObjTest_2;
-RenderObjects Goober;
+RenderObjects Goober, GooberWing1, GooberWing2;
 float movementSpeed = 0.01f;
 Vector3 FloorcolliderScale(20.0f, 0.5f, 20.0f);
 RenderObjects frogPart1, frogPart2, frogPart3, frogPart4, frogEye1, frogEye2, frogEye3, frogEye4;
@@ -229,14 +229,25 @@ void Update()
  //   
  //   ObjTest_2.Apply_Color(0, 255, 0, 100);
  //   ObjTest_2.Create3DCylinder(4.0f, 4.0f, 8);
-    Color GooberColor(155.0f, 255.0f, 155.0f);
+    Color GooberColor(100.0f, 100.0f, 100.0f);
+    Color GooberWingColor(255, 255, 255);
     Vector3 GooberLERP = GetLERPObjects(Goober, frogPart1, 0.0055f);  // 8% per frame
     Goober.TransformObjectPosition(GooberLERP);
     //Goober.TransformObjectPosition(5.0f, 5.0f, 5.0f);
-    Goober.TransformObjectSize(5.0f, 5.0f, 5.0f);
+    Goober.TransformObjectSize(2.0f, 2.0f, 2.0f);
     Goober.SetCollider(Goober.GetColliderPosition(), Goober.GetColliderScale());
     Goober.Apply_Color(GooberColor);
-    Goober.Create3DSphere(2.5f, 20.0f, 10.0f);
+    Goober.Create3DSphere(0.8f, 20.0f, 10.0f);
+
+    GooberWing1.Apply_Color(GooberWingColor);
+    GooberWing2.Apply_Color(GooberWingColor);
+    GooberWing1.TransformObjectPosition(-1, -0.5f, -1);
+    GooberWing2.TransformObjectPosition(1, -0.5f, -1);
+    GooberWing1.Create3DSphere(1, 20.0f, 10.0f);
+    GooberWing2.Create3DSphere(1, 20.0f, 10.0f);
+    GooberWing1.SetParent(&Goober);
+    GooberWing2.SetParent(&Goober);
+    
 
     if (!Goober.CheckCollision(frogPart1))
     {
