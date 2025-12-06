@@ -1,6 +1,5 @@
 #include "Engine.h"
-#include "Graphics.h"
-#include "Input.h"
+
 
 int timeSinceStart = 0, previousTime = 0;
 

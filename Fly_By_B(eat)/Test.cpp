@@ -1,14 +1,7 @@
-#include "RenderObjects.h"
-#include "Input.h"
-#include "Camera.h"
-#include "Camera2.h"
-#include "Text.h"
+
 #include "Engine.h"
 #include <windows.h>
 #include <mmsystem.h>
-#include "ImageLoader.h"
-#include "AudioManager.h"
-#include "Collider.h"
 #include <thread>
 #include <atomic>
 #include <mutex>
@@ -29,7 +22,6 @@ RenderObjects tongue, tongueEnd;
 float frogRotation = 0.0f;
 float tongueExtension = 0.0f;
 bool tongueIsExtending = false;
-
 
 void InitiateRender()
 {

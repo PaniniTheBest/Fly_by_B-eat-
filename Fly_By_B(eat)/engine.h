@@ -2,10 +2,17 @@
 #define ENGINE_H
 
 // Include all the libraries and header files used here
+#include <vector>
+#include "ImageLoader.h"
+#include "AudioManager.h"
+#include "Text.h"
+#include "Camera.h"
+#include "Camera2.h"
 #include "Input.h"
 #include "Graphics.h"
+
 #include "RenderObjects.h"
-#include <vector>
+
 
 void InitiateRender();
 

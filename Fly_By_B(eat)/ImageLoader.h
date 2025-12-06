@@ -21,6 +21,7 @@
   */
 #ifndef IMAGE_LOADER_H_INCLUDED
 #define IMAGE_LOADER_H_INCLUDED
+#include"glut.h"
   //Represents an image
 class Image {
 public:

@@ -13,6 +13,4 @@ void keyPressed(unsigned char key, int x, int y);
 void keyPressedUp(unsigned char key, int x, int y);
 void specialkeyPressed(int key, int x, int y);
 void specialkeyPressedUp(int key, int x, int y);
-
-
 #endif

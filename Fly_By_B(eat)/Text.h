@@ -27,7 +27,5 @@ class Text {
 		Vector3 GetCurrentPosition();
 		//void RenderVariableAsText(float variable, float r, float g, float b); //If you wanna declare
 };
-
-
 #endif
 
