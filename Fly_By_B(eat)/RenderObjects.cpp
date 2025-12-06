@@ -1,6 +1,6 @@
 #include "RenderObjects.h"
 
-const float PI = 3.14; // Value of PI  
+const float PI = 3.14159f; // Value of PI  
 
 //Initialized Variables
 RenderObjects::RenderObjects()
@@ -267,7 +267,6 @@ bool RenderObjects::CheckCollision(RenderObjects other)
 {
 	return collider.CheckCollision(other.collider);
 }
-
 Collider RenderObjects::GetCollider()
 {
 	return collider;
@@ -311,36 +310,41 @@ void RenderObjects::ApplyParentTransform() const
 		parent->setRotationValue.z);
 	glScalef(parent->setScale.x, parent->setScale.y, parent->setScale.z);
 }
-Vector3 RenderObjects::GetWorldPosition() const
+Vector3 RenderObjects::GetWorldPosition()
 {
+	// Start with local position
+	Vector3 worldPos = setPosition;
+	// If no parent, just return local position
 	if (parent == nullptr) {
-		return setPosition;
-	}
-	// Get parent's world position
-	Vector3 parentWorldPos = parent->GetWorldPosition();
-	// Convert parent angle to radians
-	float angleRad = parent->angle * (3.14159f / 180.0f);
-	// Determine which axis to rotate around based on parent's rotation values
-	if (parent->setRotationValue.y != 0) {
-		// Rotate local position around Y-axis
-		float cosA = cos(angleRad);
-		float sinA = sin(angleRad);
-
-		float rotatedX = setPosition.x * cosA - setPosition.z * sinA;
-		float rotatedZ = setPosition.x * sinA + setPosition.z * cosA;
-
-		Vector3 worldPos;
-		worldPos.x = parentWorldPos.x + rotatedX * parent->setScale.x;
-		worldPos.y = parentWorldPos.y + setPosition.y * parent->setScale.y;
-		worldPos.z = parentWorldPos.z + rotatedZ * parent->setScale.z;
-
 		return worldPos;
 	}
-	// Fallback: no rotation, just add positions
-	Vector3 worldPos;
-	worldPos.x = parentWorldPos.x + setPosition.x;
-	worldPos.y = parentWorldPos.y + setPosition.y;
-	worldPos.z = parentWorldPos.z + setPosition.z;
+	// Apply transformations from ALL parents recursively
+	const RenderObjects* currentParent = parent;
+	while (currentParent != nullptr)
+	{
+		// Apply parent's rotation to current world position
+		if (currentParent->angle != 0.0f && currentParent->setRotationValue.y != 0.0f)
+		{
+			float angleRad = currentParent->angle * (PI / 180.0f);
+			float cosA = cos(angleRad);
+			float sinA = sin(angleRad);
+			// Rotate around Y-axis
+			float newX = worldPos.x * cosA - worldPos.z * sinA;
+			float newZ = worldPos.x * sinA + worldPos.z * cosA;
+			worldPos.x = newX;
+			worldPos.z = newZ;
+		}
+		// Apply parent's scale
+		worldPos.x *= currentParent->setScale.x;
+		worldPos.y *= currentParent->setScale.y;
+		worldPos.z *= currentParent->setScale.z;
+		// Add parent's position
+		worldPos.x += currentParent->setPosition.x;
+		worldPos.y += currentParent->setPosition.y;
+		worldPos.z += currentParent->setPosition.z;
+		// Move up the hierarchy
+		currentParent = currentParent->parent;
+	}
 	return worldPos;
 }
 //AddForce might be removed

@@ -58,7 +58,7 @@ public:
 	//PARENTS || GROUPING 
 	void SetParent(RenderObjects* newParent);
 	void ApplyParentTransform() const;
-	Vector3 GetWorldPosition() const;
+	Vector3 GetWorldPosition();
 	//PHYSICS
 	void AddForce(float x, float y, float z);
 	void AddForce(Vector3 newForce);

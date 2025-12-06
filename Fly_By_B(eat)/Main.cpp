@@ -201,34 +201,21 @@ void SquegeeTongue()
 
     if (tongueExtension > 0.1f)
     {
-        // Calculate tongue position in LOCAL space (relative to frogPart4)
+        // Tongue extends in local space
         Vector3 tongueScale(tongueExtension, 5.0f, 1.0f);
-
-        // Tongue position relative to frogPart4
-        Vector3 tongueLocalPos;
-        tongueLocalPos.x = tongueExtension / 2;
-        tongueLocalPos.y = -10;
-        tongueLocalPos.z = tongueExtension / 2;
+        Vector3 tongueLocalPos(tongueExtension / 2, -10, tongueExtension / 2);
 
         tongue.TransformObjectPosition(tongueLocalPos);
         tongue.TransformObjectRotation(45.0f, 0.0f, -40.0f, 0.0f);
         tongue.Apply_Color(255.0f, 70.0f, 10.0f);
-
-        // Use world position for collider
-        tongue.SetCollider(tongue.GetWorldPosition(), tongueScale);
         tongue.Create3DCube(tongueScale);
     }
 
-    // TongueEnd position in LOCAL space (relative to frogPart4)
+    // TongueEnd position - at the tip of the tongue
     Vector3 tongueEndPos(tongueExtension * 0.8f, 0, tongueExtension * 0.8f);
-
-    tongueEnd.Create3DCube(3.0f, 3.0f, 3.0f);
-    tongueEnd.Apply_Color(255.0f, 70.0f, 10.0f);
     tongueEnd.TransformObjectPosition(tongueEndPos);
-
-    // IMPORTANT: Set collider with world position and proper size
-    // This must happen AFTER all transformations are set
-    tongueEnd.SetCollider(tongueEnd.GetWorldPosition(), Vector3(5, 5, 5));
+    tongueEnd.Apply_Color(255.0f, 70.0f, 10.0f);
+    tongueEnd.Create3DCube(3.0f, 3.0f, 3.0f);
 }
 //=======FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===
 void AddScore(bool hit)
@@ -255,34 +242,17 @@ void Initialize()
 }
 void Update()
 {
-    bool startHitTimer = false;
-    //Don't put 3d objects above "cam.ApplyCamera()"
     cam.ApplyCamera();
 
     UserInputHandle();
     Squegee();
     SquegeeTongue();
-    //Collision checks
-    bool tongueIsActive = (tongueExtension > 0.1f);
-    bool hitTongueEnd = tongueIsActive && Goober.CheckCollision(tongueEnd);
 
+    // === SETUP GOOBER FIRST ===
     Color GooberColor(100.0f, 100.0f, 100.0f);
     Color GooberWingColor(205, 205, 205);
-    Vector3 GooberLERP = GetLERPObjects(Goober, frogPart1, 0.0055f);  // 8% per frame
 
-    tongueEnd.SetCollider(tongueEnd.GetWorldPosition(), Vector3(6, 6, 6));
-
-    RenderObjects Test;
-    /*
-        Test.Create3DCone(10, 10, 10);
-        Test.Apply_Color(255, 255, 255);
-        Test.TransformObjectPosition(tongueEnd.GetObjectPosition());
-    */
-
-    Goober.TransformObjectPosition(GooberLERP);
-    //Goober.TransformObjectPosition(5.0f, 5.0f, 5.0f);
     Goober.TransformObjectSize(2.0f, 2.0f, 2.0f);
-    Goober.SetCollider(Goober.GetObjectPosition(), Goober.GetObjectSize());
     Goober.Apply_Color(GooberColor);
     Goober.Create3DSphere(0.8f, 20.0f, 10.0f);
 
@@ -295,27 +265,56 @@ void Update()
     GooberWing1.SetParent(&Goober);
     GooberWing2.SetParent(&Goober);
 
-    if (!Goober.CheckCollision(frogPart1) && !hitTongueEnd) //this moves the Gooberfly to Squeegee the Frog
+    //COLLIDERS OF OBJECTS
+    tongueEnd.SetCollider(tongueEnd.GetWorldPosition(), Vector3(8, 8, 8));
+    Goober.SetCollider(Goober.GetObjectPosition(), Goober.GetObjectSize());
+    frogPart1.SetCollider(frogPart1.GetObjectPosition(), Vector3(5, 5, 5));
+
+    RenderObjects Test;
+    Test.Create3DCylinder(10, 5, 8);
+    Test.Apply_Color(255, 255, 255);
+    Test.TransformObjectPosition(tongueEnd.GetWorldPosition());
+
+    //COLLISION CHECKS
+    bool tongueIsActive = (tongueExtension > 0.1f);
+    bool hitTongueEnd = tongueIsActive && Goober.CheckCollision(tongueEnd);
+    // === DEBUG OUTPUT ===
+    if (tongueIsActive) {
+        Vector3 gooberPos = Goober.GetObjectPosition();
+        float dx = tongueEnd.GetWorldPosition().x - gooberPos.x;
+        float dy = tongueEnd.GetWorldPosition().y - gooberPos.y;
+        float dz = tongueEnd.GetWorldPosition().z - gooberPos.z;
+        float distance = sqrt(dx * dx + dy * dy + dz * dz);
+
+        if (distance < 15.0f) { // Only print when close
+            cout << "Distance: " << distance
+                << " | TongueWorld(" << tongueEnd.GetWorldPosition().x << "," << tongueEnd.GetWorldPosition().y << "," << tongueEnd.GetWorldPosition().z << ")"
+                << " | Goober(" << gooberPos.x << "," << gooberPos.y << "," << gooberPos.z << ")"
+                << " | Hit: " << (hitTongueEnd ? "YES" : "NO") << endl;
+        }
+    }
+
+    // === MOVEMENT AND SCORING ===
+    if (!Goober.CheckCollision(frogPart1) && !hitTongueEnd)
     {
-        Vector3 GooberLERP = GetLERPObjects(Goober, frogPart1, 0.0055f);  // 8% per frame
+        Vector3 GooberLERP = GetLERPObjects(Goober, frogPart1, 0.0055f);
         Goober.TransformObjectPosition(GooberLERP);
     }
     if (hitTongueEnd)
-    {
-        cout << "Adding score" << endl;
+    {        
         AddScore(true);
         RespawnGoober();
     }
-    else if (Goober.CheckCollision(frogPart1))  // Only if NOT hitting tongue
+    else if (Goober.CheckCollision(frogPart1))
     {
-        cout << "HIT FROG BODY" << endl;
         AddScore(false);
         RespawnGoober();
     }
-    //======================================================
-    //TEXT TEXT//
+
+    //TEXT DISPLAY
     Text ScoreWord, ScoreVariable;
     Text InterpolateX, InterpolateY, InterpolateZ;
+
     ScoreWord.ColorText(255.0f, 255.0f, 0.0f);
     ScoreWord.TranslateText(-45.0f, 0.0f, -20.0f);
     ScoreWord.RenderText("SCORE: ");
@@ -332,117 +331,15 @@ void Update()
     InterpolateY.TranslateText(-40.0f, 0.0f, 25.0f);
     InterpolateY.RenderFloatVariableAsText(tongueEnd.GetWorldPosition().y);
 
-    InterpolateY.ColorText(150.0f, 150.0f, 255.0f);
-    InterpolateY.TranslateText(-45.0f, 0.0f, 30.0f);
-    InterpolateY.RenderFloatVariableAsText(tongueEnd.GetWorldPosition().z);
-    //======================================================
+    InterpolateZ.ColorText(150.0f, 150.0f, 255.0f);
+    InterpolateZ.TranslateText(-45.0f, 0.0f, 30.0f);
+    InterpolateZ.RenderFloatVariableAsText(tongueEnd.GetWorldPosition().z);
+    //XRAY
     RenderObjects xRay;
     if (Input::GetKey('f'))
         xRay.XrayAll(true);
     else
         xRay.XrayAll(false);
-    //======================================================
-    //   ObjTest1.TransformObjectPosition(10.0f, 0.0f, 20.0f);
-    //   ObjTest1.TransformObjectSize(-1.0f, 5.0f, 0.0f);
-    //   ObjTest1.Apply_Color(255, 0, 0);
-    //   ObjTest1.Create3DCube(2, 2, 5);
-       //ObjTest1.SetCollider(ObjTest1.GetObjectPosition(), ObjTest1.GetObjectSize());
-
-    //   //EVERYTHING BELOW HERE IS LERP//
-    // /*  ObjTest_2.TransformObjectPosition(-10.0f, 0.01f, 0.0f);*/
-    //   Vector3 toLERP = GetLERPObjects(ObjTest_2, ObjTest1, 0.1);
-    //   
-    //   //glPushMatrix();
-    //   ObjTest_2.SetCollider(ObjTest_2.GetObjectPosition(), ObjTest_2.GetObjectSize());
-    //   if (!ObjTest_2.CheckCollision(ObjTest1))
-    //   {
-    //       ObjTest_2.TrackPoint(movementSpeed, toLERP, ObjTest_2.GetObjectPosition(), ObjTest1.GetObjectPosition());
-    //   }
-    //   
-    //   ObjTest_2.Apply_Color(0, 255, 0, 100);
-    //   ObjTest_2.Create3DCylinder(4.0f, 4.0f, 8);
-    // 
-    //if (startHitTimer == true)
-    //{
-    //    float Timer = 0;
-    //    Text HitMarker;
-    //    Vector3 HitMarkerFadePoint(-35.0f, 0.0f, -21.0f);
-    //    Vector3 HitMarkerLERP = GetLERPPoints(HitMarker.GetCurrentPosition(), HitMarkerFadePoint, 0.1);
-    //    HitMarker.ColorText(255.0f, 0.0f, 0.0f);
-    //    HitMarker.TranslateText(-35.0f, 0.0f, -20.0f);
-    //    //HitMarker.TranslateText(HitMarkerLERP);
-    //    HitMarker.RenderText("HIT!!!");
-    //}
-    /*glPopMatrix();*/
-    //Text LERPx, LERPy, LERPz;
-    //LERPx.ColorText(255.0f, 0.0f, 0.0f);
-    //LERPx.TranslateText(-4.0f, 10.0f, 0.0f);
-    //LERPx.RenderVariableAsText(toLERP.x);
-
-    //LERPy.ColorText(0.0, 255.0f, 0.0f);
-    //LERPy.TranslateText(-4.0f, 11.0f, 0.0f);
-    //LERPy.RenderVariableAsText(toLERP.y);
-
-    //LERPz.ColorText(0.0f, 0.0f, 255.0f);
-    //LERPz.TranslateText(-4.0f, 12.0f, 0.0f);
-    //LERPz.RenderVariableAsText(toLERP.z);
-
-    //==================================================================================
-    // 
-    //  \/  \/ Apply these inside of 3D object functions; \/ \/
-    // 
-    //==================================================================================  
-        //rotateAngle += 1.0f;
-        ////TEXTURE TEST //
-        //StartEnablingTextures();
-        //BindSelectTexture(_textureId);
-
-        ////Bottom
-        //RenderType(true, true);
-        //glColor3f(1.0f, 0.2f, 0.2f);
-        //glBegin(GL_QUADS);
-
-        //glNormal3f(0.0, 1.0f, 0.0f);
-        //glTexCoord2f(0.0f, 0.0f);
-        //glVertex3f(-2.5f, -2.5f, 2.5f);
-        //glTexCoord2f(1.0f, 0.0f);
-        //glVertex3f(2.5f, -2.5f, 2.5f);
-        //glTexCoord2f(1.0f, 1.0f);
-        //glVertex3f(2.5f, -2.5f, -2.5f);
-        //glTexCoord2f(0.0f, 1.0f);
-        //glVertex3f(-2.5f, -2.5f, -2.5f);
-
-        //glEnd();
-
-        ////Back
-        //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        //glColor3f(1.0f, 1.0f, 1.0f);
-        //glBegin(GL_TRIANGLES);
-
-        //glNormal3f(0.0f, 0.0f, 1.0f);
-        //glTexCoord2f(0.0f, 0.0f);
-        //glVertex3f(-2.5f, -2.5f, -2.5f);
-        //glTexCoord2f(5.0f, 5.0f);
-        //glVertex3f(0.0f, 2.5f, -2.5f);
-        //glTexCoord2f(10.0f, 0.0f);
-        //glVertex3f(2.5f, -2.5f, -2.5f);
-
-        //glEnd();
-
-        ////Left
-        //glDisable(GL_TEXTURE_2D);
-        //glColor3f(1.0f, 0.7f, 0.3f);
-        //glBegin(GL_QUADS);
-
-        //glNormal3f(1.0f, 0.0f, 0.0f);
-        //glVertex3f(-2.5f, -2.5f, 2.5f);
-        //glVertex3f(-2.5f, -2.5f, -2.5f);
-        //glVertex3f(-2.5f, 2.5f, -2.5f);
-        //glVertex3f(-2.5f, 2.5f, 2.5f);
-
-        //glEnd();
-    //=================================================  
 }
 int main(int argc, char** argv)
 {
