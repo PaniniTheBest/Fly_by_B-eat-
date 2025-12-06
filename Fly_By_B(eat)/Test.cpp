@@ -7,7 +7,7 @@
 #include <mutex>
 
 camera cam;
-int GlobalScore = 0;
+int GlobalScore = 10;
 
 GLuint _textureId; //The id of the texture
 
@@ -22,6 +22,7 @@ RenderObjects tongue, tongueEnd;
 float frogRotation = 0.0f;
 float tongueExtension = 0.0f;
 bool tongueIsExtending = false;
+int gooberDirection = 0, squeegeeDirection = 0;
 
 void InitiateRender()
 {
@@ -34,7 +35,7 @@ void InitiateRender()
 }
 void UserInputHandle()
 {
-    if (Input::GetKey('w'))
+    if (Input::GetKey('w')) //up
     {
         if (frogRotation != 135) {
             if (frogRotation < 135) {
@@ -52,7 +53,7 @@ void UserInputHandle()
         }
 
     }
-    if (Input::GetKey('a'))
+    if (Input::GetKey('a')) //left
     {
         if (frogRotation != 225) {
             if (frogRotation < 225) {
@@ -65,7 +66,7 @@ void UserInputHandle()
             }
         }
     }
-    if (Input::GetKey('s'))
+    if (Input::GetKey('s')) //down
     {
         if (frogRotation == 45) {
             frogRotation = 405;
@@ -81,7 +82,7 @@ void UserInputHandle()
             }
         }
     }
-    if (Input::GetKey('d'))
+    if (Input::GetKey('d')) //right
     {
         if (frogRotation == 405) {
             frogRotation = 45;
@@ -98,7 +99,6 @@ void UserInputHandle()
         }
 
     }
-
 }
 //=======FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===
 void Squegee()
@@ -152,6 +152,7 @@ void Squegee()
     tongue.SetParent(&frogPart4);
     tongueEnd.SetParent(&frogPart4);
 }
+
 void SquegeeTongue()
 {
     if (Input::GetKey(' '))
@@ -193,26 +194,75 @@ void RespawnGoober()
     srand(time(NULL));
     int d4Dice = rand() % 4;
     float spawnDistance = 100.0f;
-    if (d4Dice == 0)
+
+    if (d4Dice == 0) //Right
+    {
         Goober.TransformObjectPosition(spawnDistance, 0, 0);
-    else if (d4Dice == 1)
+        gooberDirection = 0;
+    }
+        
+    else if (d4Dice == 1) //Left
+    {
         Goober.TransformObjectPosition(-spawnDistance, 0, 0);
-    else if (d4Dice == 2)
+        gooberDirection = 1;
+    }
+        
+    else if (d4Dice == 2) //Down
+    {
         Goober.TransformObjectPosition(0, 0, spawnDistance);
-    else  // d4Dice == 3
+        gooberDirection = 2;
+    }
+        
+    else if (d4Dice == 3) //Up
+    {
         Goober.TransformObjectPosition(0, 0, -spawnDistance);
+        gooberDirection = 3;
+    }
+        
 }
+
+bool CheckDirectionalAlignment()
+{
+    if (gooberDirection == 0 && frogRotation == 45) //Right
+    {
+        return true;
+    }
+
+    else if (gooberDirection == 1 && frogRotation == 225) //Left
+    {
+        return true;
+    }
+
+    else if (gooberDirection == 2 && frogRotation == 315) //Down
+    {
+        return true;
+    }
+
+    else if (gooberDirection == 3 && frogRotation == 135) //Up
+    {
+        return true;
+    }
+
+    else
+    {
+        return false;
+    }
+        
+}
+
 void Initialize()
 {
 
 }
 void Update()
 {
+    bool directionalAlignment = false;
     cam.ApplyCamera();
 
     UserInputHandle();
     Squegee();
     SquegeeTongue();
+    directionalAlignment = CheckDirectionalAlignment();
 
     // === SETUP GOOBER FIRST ===
     Color GooberColor(100.0f, 100.0f, 100.0f);
@@ -231,12 +281,11 @@ void Update()
     GooberWing1.SetParent(&Goober);
     GooberWing2.SetParent(&Goober);
 
-
     // === Get world position for tongueEnd ===
     Vector3 tongueWorldPos = tongueEnd.GetWorldPosition();
 
     // === COLLIDERS OF OBJECTS ===
-    tongueEnd.SetCollider(tongueWorldPos, Vector3(8, 8, 8));
+    tongueEnd.SetCollider(tongueWorldPos, Vector3(10, 10, 10));
     Goober.SetCollider(Goober.GetObjectPosition(), Goober.GetObjectSize());
     frogPart1.SetCollider(frogPart1.GetObjectPosition(), Vector3(5, 5, 5));
 
@@ -248,7 +297,7 @@ void Update()
 
     // === COLLISION CHECKS ===
     bool tongueIsActive = (tongueExtension > 0.1f);
-    bool hitTongueEnd = tongueIsActive && Goober.CheckCollision(tongueEnd);
+    bool hitTongueEnd = tongueIsActive && Goober.CheckCollision(tongueEnd) && directionalAlignment;
 
     // === Calculate distance for debugging ===
     if (tongueIsActive) {
@@ -287,27 +336,31 @@ void Update()
 
     // === TEXT DISPLAY ===
     Text ScoreWord, ScoreVariable;
-    Text InterpolateX, InterpolateY, InterpolateZ;
+    //Text InterpolateX, InterpolateY, InterpolateZ;
 
     ScoreWord.ColorText(255.0f, 255.0f, 0.0f);
     ScoreWord.TranslateText(-45.0f, 0.0f, -20.0f);
     ScoreWord.RenderText("SCORE: ");
 
+   /* OutputAngle.ColorText(255.0f, 255.0f, 0.0f);
+    OutputAngle.TranslateText(-45.0f, 0.0f, -10.0f);
+    OutputAngle.RenderIntVariableAsText(frogRotation);*/
+
     ScoreVariable.ColorText(255.0f, 0.0f, 0.0f);
     ScoreVariable.TranslateText(-35.0f, 0.0f, -19.0f);
     ScoreVariable.RenderIntVariableAsText(GlobalScore);
 
-    InterpolateX.ColorText(0.0f, 150.0f, 255.0f);
-    InterpolateX.TranslateText(-45.0f, 0.0f, 20.0f);
-    InterpolateX.RenderFloatVariableAsText(tongueWorldPos.x);
+    //InterpolateX.ColorText(0.0f, 150.0f, 255.0f);
+    //InterpolateX.TranslateText(-45.0f, 0.0f, 20.0f);
+    //InterpolateX.RenderFloatVariableAsText(tongueWorldPos.x);
 
-    InterpolateY.ColorText(150.0f, 0.0f, 255.0f);
-    InterpolateY.TranslateText(-40.0f, 0.0f, 25.0f);
-    InterpolateY.RenderFloatVariableAsText(tongueWorldPos.y);
+    //InterpolateY.ColorText(150.0f, 0.0f, 255.0f);
+    //InterpolateY.TranslateText(-40.0f, 0.0f, 25.0f);
+    //InterpolateY.RenderFloatVariableAsText(tongueWorldPos.y);
 
-    InterpolateZ.ColorText(150.0f, 150.0f, 255.0f);
-    InterpolateZ.TranslateText(-45.0f, 0.0f, 30.0f);
-    InterpolateZ.RenderFloatVariableAsText(tongueWorldPos.z);
+    //InterpolateZ.ColorText(150.0f, 150.0f, 255.0f);
+    //InterpolateZ.TranslateText(-45.0f, 0.0f, 30.0f);
+    //InterpolateZ.RenderFloatVariableAsText(tongueWorldPos.z);
 
     // === XRAY ===
     RenderObjects xRay;

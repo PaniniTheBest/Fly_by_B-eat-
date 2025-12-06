@@ -1,8 +1,2 @@
-﻿  Engine.cpp
-  Graphics.cpp
-  Input.cpp
-  Test.cpp
-  Text.cpp
-C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Fly_By_B(eat)\Text.cpp(22,20): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
-  Fly_By_B(eat).vcxproj -> C:\Users\asus\Documents\GitHub\Fly_by_B-eat-\Debug\Fly_By_B(eat).exe
+﻿  Test.cpp
+  Fly_By_B(eat).vcxproj -> C:\Users\rocks\Documents\GitHub\Fly_by_B-eat-\Debug\Fly_By_B(eat).exe
