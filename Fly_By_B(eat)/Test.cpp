@@ -12,7 +12,6 @@
 #include <thread>
 #include <atomic>
 #include <mutex>
-#include "Rope.h"
 
 camera cam;
 int GlobalScore = 0;
@@ -109,6 +108,7 @@ void UserInputHandle()
     }
 
 }
+//=======FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===FROG===
 void Squegee()
 {
     Color frogGreen(0, 255, 100);

@@ -149,6 +149,7 @@
     <ClCompile Include="Rope.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="Text.cpp" />
+    <ClCompile Include="Text3D.cpp" />
     <ClCompile Include="vector3.cpp" />
     <ClCompile Include="RenderObjects.cpp" />
   </ItemGroup>
@@ -170,6 +171,7 @@
     <ClInclude Include="Rope.h" />
     <ClInclude Include="RotationObject.h" />
     <ClInclude Include="Text.h" />
+    <ClInclude Include="Text3D.h" />
     <ClInclude Include="vector3.h" />
     <ClInclude Include="RenderObjects.h" />
   </ItemGroup>
