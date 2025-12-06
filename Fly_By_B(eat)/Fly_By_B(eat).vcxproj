@@ -147,7 +147,6 @@
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Rope.cpp" />
-    <ClCompile Include="Test.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Text3D.cpp" />
     <ClCompile Include="vector3.cpp" />
