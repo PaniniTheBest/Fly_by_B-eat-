@@ -67,11 +67,9 @@ Vector3 FloorcolliderScale(20.0f, 0.5f, 20.0f);
 
 void Update()
 {
-	if (value >= 15.0f)
-	{
-		PlaySong(L"yay.wav");
-	}
+    float deltaTime = FindDeltaTime();
 
+    value += 1.0f * deltaTime;
     glutMotionFunc([](int x, int y) { cam2.HandleMouseMotion(x, y); });
     glutPassiveMotionFunc([](int x, int y) { cam2.HandleMouseMotion(x, y); });
 
@@ -117,11 +115,15 @@ void Update()
     //==============================================
 
     //TEXT TEXT//
-	Text BeeMovieString, TimerString;
+	Text BeeMovieString, TimerString, deltaTimeClock;
 
     BeeMovieString.ColorText(255.0f, 255.0f, 0.0f);
 	BeeMovieString.TranslateText(-1.0f, 8.0f, 0.0f);
-    BeeMovieString.RenderText("According to all known laws of aviation, there is no way that a bee should be able to fly.");
+    BeeMovieString.RenderText("Hello World, we are in Squeengine.");
+
+    //deltaTimeClock.ColorText(255.0f, 255.0f, 0.0f);
+    //deltaTimeClock.TranslateText(-10.0f, 8.0f, 0.0f);
+    //deltaTimeClock.RenderText("Hello World, this is a deltaTime-based clock: ");
 
     TimerString.ColorText(255.0f, 0.0f, 0.0f);
     TimerString.TranslateText(-1.0f, 8.0f, 0.0f);
