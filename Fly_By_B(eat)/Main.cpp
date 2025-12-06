@@ -1,5 +1,4 @@
-﻿
-#include "Engine.h"
+﻿#include "Engine.h"
 #include <windows.h>
 #include <mmsystem.h>
 #include <thread>
