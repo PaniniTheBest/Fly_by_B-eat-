@@ -47,6 +47,8 @@ GLuint _textureId; //The id of the texture
 
 RenderObjects ObjTest1, ObjTest_2;
 RenderObjects Goober, GooberWing1, GooberWing2;
+RenderObjects TongueBox;
+
 float movementSpeed = 0.01f;
 
 Vector3 FloorcolliderScale(20.0f, 0.5f, 20.0f);
@@ -69,8 +71,11 @@ void InitiateRender()
 }
 void UserInputHandle()
 {
+    float delay = 1.0f;
+
     if (Input::GetKey('w'))
     {
+        delay = 1.0f;
         if (frogRotation != 135) {
             if (frogRotation < 135) {
                 frogRotation += 5;
@@ -85,10 +90,14 @@ void UserInputHandle()
         if (frogRotation == 405) {
             frogRotation = 45;
         }
+        
+        TongueBox.TransformObjectPosition(0,0,-5);
+        TongueBox.SetCollider(TongueBox.GetObjectPosition(), Vector3(5, 500, 5));
 
     }
     if (Input::GetKey('a'))
     {
+        delay = 1.0f;
         if (frogRotation != 225) {
             if (frogRotation < 225) {
                 frogRotation += 5;
@@ -99,9 +108,14 @@ void UserInputHandle()
                 frogPart1.TransformObjectRotation(frogRotation, 0, frogRotation, 0);
             }
         }
+
+        TongueBox.TransformObjectPosition(-5, 0, 0);
+        TongueBox.SetCollider(TongueBox.GetObjectPosition(), Vector3(5, 500, 5));
+
     }
     if (Input::GetKey('s'))
     {
+        delay = 1.0f;
         if (frogRotation == 45) {
             frogRotation = 405;
         }
@@ -115,9 +129,14 @@ void UserInputHandle()
                 frogPart1.TransformObjectRotation(frogRotation, 0, frogRotation, 0);
             }
         }
+
+        TongueBox.TransformObjectPosition(0, 0, 5);
+        TongueBox.SetCollider(TongueBox.GetObjectPosition(), Vector3(5, 500, 5));
+
     }
     if (Input::GetKey('d'))
     {
+        delay = 1.0f;
         if (frogRotation == 405) {
             frogRotation = 45;
         }
@@ -132,7 +151,12 @@ void UserInputHandle()
             }
         }
 
+        TongueBox.TransformObjectPosition(5, 0, 0);
+        TongueBox.SetCollider(TongueBox.GetObjectPosition(), Vector3(5, 500, 5));
+
     }
+
+    TongueBox.SetCollider(Vector3(999,0,999), Vector3(5, 500, 5));
 
 }
 void Squegee()
@@ -265,6 +289,12 @@ void Update()
     GooberWing1.SetParent(&Goober);
     GooberWing2.SetParent(&Goober);
 
+    //GOOBER TO SQUEGEE TECH//
+    //Goober.SetParent(&frogPart1);
+    //Vector3 ParentPosition = frogPart1.GetObjectPosition();
+    //Vector3 ParentPosition2 = frogPart1.GetWorldPosition();
+    //Goober.TransformObjectPosition(ParentPosition2);
+    
     //COLLIDERS OF OBJECTS
     tongueEnd.SetCollider(tongueEnd.GetWorldPosition(), Vector3(8, 8, 8));
     Goober.SetCollider(Goober.GetObjectPosition(), Goober.GetObjectSize());
@@ -277,7 +307,7 @@ void Update()
 
     //COLLISION CHECKS
     bool tongueIsActive = (tongueExtension > 0.1f);
-    bool hitTongueEnd = tongueIsActive && Goober.CheckCollision(tongueEnd);
+    bool hitTongueEnd = tongueIsActive && Goober.CheckCollision(TongueBox);
     // === DEBUG OUTPUT ===
     if (tongueIsActive) {
         Vector3 gooberPos = Goober.GetObjectPosition();
@@ -295,6 +325,10 @@ void Update()
     }
 
     // === MOVEMENT AND SCORING ===
+   /* Vector3 TongueBoxLERP = GetLERPObjects(TongueBox, tongueEnd);
+    TongueBox.SetCollider(tongueEnd.GetObjectPosition(), Vector3(9, 9, 9));
+    TongueBox.TransformObjectPosition*/
+
     if (!Goober.CheckCollision(frogPart1) && !hitTongueEnd)
     {
         Vector3 GooberLERP = GetLERPObjects(Goober, frogPart1, 0.0055f);
