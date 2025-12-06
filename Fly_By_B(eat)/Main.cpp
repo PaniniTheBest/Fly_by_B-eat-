@@ -266,41 +266,28 @@ void Update()
     GooberWing2.SetParent(&Goober);
 
     //COLLIDERS OF OBJECTS
-    tongueEnd.SetCollider(tongueEnd.GetWorldPosition(), Vector3(8, 8, 8));
-    Goober.SetCollider(Goober.GetObjectPosition(), Goober.GetObjectSize());
+    tongueEnd.SetCollider(tongueEnd.GetWorldPosition(), tongueEnd.GetObjectSize());
+
+    Goober.SetCollider(Goober.GetObjectPosition(), Vector3 (3,3,3));
+
     frogPart1.SetCollider(frogPart1.GetObjectPosition(), Vector3(5, 5, 5));
 
     RenderObjects Test;
     Test.Create3DCylinder(10, 5, 8);
-    Test.Apply_Color(255, 255, 255);
+    Test.Apply_Color(105, 105, 105);
     Test.TransformObjectPosition(tongueEnd.GetWorldPosition());
 
     //COLLISION CHECKS
     bool tongueIsActive = (tongueExtension > 0.1f);
     bool hitTongueEnd = tongueIsActive && Goober.CheckCollision(tongueEnd);
-    // === DEBUG OUTPUT ===
-    if (tongueIsActive) {
-        Vector3 gooberPos = Goober.GetObjectPosition();
-        float dx = tongueEnd.GetWorldPosition().x - gooberPos.x;
-        float dy = tongueEnd.GetWorldPosition().y - gooberPos.y;
-        float dz = tongueEnd.GetWorldPosition().z - gooberPos.z;
-        float distance = sqrt(dx * dx + dy * dy + dz * dz);
-
-        if (distance < 15.0f) { // Only print when close
-            cout << "Distance: " << distance
-                << " | TongueWorld(" << tongueEnd.GetWorldPosition().x << "," << tongueEnd.GetWorldPosition().y << "," << tongueEnd.GetWorldPosition().z << ")"
-                << " | Goober(" << gooberPos.x << "," << gooberPos.y << "," << gooberPos.z << ")"
-                << " | Hit: " << (hitTongueEnd ? "YES" : "NO") << endl;
-        }
-    }
-
-    // === MOVEMENT AND SCORING ===
+    
+    //MOVEMENT AND SCORING
     if (!Goober.CheckCollision(frogPart1) && !hitTongueEnd)
     {
         Vector3 GooberLERP = GetLERPObjects(Goober, frogPart1, 0.0055f);
         Goober.TransformObjectPosition(GooberLERP);
     }
-    if (hitTongueEnd)
+    if (Goober.CheckCollision(tongueEnd))
     {        
         AddScore(true);
         RespawnGoober();
@@ -310,7 +297,6 @@ void Update()
         AddScore(false);
         RespawnGoober();
     }
-
     //TEXT DISPLAY
     Text ScoreWord, ScoreVariable;
     Text InterpolateX, InterpolateY, InterpolateZ;
@@ -328,7 +314,7 @@ void Update()
     InterpolateX.RenderFloatVariableAsText(tongueEnd.GetWorldPosition().x);
 
     InterpolateY.ColorText(150.0f, 0.0f, 255.0f);
-    InterpolateY.TranslateText(-40.0f, 0.0f, 25.0f);
+    InterpolateY.TranslateText(-45.0f, 0.0f, 25.0f);
     InterpolateY.RenderFloatVariableAsText(tongueEnd.GetWorldPosition().y);
 
     InterpolateZ.ColorText(150.0f, 150.0f, 255.0f);

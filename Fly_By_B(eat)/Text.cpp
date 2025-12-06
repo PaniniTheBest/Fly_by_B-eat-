@@ -6,6 +6,8 @@
 #include <math.h>
 #include <glut.h>
 
+//https://stackoverflow.com/questions/2183270/what-is-the-easiest-way-to-print-text-to-screen-in-opengl
+//https://stackoverflow.com/questions/58713840/how-to-draw-text-to-the-screen-using-glutbitmapcharacter
 using namespace std;
 Text::Text()
 {
