@@ -12,7 +12,6 @@
 #include <thread>
 #include <atomic>
 #include <mutex>
-#include "RotationObject.h"
 #include "Rope.h"
 
 //float value = 0.0f;
@@ -441,8 +440,6 @@ int main(int argc, char** argv)
 {
     PlaySong(L"PlaygroundDayz.wav");
     PrepEngine(argc, argv);
-    /*glutMotionFunc(Rotation::mouseMotion);
-    glutPassiveMotionFunc(Rotation::mousePassiveMotion);*/
 }
 
 
