@@ -1,5 +1,4 @@
 #include "RenderObjects.h"
-
 const float PI = 3.14159f; // Value of PI  
 
 //Initialized Variables
