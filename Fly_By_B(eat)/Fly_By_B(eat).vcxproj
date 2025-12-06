@@ -146,7 +146,6 @@
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Collider.cpp" />
-    <ClCompile Include="Rope.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Text3D.cpp" />
     <ClCompile Include="vector3.cpp" />
@@ -167,8 +166,6 @@
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Rope.h" />
-    <ClInclude Include="RotationObject.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Text3D.h" />
     <ClInclude Include="vector3.h" />

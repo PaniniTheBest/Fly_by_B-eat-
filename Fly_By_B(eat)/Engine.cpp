@@ -42,6 +42,9 @@ float FindDeltaTime()
 
 float LinearInterpolate(float currentPos, float farawayPos, float t) //Finding the values between coordinates, Also called LERP
 {
+    //"This Linear Interpolation function's goal is to calculate the current distance between an origin object and a destination object.  
+    // This returns a Vetor3 with float values for movement. This ensures that movement eases in and out rather than having robotic movements."
+
 	//t represents how close the value is to any given position.
     //Near 0, it is close to currentPos. Near 1, it is close to farawayPos.
     return currentPos + t * (farawayPos - currentPos);
