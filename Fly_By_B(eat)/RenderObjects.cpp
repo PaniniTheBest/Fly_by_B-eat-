@@ -22,7 +22,7 @@ void RenderObjects::Apply_Color(float r, float g, float b, float a) //RGB values
 }
 void RenderObjects::Apply_Color(Color newColor)//RGBA values that supports Color.h
 {
-	this->objectColor.SetColor (newColor);
+	this->objectColor.SetColor(newColor);
 }
 //TRANSFORM POSITION
 void RenderObjects::TransformObjectPosition(float x, float y, float z) //Sets position of an Object
@@ -40,8 +40,8 @@ Vector3 RenderObjects::GetObjectPosition()
 //TRANSFORM ROTATION
 void RenderObjects::TransformObjectRotation(float shapeAngle, float x, float y, float z)
 {
-	angle = shapeAngle; 
-	setRotationValue.SetValue(x, y, z);	
+	angle = shapeAngle;
+	setRotationValue.SetValue(x, y, z);
 }
 void RenderObjects::TransformObjectRotation(float shapeAngle, Vector3 setNewRotationValue)
 {
@@ -67,56 +67,56 @@ Vector3 RenderObjects::GetObjectSize()
 }
 //Types of shapes
 void RenderObjects::Create3DCube(float x, float y, float z)
-{   
-    glPushMatrix();
+{
+	glPushMatrix();
 	ApplyParentTransform();
-    glColor4f(objectColor.red, objectColor.green, objectColor.blue, objectColor.alpha);
-    glTranslatef(setPosition.x, setPosition.y, setPosition.z);
-    glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
-    glScalef(setScale.x, setScale.y, setScale.z);
+	glColor4f(objectColor.red, objectColor.green, objectColor.blue, objectColor.alpha);
+	glTranslatef(setPosition.x, setPosition.y, setPosition.z);
+	glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
+	glScalef(setScale.x, setScale.y, setScale.z);
 
-    glBegin(GL_QUADS);// Face 1 X-axis
-    glVertex3f(0.5f * x, 0.5f * y, 0.5f * z);
-    glVertex3f(0.5f * x, -0.5f * y, 0.5f * z);
-    glVertex3f(0.5f * x, -0.5f * y, -0.5f * z);
-    glVertex3f(0.5f * x, 0.5f * y, -0.5f * z);
-    glEnd();
+	glBegin(GL_QUADS);// Face 1 X-axis
+	glVertex3f(0.5f * x, 0.5f * y, 0.5f * z);
+	glVertex3f(0.5f * x, -0.5f * y, 0.5f * z);
+	glVertex3f(0.5f * x, -0.5f * y, -0.5f * z);
+	glVertex3f(0.5f * x, 0.5f * y, -0.5f * z);
+	glEnd();
 
-    glBegin(GL_QUADS);// Face 2 X-axis
-    glVertex3f(-0.5f * x, 0.5f * y, 0.5f * z);
-    glVertex3f(-0.5f * x, -0.5f * y, 0.5f * z);
-    glVertex3f(-0.5f * x, -0.5f * y, -0.5f * z);
-    glVertex3f(-0.5f * x, 0.5f * y, -0.5f * z);
-    glEnd();
+	glBegin(GL_QUADS);// Face 2 X-axis
+	glVertex3f(-0.5f * x, 0.5f * y, 0.5f * z);
+	glVertex3f(-0.5f * x, -0.5f * y, 0.5f * z);
+	glVertex3f(-0.5f * x, -0.5f * y, -0.5f * z);
+	glVertex3f(-0.5f * x, 0.5f * y, -0.5f * z);
+	glEnd();
 
-    glBegin(GL_QUADS);// Face 3 Y-axis 
-    glVertex3f(-0.5f * x, -0.5f * y, -0.5f * z);
-    glVertex3f(-0.5f * x, -0.5f * y, 0.5f * z);
-    glVertex3f(0.5f * x, -0.5f * y, 0.5f * z);
-    glVertex3f(0.5f * x, -0.5f * y, -0.5f * z);
-    glEnd();
+	glBegin(GL_QUADS);// Face 3 Y-axis 
+	glVertex3f(-0.5f * x, -0.5f * y, -0.5f * z);
+	glVertex3f(-0.5f * x, -0.5f * y, 0.5f * z);
+	glVertex3f(0.5f * x, -0.5f * y, 0.5f * z);
+	glVertex3f(0.5f * x, -0.5f * y, -0.5f * z);
+	glEnd();
 
-    glBegin(GL_QUADS);// Face 4 Y-axis 
-    glVertex3f(-0.5f * x, 0.5f * y, -0.5f * z);
-    glVertex3f(-0.5f * x, 0.5f * y, 0.5f * z);
-    glVertex3f(0.5f * x, 0.5f * y, 0.5f * z);
-    glVertex3f(0.5f * x, 0.5f * y, -0.5f * z);
-    glEnd(); 
-    
-    glBegin(GL_QUADS);// Face 5 Z-axis
-    glVertex3f(-0.5f * x, -0.5f * y, -0.5f * z);
-    glVertex3f(-0.5f * x, 0.5f * y, -0.5f * z);
-    glVertex3f(0.5f * x, 0.5f * y, -0.5f * z);
-    glVertex3f(0.5f * x, -0.5f * y, -0.5f * z);
-    glEnd();
+	glBegin(GL_QUADS);// Face 4 Y-axis 
+	glVertex3f(-0.5f * x, 0.5f * y, -0.5f * z);
+	glVertex3f(-0.5f * x, 0.5f * y, 0.5f * z);
+	glVertex3f(0.5f * x, 0.5f * y, 0.5f * z);
+	glVertex3f(0.5f * x, 0.5f * y, -0.5f * z);
+	glEnd();
 
-    glBegin(GL_QUADS);// Face 6 Z-axis
-    glVertex3f(-0.5f * x, -0.5f * y, 0.5f * z);
-    glVertex3f(-0.5f * x, 0.5f * y, 0.5f * z);
-    glVertex3f(0.5f * x, 0.5f * y, 0.5f * z);
-    glVertex3f(0.5f * x, -0.5f * y, 0.5f * z);
-    glEnd();
-    glPopMatrix();
+	glBegin(GL_QUADS);// Face 5 Z-axis
+	glVertex3f(-0.5f * x, -0.5f * y, -0.5f * z);
+	glVertex3f(-0.5f * x, 0.5f * y, -0.5f * z);
+	glVertex3f(0.5f * x, 0.5f * y, -0.5f * z);
+	glVertex3f(0.5f * x, -0.5f * y, -0.5f * z);
+	glEnd();
+
+	glBegin(GL_QUADS);// Face 6 Z-axis
+	glVertex3f(-0.5f * x, -0.5f * y, 0.5f * z);
+	glVertex3f(-0.5f * x, 0.5f * y, 0.5f * z);
+	glVertex3f(0.5f * x, 0.5f * y, 0.5f * z);
+	glVertex3f(0.5f * x, -0.5f * y, 0.5f * z);
+	glEnd();
+	glPopMatrix();
 }
 void RenderObjects::Create3DCube(Vector3 boxScale)
 {
@@ -183,80 +183,80 @@ void RenderObjects::Create3DSphere(double radius, double slices, double stacks)
 	glPopMatrix();
 }
 void RenderObjects::Create3DCone(float radius, float height, int slices)
-{   
+{
 	/*
 	* Credits to "Jiew Meng" & "Nobody moving away from SE" for the Cone function
 	* https://stackoverflow.com/questions/19245363/opengl-glut-surface-normals-of-cone
 	*/
-    float angleIncrement = (2.0f * PI) / slices;// Calculate angle increment based on number of slices
-    float renderAngle = 0.0f;
-    glPushMatrix(); 
+	float angleIncrement = (2.0f * PI) / slices;// Calculate angle increment based on number of slices
+	float renderAngle = 0.0f;
+	glPushMatrix();
 	ApplyParentTransform();
-    glColor4f(objectColor.red, objectColor.green, objectColor.blue, objectColor.alpha);
-    glTranslatef(setPosition.x, setPosition.y, setPosition.z);   
-    glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
-    glScalef(setScale.x, setScale.y, setScale.z);
+	glColor4f(objectColor.red, objectColor.green, objectColor.blue, objectColor.alpha);
+	glTranslatef(setPosition.x, setPosition.y, setPosition.z);
+	glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
+	glScalef(setScale.x, setScale.y, setScale.z);
 
-    // Draws the sides of the cone
-    glBegin(GL_TRIANGLE_FAN);
-    glVertex3f(0, height, 0);  // Tip
-    for (int i = 0; i <= slices; i++) {
-        renderAngle = i * angleIncrement;
-        glVertex3f(cos(renderAngle) * radius, 0, sin(renderAngle) * radius);
-    }
-    glEnd();
+	// Draws the sides of the cone
+	glBegin(GL_TRIANGLE_FAN);
+	glVertex3f(0, height, 0);  // Tip
+	for (int i = 0; i <= slices; i++) {
+		renderAngle = i * angleIncrement;
+		glVertex3f(cos(renderAngle) * radius, 0, sin(renderAngle) * radius);
+	}
+	glEnd();
 
-    // Draws the base of the cone
-    glBegin(GL_TRIANGLE_FAN);
-    glVertex3f(0, 0, 0);  // Center of base
-    for (int i = 0; i <= slices; i++) {
-        renderAngle = i * angleIncrement;
-        glNormal3f(0, -1, 0);  // Normal pointing down for base
-        glVertex3f(cos(renderAngle) * radius, 0, sin(renderAngle) * radius);
-    }
-    glEnd();
-    glPopMatrix(); 
+	// Draws the base of the cone
+	glBegin(GL_TRIANGLE_FAN);
+	glVertex3f(0, 0, 0);  // Center of base
+	for (int i = 0; i <= slices; i++) {
+		renderAngle = i * angleIncrement;
+		glNormal3f(0, -1, 0);  // Normal pointing down for base
+		glVertex3f(cos(renderAngle) * radius, 0, sin(renderAngle) * radius);
+	}
+	glEnd();
+	glPopMatrix();
 }
 void RenderObjects::Create3DCylinder(float radius, float height, int slices)
-{   
-    float angleIncrement = (2.0f * PI) / slices;// Calculate angle increment based on number of slices
-    float renderAngle = 0.0f;
-    glPushMatrix();
+{
+	float angleIncrement = (2.0f * PI) / slices;// Calculate angle increment based on number of slices
+	float renderAngle = 0.0f;
+	glPushMatrix();
 	ApplyParentTransform();
-    glColor4f(objectColor.red, objectColor.green, objectColor.blue, objectColor.alpha);
-    glTranslatef(setPosition.x, setPosition.y, setPosition.z); 
+	glColor4f(objectColor.red, objectColor.green, objectColor.blue, objectColor.alpha);
+	glTranslatef(setPosition.x, setPosition.y, setPosition.z);
 	glRotatef(angle, setRotationValue.x, setRotationValue.y, setRotationValue.z);
-    glScalef(setScale.x, setScale.y, setScale.z);
+	glScalef(setScale.x, setScale.y, setScale.z);
 
-    // Draws top side of Cylinder
-    glBegin(GL_TRIANGLE_FAN);
-    glVertex3f(0, height, 0);  // Center of top cap
-    for (int i = 0; i <= slices; i++) {
-        renderAngle = i * angleIncrement;
-        glNormal3f(0, 1, 0);  // top side
-        glVertex3f(cos(renderAngle) * radius, height, sin(renderAngle) * radius);
-    }
-    glEnd();
-    // Draws bottom side of Cylinder
-    glBegin(GL_TRIANGLE_FAN);
-    glVertex3f(0, 0, 0);  // Center of base
-    for (int i = 0; i <= slices; i++) {
-        renderAngle = i * angleIncrement;
-        glNormal3f(0, -1, 0);  //bottom side
-        glVertex3f(cos(renderAngle) * radius, 0, sin(renderAngle) * radius);
-    }
-    glEnd();
-    // Draws sides of Cylinder
-    glBegin(GL_QUAD_STRIP);
-    for (int i = 0; i <= slices; i++) {
-        renderAngle = i * angleIncrement;
-        glNormal3f(cos(renderAngle), 0, sin(renderAngle));  // Outward normal
-        glVertex3f(cos(renderAngle) * radius, 0, sin(renderAngle) * radius);
-        glVertex3f(cos(renderAngle) * radius, height, sin(renderAngle) * radius);
-    }
+	// Draws top side of Cylinder
+	glBegin(GL_TRIANGLE_FAN);
+	glVertex3f(0, height, 0);  // Center of top cap
+	for (int i = 0; i <= slices; i++) {
+		renderAngle = i * angleIncrement;
+		glNormal3f(0, 1, 0);  // top side
+		glVertex3f(cos(renderAngle) * radius, height, sin(renderAngle) * radius);
+	}
+	glEnd();
+	// Draws bottom side of Cylinder
+	glBegin(GL_TRIANGLE_FAN);
+	glVertex3f(0, 0, 0);  // Center of base
+	for (int i = 0; i <= slices; i++) {
+		renderAngle = i * angleIncrement;
+		glNormal3f(0, -1, 0);  //bottom side
+		glVertex3f(cos(renderAngle) * radius, 0, sin(renderAngle) * radius);
+	}
+	glEnd();
+	// Draws sides of Cylinder
+	glBegin(GL_QUAD_STRIP);
+	for (int i = 0; i <= slices; i++) {
+		renderAngle = i * angleIncrement;
+		glNormal3f(cos(renderAngle), 0, sin(renderAngle));  // Outward normal
+		glVertex3f(cos(renderAngle) * radius, 0, sin(renderAngle) * radius);
+		glVertex3f(cos(renderAngle) * radius, height, sin(renderAngle) * radius);
+	}
 
-    glEnd();
-    glPopMatrix();
+	glEnd();
+	glPopMatrix();
 }
 //Collider for Objects
 void RenderObjects::SetCollider(Vector3 position, Vector3 scale)
@@ -289,7 +289,7 @@ void RenderObjects::SetParent(RenderObjects* newParent)
 
 	RenderObjects* p = newParent;
 	while (p != nullptr) {
-		if (p == this) { 
+		if (p == this) {
 			parent = nullptr;
 			return;
 		}
@@ -304,7 +304,6 @@ void RenderObjects::ApplyParentTransform() const
 
 	parent->ApplyParentTransform();
 
-
 	glTranslatef(parent->setPosition.x, parent->setPosition.y, parent->setPosition.z);
 	glRotatef(parent->angle,
 		parent->setRotationValue.x,
@@ -314,17 +313,34 @@ void RenderObjects::ApplyParentTransform() const
 }
 Vector3 RenderObjects::GetWorldPosition() const
 {
-	Vector3 worldPos = setPosition;
-
-	// Recursively add parent positions
-	if (parent != nullptr)
-	{
-		Vector3 parentWorldPos = parent->GetWorldPosition();
-		worldPos.x += parentWorldPos.x;
-		worldPos.y += parentWorldPos.y;
-		worldPos.z += parentWorldPos.z;
+	if (parent == nullptr) {
+		return setPosition;
 	}
+	// Get parent's world position
+	Vector3 parentWorldPos = parent->GetWorldPosition();
+	// Convert parent angle to radians
+	float angleRad = parent->angle * (3.14159f / 180.0f);
+	// Determine which axis to rotate around based on parent's rotation values
+	if (parent->setRotationValue.y != 0) {
+		// Rotate local position around Y-axis
+		float cosA = cos(angleRad);
+		float sinA = sin(angleRad);
 
+		float rotatedX = setPosition.x * cosA - setPosition.z * sinA;
+		float rotatedZ = setPosition.x * sinA + setPosition.z * cosA;
+
+		Vector3 worldPos;
+		worldPos.x = parentWorldPos.x + rotatedX * parent->setScale.x;
+		worldPos.y = parentWorldPos.y + setPosition.y * parent->setScale.y;
+		worldPos.z = parentWorldPos.z + rotatedZ * parent->setScale.z;
+
+		return worldPos;
+	}
+	// Fallback: no rotation, just add positions
+	Vector3 worldPos;
+	worldPos.x = parentWorldPos.x + setPosition.x;
+	worldPos.y = parentWorldPos.y + setPosition.y;
+	worldPos.z = parentWorldPos.z + setPosition.z;
 	return worldPos;
 }
 //AddForce might be removed
@@ -341,9 +357,9 @@ void RenderObjects::UpdatePhysics(float deltaTime)
 {
 	physics.UpdatePhysics(deltaTime, setPosition.x, setPosition.y, setPosition.z);
 }
-void RenderObjects::SetMass(float m){physics.SetMass(m);}
-void RenderObjects::SetDrag(float d){physics.SetDrag(d);}
-void RenderObjects::SetUseGravity(bool enabled){physics.UseGravity(enabled);}
+void RenderObjects::SetMass(float m) { physics.SetMass(m); }
+void RenderObjects::SetDrag(float d) { physics.SetDrag(d); }
+void RenderObjects::SetUseGravity(bool enabled) { physics.UseGravity(enabled); }
 void RenderObjects::SetVelocity(float x, float y, float z)
 {
 	physics.SetVelocity(x, y, z);
@@ -362,7 +378,7 @@ void RenderObjects::GetVelocity(Vector3& currentVelocity)
 }
 void RenderObjects::XrayAll(bool xray)
 {
-	xray ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE): glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	xray ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 //==============================================================================
