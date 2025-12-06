@@ -14,7 +14,6 @@ void Collider::SetDimension(Vector3 position, Vector3 scale)
 	this->position = position;
 	this->scale = scale;
 }
-
 bool Collider::CheckCollision(Collider other)
 {
 	// Apply AABB Collision logic -> Axis Aligned Bounding Box

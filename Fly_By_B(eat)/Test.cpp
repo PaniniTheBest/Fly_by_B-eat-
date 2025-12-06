@@ -1,300 +1,372 @@
-//#include "RenderObjects.h"
+﻿//#include "RenderObjects.h"
 //#include "Input.h"
-//#include "libs.h"
+//#include "Camera.h"
 //#include "Camera2.h"
 //#include "Text.h"
 //#include "Engine.h"
+//#include <windows.h>
+//#include <mmsystem.h>
+//#include "ImageLoader.h"
 //#include "AudioManager.h"
 //#include "Collider.h"
-//#include "ImageLoader.h"
+//#include <thread>
+//#include <atomic>
+//#include <mutex>
+//#include "RotationObject.h"
+//#include "Rope.h"
+//#include <iostream>
+//#include <cmath>
 //
+//using namespace std;
+//
+//// Global variables
+//camera cam;
+//int GlobalScore = 0;
 //GLuint _textureId;
 //
-//camera2 cam2;
-//float lastTime = 0.0f;
-//bool onGround = false;
+//RenderObjects ObjTest1, ObjTest_2;
+//RenderObjects Goober, GooberWing1, GooberWing2;
+//float movementSpeed = 0.01f;
+//Vector3 FloorcolliderScale(20.0f, 0.5f, 20.0f);
+//RenderObjects frogPart1, frogPart2, frogPart3, frogPart4, frogEye1, frogEye2, frogEye3, frogEye4;
+//RenderObjects tongue, tongueEnd;
+//float frogRotation = 45.0f;  // Start at 45 degrees
+//float tongueExtension = 0.0f;
+//bool tongueIsExtending = false;
 //
-//// Game objects
-//RenderObjects player;
-//RenderObjects ground;
-//RenderObjects obstacle1;
-//RenderObjects obstacle2;
-//RenderObjects movingPlatform;
-//
-//Vector3 Box2_Scale(5.0f, 0.1f, 5.0f);
 //void InitiateRender()
 //{
-//        /*glEnable(GL_DEPTH_TEST);
-//        glEnable(GL_LIGHTING);
-//        glEnable(GL_LIGHT0);
-//        glEnable(GL_NORMALIZE);
-//        glEnable(GL_COLOR_MATERIAL);*/
-//
-//		_textureId = InitializeTexture("vtr4.bmp");
-//}
-//void Initialize()
-//{
-//    Vector3 playerPos(0.0f, 50.0f, 0.0f);
-//    // Setup Player with physics
-//    player.TransformObjectPosition(playerPos);
-//    player.Apply_Color(0, 255, 0);  // Green
-//    player.SetMass(800.0f);
-//    player.SetUseGravity(true);
-//    player.SetDrag(1.0f);
-//    player.SetCollider(playerPos, Vector3(2.0f, 2.0f, 2.0f));
-//
-//    // Setup Ground (static)
-//    ground.TransformObjectPosition(0.0f, -1.0f, 0.0f);
-//    ground.Apply_Color(100, 100, 100);  // Gray
-//    ground.SetUseGravity(false);
-//    ground.SetCollider(Vector3(0.0f, -1.0f, 0.0f), Vector3(20.0f, 1.0f, 20.0f));
-//
-//    // Setup Obstacle 1
-//    obstacle1.TransformObjectPosition(5.0f, 1.0f, 0.0f);
-//    obstacle1.Apply_Color(255, 0, 0);  // Red
-//    obstacle1.SetUseGravity(false);
-//    obstacle1.SetCollider(Vector3(5.0f, 1.0f, 0.0f), Vector3(2.0f, 2.0f, 2.0f));
-//
-//    // Setup Obstacle 2
-//    obstacle2.TransformObjectPosition(-5.0f, 2.0f, 0.0f);
-//    obstacle2.Apply_Color(255, 255, 0);  // Yellow
-//    obstacle2.SetUseGravity(false);
-//    obstacle2.SetCollider(Vector3(-5.0f, 2.0f, 0.0f), Box2_Scale);
-//
-//    // Setup Moving Platform
-//    movingPlatform.TransformObjectPosition(0.0f, 5.0f, -5.0f);
-//    movingPlatform.Apply_Color(0, 0, 255);  // Blue
-//    movingPlatform.SetUseGravity(false);
-//    movingPlatform.SetCollider(Vector3(0.0f, 5.0f, -5.0f), Vector3(4.0f, 0.5f, 2.0f));
-//}
-//void UpdateColliders()
-//{
-//    // Update all collider positions to match object positions
-//    Vector3 pos;
-//
-//    pos = player.GetObjectPosition();
-//    player.SetCollider(pos, Vector3(2.0f, 2.0f, 2.0f));
-//
-//    pos = obstacle1.GetObjectPosition();
-//    obstacle1.SetCollider(pos, Vector3(2.0f, 2.0f, 2.0f));
-//
-//    pos = obstacle2.GetObjectPosition();
-//    obstacle2.SetCollider(pos, Box2_Scale);
-//
-//    pos = movingPlatform.GetObjectPosition();
-//    movingPlatform.SetCollider(pos, Vector3(4.0f, 0.5f, 2.0f));
+//    _textureId = InitializeTexture("vtr4.bmp");
 //}
 //
-//void HandleCollisions()
+//void UserInputHandle()
 //{
-//    Vector3 playerPos;
-//    playerPos = player.GetColliderPosition();
-//
-//    // Player vs Ground collision
-//    if (player.CheckCollision(ground))
-//    {
-//        player.TransformObjectPosition(playerPos.x, 0.0f, playerPos.z);
-//        player.SetVelocity(0, 0, 0);
-//        onGround = true;
-//    }
-//    else
-//        onGround = false;
-//
-//    // Player vs Obstacle1 collision
-//    if (player.CheckCollision(obstacle1))
-//    {
-//        player.Apply_Color(255, 0, 255);  // Magenta on collision
-//
-//        // Push player back
-//        Vector3 obs1Pos;
-//        obs1Pos = obstacle1.GetColliderPosition();
-//        
-//
-//        if (playerPos.x < obs1Pos.x)
-//            player.TransformObjectPosition(playerPos.x -= 0.05f, playerPos.y, playerPos.z);
-//        else
-//            player.TransformObjectPosition(playerPos.x += 0.05f, playerPos.y, playerPos.z);
-//        /*if (playerPos.y < obs1Pos.y)
-//            player.TransformObjectPosition(playerPos.x , playerPos.y -= 0.05f, playerPos.z);
-//        else
-//            player.TransformObjectPosition(playerPos.x , playerPos.y += 0.05f, playerPos.z);
-//        if (playerPos.z < obs1Pos.z)
-//            player.TransformObjectPosition(playerPos.x , playerPos.y, playerPos.z- 0.05f);
-//        else
-//            player.TransformObjectPosition(playerPos.x , playerPos.y, playerPos.z+ 0.05f);*/
-//    }
-//
-//    // Player vs Obstacle2 collision
-//    if (player.CheckCollision(obstacle2))
-//    {
-//        player.Apply_Color(255, 128, 0);  // Orange on collision
-//
-//        Vector3 obs2Pos;
-//        obs2Pos = obstacle2.GetColliderPosition();
-//
-//        if (playerPos.x < obs2Pos.x)
-//            player.TransformObjectPosition(obs2Pos.x - 0.05f, playerPos.y, playerPos.z);
-//        else
-//            player.TransformObjectPosition(obs2Pos.x + 0.05f, playerPos.y, playerPos.z);
-//        if (playerPos.y < obs2Pos.y)
-//            player.TransformObjectPosition(playerPos.x , obs2Pos.y- 0.05f, playerPos.z);
-//        else
-//            player.TransformObjectPosition(playerPos.x , obs2Pos.y+ 0.05f, playerPos.z);
-//        if (playerPos.z < obs2Pos.z)
-//            player.TransformObjectPosition(playerPos.x , playerPos.y, obs2Pos.z - 0.05f);
-//        else
-//            player.TransformObjectPosition(playerPos.x , playerPos.y, obs2Pos.z+ 0.05f);
-//    }
-//
-//    // Player vs Moving Platform collision
-//    if (player.CheckCollision(movingPlatform))
-//    {
-//        Vector3 platformPos;
-//        platformPos = movingPlatform.GetObjectPosition();
-//
-//        // Land on top of platform
-//        if (playerPos.y > platformPos.y)
-//        {
-//            player.TransformObjectPosition(playerPos.x, platformPos.y + 0.75f, playerPos.z);
-//            player.SetVelocity(0, 0, 0);
-//            onGround = true;
-//        }
-//    }
-//
-//    // Reset player color if no collisions
-//    if (!player.CheckCollision(obstacle1) && !player.CheckCollision(obstacle2))
-//    {
-//        player.Apply_Color(0, 255, 0);  // Green
-//    }
-//}
-//
-//void UpdateMovingPlatform(float deltaTime)
-//{
-//    static float platformDirection = 1.0f;
-//    Vector3 platformPos;
-//    platformPos = movingPlatform.GetObjectPosition();
-//
-//    // Move platform back and forth
-//    platformPos.x += platformDirection * 2.0f * deltaTime;
-//
-//    // Reverse direction at boundaries
-//    if (platformPos.x > 8.0f || platformPos.x < -8.0f)
-//        platformDirection *= -1.0f;
-//
-//    movingPlatform.TransformObjectPosition(platformPos);
-//}
-//
-//void HandleInput()
-//{
-//    Vector3 playerPos;
-//    Vector3 north(0.0f,0.0f,-0.2f), 
-//            west(-0.2f, 0.0f, 0.0f), 
-//            south(0.0f, 0.0f,0.2f ),
-//            east(0.2f, 0.0f, 0.0f),
-//            jump(0.0f, 500.0f, 0.0f);
-//    playerPos = player.GetObjectPosition();
-//    // Jump
-//    // Movement
-//    if (Input::GetKey('v') && onGround)
-//        player.AddForce(jump);
-//    if (Input::GetKey('a'))
-//    {
-//        player.TransformObjectPosition(playerPos+=west);
-//    }
-//    if (Input::GetKey('d'))
-//    {
-//        player.TransformObjectPosition(playerPos+=east);
-//    }
 //    if (Input::GetKey('w'))
 //    {
-//        player.TransformObjectPosition(playerPos+=north);
+//        if (frogRotation != 135) {
+//            if (frogRotation < 135) {
+//                frogRotation += 5;
+//                frogPart1.TransformObjectRotation(frogRotation, 0, frogRotation, 0);
+//            }
+//            else if (frogRotation > 135) {
+//                frogRotation -= 5;
+//                frogPart1.TransformObjectRotation(frogRotation, 0, frogRotation, 0);
+//            }
+//        }
+//        if (frogRotation == 405) {
+//            frogRotation = 45;
+//        }
+//    }
+//    if (Input::GetKey('a'))
+//    {
+//        if (frogRotation != 225) {
+//            if (frogRotation < 225) {
+//                frogRotation += 5;
+//                frogPart1.TransformObjectRotation(frogRotation, 0, frogRotation, 0);
+//            }
+//            else {
+//                frogRotation -= 5;
+//                frogPart1.TransformObjectRotation(frogRotation, 0, frogRotation, 0);
+//            }
+//        }
 //    }
 //    if (Input::GetKey('s'))
 //    {
-//        player.TransformObjectPosition(playerPos+=south);
+//        if (frogRotation == 45) {
+//            frogRotation = 405;
+//        }
+//        if (frogRotation != 315) {
+//            if (frogRotation < 315) {
+//                frogRotation += 5;
+//                frogPart1.TransformObjectRotation(frogRotation, 0, frogRotation, 0);
+//            }
+//            else {
+//                frogRotation -= 5;
+//                frogPart1.TransformObjectRotation(frogRotation, 0, frogRotation, 0);
+//            }
+//        }
+//    }
+//    if (Input::GetKey('d'))
+//    {
+//        if (frogRotation == 405) {
+//            frogRotation = 45;
+//        }
+//        if (frogRotation != 405 && frogRotation != 45) {
+//            if (frogRotation < 405) {
+//                frogRotation += 5;
+//                frogPart1.TransformObjectRotation(frogRotation, 0, frogRotation, 0);
+//            }
+//            else {
+//                frogRotation -= 5;
+//                frogPart1.TransformObjectRotation(frogRotation, 0, frogRotation, 0);
+//            }
+//        }
+//    }
+//}
+//
+//void AddScore()
+//{
+//    GlobalScore += 10;
+//    cout << "\n========================================" << endl;
+//    cout << "*** SCORE ADDED! Total Score: " << GlobalScore << " ***" << endl;
+//    cout << "========================================\n" << endl;
+//}
+//
+//void RespawnGoober()
+//{
+//    int d4Dice = rand() % 4;
+//    float spawnDistance = 80.0f;
+//
+//    Vector3 newPos;
+//    if (d4Dice == 0)
+//        newPos = Vector3(spawnDistance, 0, 0);
+//    else if (d4Dice == 1)
+//        newPos = Vector3(-spawnDistance, 0, 0);
+//    else if (d4Dice == 2)
+//        newPos = Vector3(0, 0, spawnDistance);
+//    else
+//        newPos = Vector3(0, 0, -spawnDistance);
+//
+//    Goober.TransformObjectPosition(newPos);
+//    cout << "Goober respawned at: (" << newPos.x << ", " << newPos.y << ", " << newPos.z << ")" << endl;
+//}
+//
+//// Calculate direction vector based on rotation angle
+//Vector3 GetDirectionFromAngle(float angle)
+//{
+//    float radians = angle * (3.14159265f / 180.0f);
+//    return Vector3(cos(radians), 0, sin(radians));
+//}
+//
+//void Squegee()
+//{
+//    Color frogGreen(0, 255, 100);
+//    Color frogEyeGreen(0, 255, 150);
+//    Color WhiteEyes(255, 255, 255);
+//    Color BlackEyes(0, 0, 0);
+//
+//    frogPart1.TransformObjectPosition(0, 10, 0);
+//    frogPart1.SetCollider(frogPart1.GetObjectPosition(), Vector3(6, 6, 6));
+//    frogPart1.Apply_Color(frogGreen);
+//    frogPart1.Create3DSphere(5, 15, 15);
+//
+//    frogPart2.TransformObjectPosition(3.5f, 3, 0);
+//    frogPart2.Apply_Color(frogEyeGreen);
+//    frogPart2.Create3DSphere(2, 15, 15);
+//
+//    frogPart3.TransformObjectPosition(0, 3, 3.5f);
+//    frogPart3.Apply_Color(frogEyeGreen);
+//    frogPart3.Create3DSphere(2, 15, 15);
+//
+//    frogPart4.TransformObjectPosition(2, 1, 2);
+//    frogPart4.Apply_Color(frogGreen);
+//    frogPart4.Create3DSphere(4, 15, 15);
+//
+//    frogEye1.TransformObjectPosition(4.5f, 3, 0);
+//    frogEye1.Apply_Color(WhiteEyes);
+//    frogEye1.Create3DSphere(1.5, 15, 15);
+//
+//    frogEye2.TransformObjectPosition(5, 3, 0.3);
+//    frogEye2.Apply_Color(BlackEyes);
+//    frogEye2.Create3DSphere(1.3, 15, 15);
+//
+//    frogEye3.TransformObjectPosition(0, 3, 4.5f);
+//    frogEye3.Apply_Color(WhiteEyes);
+//    frogEye3.Create3DSphere(1.5, 15, 15);
+//
+//    frogEye4.TransformObjectPosition(0.3, 3, 5);
+//    frogEye4.Apply_Color(BlackEyes);
+//    frogEye4.Create3DSphere(1.3, 15, 15);
+//
+//    // Set parents
+//    frogPart2.SetParent(&frogPart1);
+//    frogPart3.SetParent(&frogPart1);
+//    frogPart4.SetParent(&frogPart1);
+//    frogEye1.SetParent(&frogPart1);
+//    frogEye2.SetParent(&frogPart1);
+//    frogEye3.SetParent(&frogPart1);
+//    frogEye4.SetParent(&frogPart1);
+//}
+//
+//void SquegeeTongue()
+//{
+//    // Handle tongue extension
+//    if (Input::GetKey(' '))
+//    {
+//        if (tongueExtension < 25.0f)  // Increased max extension
+//            tongueExtension += 0.8f;  // Faster extension
+//    }
+//    else
+//    {
+//        if (tongueExtension > 0.0f)
+//            tongueExtension -= 1.5f;  // Faster retraction
 //    }
 //
-//    // Reset
-//    if (Input::GetKey('r'))
+//    // Only render tongue if extended
+//    if (tongueExtension > 0.1f)
 //    {
-//        player.TransformObjectPosition(0.0f, 10.0f, 0.0f);
-//        player.SetVelocity(0, 0, 0);
-//    }
+//        // Get frog's position and facing direction
+//        Vector3 frogPos = frogPart1.GetObjectPosition();
+//        Vector3 direction = GetDirectionFromAngle(frogRotation);
 //
-//    // Toggle wireframe
-//    if (Input::GetKey('x'))
-//    {
-//        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+//        // Calculate tongue tip position in WORLD SPACE
+//        Vector3 tongueTipWorldPos = Vector3(
+//            frogPos.x + direction.x * tongueExtension,
+//            frogPos.y,
+//            frogPos.z + direction.z * tongueExtension
+//        );
+//
+//        // ===== TONGUE BASE =====
+//        Vector3 tongueScale(tongueExtension * 0.6f, 3.0f, 3.0f);
+//        Vector3 tongueMidPoint = Vector3(
+//            frogPos.x + direction.x * tongueExtension * 0.5f,
+//            frogPos.y,
+//            frogPos.z + direction.z * tongueExtension * 0.5f
+//        );
+//
+//        tongue.TransformObjectPosition(tongueMidPoint);
+//        tongue.TransformObjectRotation(frogRotation, 0.0f, 0.0f, 0.0f);
+//        tongue.Apply_Color(255.0f, 70.0f, 10.0f);
+//        tongue.SetCollider(tongueMidPoint, tongueScale);
+//        tongue.Create3DCube(tongueScale);
+//
+//        // ===== TONGUE END (TIP) - DIRECT WORLD POSITION =====
+//        tongueEnd.TransformObjectPosition(tongueTipWorldPos);  // Set absolute world position
+//        tongueEnd.TransformObjectRotation(0.0f, 0.0f, 0.0f, 0.0f);  // No rotation needed
+//        tongueEnd.Apply_Color(255.0f, 120.0f, 120.0f);
+//        tongueEnd.Create3DSphere(3.0f, 12, 12);  // Larger sphere
+//
+//        // ✅ LARGE COLLIDER AT TONGUE TIP
+//        Vector3 tongueEndColliderScale(12.0f, 12.0f, 12.0f);  // Big collision sphere
+//        tongueEnd.SetCollider(tongueTipWorldPos, tongueEndColliderScale);
+//
+//        // Debug tongue tip position every frame when extended
+//        static int tongueDebugCounter = 0;
+//        if (tongueDebugCounter++ % 30 == 0) {
+//            cout << "[TONGUE] Extension: " << tongueExtension
+//                << " | Tip at: (" << tongueTipWorldPos.x << ", "
+//                << tongueTipWorldPos.y << ", " << tongueTipWorldPos.z << ")" << endl;
+//        }
 //    }
-//    if (Input::GetKey('z'))
-//    {
-//        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-//    }
+//}
+//
+//void Initialize()
+//{
+//    srand(time(NULL));
+//    Goober.TransformObjectPosition(80.0f, 0, 0);
+//    cout << "Game Initialized! Starting Score: " << GlobalScore << endl;
 //}
 //
 //void Update()
 //{
-//    // Calculate delta time
-//    float deltaTime;
-//    deltaTime = FindDeltaTime();
-// 
-//    // Handle input
-//    HandleInput();
+//    cam.ApplyCamera();
 //
-//    // Update physics
-//    player.UpdatePhysics(deltaTime);
+//    // ===== RENDER FROG & TONGUE =====
+//    Squegee();
+//    UserInputHandle();
+//    SquegeeTongue();
 //
-//    // Update moving platform
-//    UpdateMovingPlatform(deltaTime);
+//    bool tongueIsActive = (tongueExtension > 0.1f);
 //
-//    // Update all colliders
-//    UpdateColliders();
+//    // ===== GOOBER (FLY) =====
+//    Color GooberColor(150.0f, 150.0f, 150.0f);
+//    Color GooberWingColor(255, 255, 255);
 //
-//    // Handle collisions
-//    HandleCollisions();
+//    Vector3 gooberPos = Goober.GetObjectPosition();
 //
-//    // Camera follows player
-//    Vector3 playerPos;
-//    playerPos = player.GetObjectPosition();
-//    cam2.targetX = playerPos.x;
-//    cam2.targetY = playerPos.y + 5.0f;
-//    cam2.targetZ = playerPos.z + 15.0f;
+//    // Render Goober body
+//    Goober.TransformObjectSize(2.0f, 2.0f, 2.0f);
+//    Goober.SetCollider(gooberPos, Vector3(5.0f, 5.0f, 5.0f));
+//    Goober.Apply_Color(GooberColor);
+//    Goober.Create3DSphere(1.5f, 20.0f, 10.0f);
 //
-//    glutMotionFunc([](int x, int y) { cam2.HandleMouseMotion(x, y); });
-//    glutPassiveMotionFunc([](int x, int y) { cam2.HandleMouseMotion(x, y); });
-//    cam2.ApplyCamera();
+//    // Wings
+//    GooberWing1.Apply_Color(GooberWingColor);
+//    GooberWing2.Apply_Color(GooberWingColor);
+//    GooberWing1.TransformObjectPosition(-1.5f, -0.5f, -1);
+//    GooberWing2.TransformObjectPosition(1.5f, -0.5f, -1);
+//    GooberWing1.Create3DSphere(1.2f, 20.0f, 10.0f);
+//    GooberWing2.Create3DSphere(1.2f, 20.0f, 10.0f);
+//    GooberWing1.SetParent(&Goober);
+//    GooberWing2.SetParent(&Goober);
 //
-//    // Draw all objects
-//    player.Create3DCube(2, 2, 2);
-//    ground.Create3DCube(20, 1, 20);
-//    obstacle1.Create3DCube(2, 2, 2);
-//    obstacle2.Create3DCube(Box2_Scale);
-//    movingPlatform.Create3DCube(4, 0.5, 2);
+//    // ===== COLLISION DETECTION =====
+//    bool hitFrog = Goober.CheckCollision(frogPart1);
+//    bool hitTongueEnd = false;
 //
-//    // Display info text
-//    Text infoText;
-//    infoText.ColorText(255, 255, 0);
-//    infoText.TranslateText(4.0f, 10.0f, 10.0f);
+//    if (tongueIsActive) {
+//        hitTongueEnd = Goober.CheckCollision(tongueEnd);
 //
-//    Vector3 vel;
-//    player.GetVelocity(vel);
+//        // Manual distance check as backup
+//        Vector3 tonguePos = tongueEnd.GetObjectPosition();
+//        float dx = gooberPos.x - tonguePos.x;
+//        float dy = gooberPos.y - tonguePos.y;
+//        float dz = gooberPos.z - tonguePos.z;
+//        float distance = sqrt(dx * dx + dy * dy + dz * dz);
 //
-//    if (onGround)
-//        infoText.RenderText("On Ground - Press SPACE to jump");
-//    else
-//        infoText.RenderText("In Air");
+//        // If within 15 units, force collision
+//        if (distance < 15.0f) {
+//            hitTongueEnd = true;
+//            cout << "[COLLISION] Manual detection! Distance: " << distance << endl;
+//        }
+//    }
 //
-//    // Display position
-//    Text posText;
-//    posText.ColorText(0, 255, 255);
-//    posText.TranslateText(-4.0f, 9.0f, 0.0f);
-//    char posBuffer[100];
-//    sprintf_s(posBuffer, "Position: (%.1f, %.1f, %.1f)", playerPos.x, playerPos.y, playerPos.z);
-//    posText.RenderText(posBuffer);
+//    // ✅ DEBUG: Check if collision is detected
+//    if (hitTongueEnd) {
+//        cout << "!!! TONGUE END HIT DETECTED !!!" << endl;
+//    }
+//
+//    // Debug every 60 frames
+//    static int frameCount = 0;
+//    if (frameCount++ % 120 == 0)
+//    {
+//        cout << "\n========== Frame " << frameCount << " ==========";
+//        cout << "\nGoober Position: (" << gooberPos.x << ", " << gooberPos.y << ", " << gooberPos.z << ")";
+//        cout << "\nFrog Rotation: " << frogRotation << " degrees";
+//        cout << "\nTongue Extension: " << tongueExtension;
+//        cout << "\nTongue Active: " << (tongueIsActive ? "YES" : "NO");
+//
+//        if (tongueIsActive) {
+//            Vector3 tonguePos = tongueEnd.GetObjectPosition();
+//            cout << "\nTongue Tip Position: (" << tonguePos.x << ", " << tonguePos.y << ", " << tonguePos.z << ")";
+//
+//            float dx = gooberPos.x - tonguePos.x;
+//            float dy = gooberPos.y - tonguePos.y;
+//            float dz = gooberPos.z - tonguePos.z;
+//            float distance = sqrt(dx * dx + dy * dy + dz * dz);
+//            cout << "\nDistance to Goober: " << distance;
+//        }
+//
+//        cout << "\nCurrent Score: " << GlobalScore;
+//        cout << "\n================================\n" << endl;
+//    }
+//
+//    // ===== MOVEMENT (only if not colliding) =====
+//    if (!hitFrog && !hitTongueEnd)
+//    {
+//        Vector3 GooberLERP = GetLERPObjects(Goober, frogPart1, 0.0055f);
+//        Goober.TransformObjectPosition(GooberLERP);
+//    }
+//
+//    // ===== COLLISION RESPONSE =====
+//    if (hitTongueEnd)
+//    {
+//        cout << "\n*** CAUGHT FLY WITH TONGUE! ***" << endl;
+//        AddScore();
+//        RespawnGoober();
+//    }
+//    else if (hitFrog)
+//    {
+//        cout << "\n*** Hit frog body (no score) ***" << endl;
+//        RespawnGoober();
+//    }
 //}
 //
 //int main(int argc, char** argv)
 //{
-//    PlaySong(L"Majula.wav");
+//    PlaySong(L"PlaygroundDayz.wav");
 //    PrepEngine(argc, argv);
+//    Initialize();
+//
+//    return 0;
 //}

@@ -8,6 +8,7 @@
 #include <string>
 #include "Color.h"
 #include "Physics.h"
+#include "ImageLoader.h"
 
 using namespace std;
 class RenderObjects
@@ -51,14 +52,13 @@ class RenderObjects
 		//COLLISION 
 		void SetCollider(Vector3 position, Vector3 scale);
 		bool CheckCollision(RenderObjects other);			
-		Vector3 GetColliderScale();
-		Vector3 GetColliderPosition();
 		Collider GetCollider();
 		//LERP	
 		void TrackPoint(float MoveSpeed, Vector3 LERP, Vector3 Point1, Vector3 Point2);
 		//PARENTS || GROUPING 
 		void SetParent(RenderObjects* newParent);
 		void ApplyParentTransform() const;
+		Vector3 GetWorldPosition() const;
 		//PHYSICS
 		void AddForce(float x, float y, float z);
 		void AddForce(Vector3 newForce);

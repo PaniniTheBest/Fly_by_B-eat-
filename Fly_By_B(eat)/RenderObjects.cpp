@@ -267,14 +267,7 @@ bool RenderObjects::CheckCollision(RenderObjects other)
 {
 	return collider.CheckCollision(other.collider);
 }
-Vector3 RenderObjects::GetColliderScale()
-{
-	return setScale;
-}
-Vector3 RenderObjects::GetColliderPosition()
-{
-	return setPosition;
-}
+
 Collider RenderObjects::GetCollider()
 {
 	return collider;
@@ -319,6 +312,21 @@ void RenderObjects::ApplyParentTransform() const
 		parent->setRotationValue.z);
 	glScalef(parent->setScale.x, parent->setScale.y, parent->setScale.z);
 }
+Vector3 RenderObjects::GetWorldPosition() const
+{
+	Vector3 worldPos = setPosition;
+
+	// Recursively add parent positions
+	if (parent != nullptr)
+	{
+		Vector3 parentWorldPos = parent->GetWorldPosition();
+		worldPos.x += parentWorldPos.x;
+		worldPos.y += parentWorldPos.y;
+		worldPos.z += parentWorldPos.z;
+	}
+
+	return worldPos;
+}
 //AddForce might be removed
 void RenderObjects::AddForce(float x, float y, float z)
 {
@@ -356,6 +364,7 @@ void RenderObjects::XrayAll(bool xray)
 {
 	xray ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE): glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
+
 //==============================================================================
 //				\/ \/	Make this its own Header file	\/  \/
 //==============================================================================

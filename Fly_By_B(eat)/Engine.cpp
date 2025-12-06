@@ -51,8 +51,8 @@ float LinearInterpolate(float currentPos, float farawayPos, float t) //Finding t
 Vector3 GetLERPObjects(RenderObjects Origin, RenderObjects Destination, float t)
 {
     Vector3 lerpedPosition;
-    Vector3 originPos = Origin.GetColliderPosition();
-    Vector3 destPos = Destination.GetColliderPosition();
+    Vector3 originPos = Origin.GetObjectPosition();
+    Vector3 destPos = Destination.GetObjectPosition();
 
     lerpedPosition.x = LinearInterpolate(originPos.x, destPos.x, t);
     lerpedPosition.y = LinearInterpolate(originPos.y, destPos.y, t);
