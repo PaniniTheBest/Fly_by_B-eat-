@@ -184,7 +184,7 @@ void Squegee()
 
     tongue.SetParent(&frogPart4);
     tongueEnd.SetParent(&frogPart4);
-
+    tongueEnd.SetCollider(tongueEnd.GetObjectPosition(), tongueEnd.GetObjectSize());
 }
 void SquegeeTongue()
 {
@@ -285,12 +285,13 @@ void Update()
     GooberWing2.SetParent(&Goober);
     
 
-    if (!Goober.CheckCollision(frogPart1))
+    if (!Goober.CheckCollision(frogPart1)) //this moves the Gooberfly to Squeegee the Frog
     {
         Vector3 GooberLERP = GetLERPObjects(Goober, frogPart1, 0.0055f);  // 8% per frame
         Goober.TransformObjectPosition(GooberLERP);
     }
-    if (Goober.CheckCollision(frogPart1))
+
+    if (Goober.CheckCollision(frogPart1)) //this checks if Squeegee ate the Gooberfly//
     {
         //AddScore();
         /*startHitTimer = true;*/
@@ -307,6 +308,7 @@ void Update()
             Goober.TransformObjectPosition(-80, 0, 0);
         //randomSpawn = randomSpawn * -1; 
     }
+
     if (Goober.CheckCollision(tongueEnd))
     {
         AddScore();
@@ -443,7 +445,7 @@ void Update()
 
 int main(int argc, char** argv)
 {
-    PlaySong(L"Majula.wav");
+    PlaySong(L"PlaygroundDayz.wav");
     PrepEngine(argc, argv);
     /*glutMotionFunc(Rotation::mouseMotion);
     glutPassiveMotionFunc(Rotation::mousePassiveMotion);*/
