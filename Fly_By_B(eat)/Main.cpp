@@ -371,9 +371,9 @@ void Update()
 }
 int main(int argc, char** argv)
 {
-    // W, A, S, D to rotate Squeegee the Frog //
-    // Continously press space to time the fly right before it reaches Squeegee's mouth //
-
+    // [W, A, S, D] to rotate Squeegee the Frog //
+    // Continously and rapidly press [SPACEBAR] to time the fly right before it reaches Squeegee's mouth //
+    
     // Remember: You HAVE to be directly facing the direction that the fly come
     // Squeegee is a weak frog, and can't eat a fly from an angle that is not North, South, East, or West //
 
